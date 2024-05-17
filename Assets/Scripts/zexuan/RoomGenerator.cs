@@ -101,7 +101,7 @@ public class RoomGenerator : MonoBehaviour
                 //     index = availableDirections.Count - 1;
                 // }
                 // Direction dir = availableDirections[index];
-                //Debug.Log(dir);
+                // Debug.Log(dir);
 
                 Direction dir = availableDirections[UnityEngine.Random.Range(0, availableDirections.Count)];
 

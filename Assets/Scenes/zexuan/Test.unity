@@ -405,8 +405,8 @@ MonoBehaviour:
   startColor: {r: 0.17853822, g: 0.9716981, b: 0.015278174, a: 1}
   endColor: {r: 1, g: 0, b: 0, a: 1}
   generatorPoint: {fileID: 1444310599}
-  xOffset: 18
-  yOffset: 9
+  xOffset: 468
+  yOffset: 312
   perlinOffsetX: 0
   perlinOffsetY: 0
   perlinOffsetXSlider: {fileID: 1800250229}
@@ -721,7 +721,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 100
+  orthographic size: 1300
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
