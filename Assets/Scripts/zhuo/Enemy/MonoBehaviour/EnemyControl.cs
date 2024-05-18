@@ -21,7 +21,9 @@ public class EnemyControl : MonoBehaviour
     public float initialFaceDirection;
     [Header("Take Damage")]
     public bool invincible = false;
+    public bool isHurt = false;
     public UnityEvent onTakeDamage;
+    public bool isDead = false;
     public UnityEvent onDead;
     void OnEnable()
     {
@@ -42,6 +44,7 @@ public class EnemyControl : MonoBehaviour
 
     public void OnAnimatorMove()
     {
+        if (isDead || isHurt) return;
         inputDirection = canInput ? inputDirection.normalized : Vector2.zero;
         HandleFaceDirection();
         HandleMovement();
@@ -66,21 +69,32 @@ public class EnemyControl : MonoBehaviour
     }
     public void HandleAttack() { }
 
+    [ContextMenu("Test Hurt")]
     public void HandleHurt()
     {
         if (invincible) return;
         animator.SetBool(hurtHash, true);
         onTakeDamage?.Invoke();
     }
+    [ContextMenu("Test Dead")]
     public void HandleDead()
     {
         animator.SetBool(deadHash, true);
         onDead?.Invoke();
-        IEnumerator DispalyDead()
+    }
+    public void HandleDeadAnimationDone()
+    {
+        IEnumerator DisableSelf()
         {
             yield return new WaitForSeconds(1f);
             gameObject.SetActive(false);
         }
-        StartCoroutine(DispalyDead());
+        StartCoroutine(DisableSelf());
+    }
+    [ContextMenu("Reset Dead")]
+    public void ResetDead()
+    {
+        animator.SetBool(deadHash, false);
+        StopAllCoroutines();
     }
 }
