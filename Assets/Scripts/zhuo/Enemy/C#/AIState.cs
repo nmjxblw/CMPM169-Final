@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using System;
 [Serializable]
-public class EnemyState
+public class AIState
 {
     protected EnemyAI ai;
-    public EnemyState(EnemyAI ai) { this.ai = ai; }
+    public AIState(EnemyAI ai) { this.ai = ai; }
     public virtual void OnEnter() { }
     public virtual void OnUpdate() { }
     public virtual void OnExit() { }

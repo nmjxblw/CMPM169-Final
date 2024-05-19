@@ -6,7 +6,7 @@ public class EnemyControl : MonoBehaviour
 {
     public Animator animator;
     #region  Animator Hashes
-    public static readonly int walkHash = Animator.StringToHash("walk");
+    public static readonly int inputMagnitudeHash = Animator.StringToHash("inputMagnitude");
     public static readonly int idleHash = Animator.StringToHash("idle");
     public static readonly int attackHash = Animator.StringToHash("attack");
     public static readonly int hurtHash = Animator.StringToHash("hurt");
@@ -14,11 +14,20 @@ public class EnemyControl : MonoBehaviour
     public static readonly int skillHash = Animator.StringToHash("skill");
     public static readonly int jumpHash = Animator.StringToHash("jump");
     #endregion
+    [Header("Moving Setting")]
     public float moveSpeed = 5f;
+    public bool isSprinting = false;
+    public float sprintSpeed = 8f;
     public bool canInput = true;
+    public const float threshold = 0.01f;
     public Vector2 inputDirection;
     [Header("Face Direction")]
     public float initialFaceDirection;
+    [Header("Skill Info")]
+    public bool isSkill = false;
+    public bool skillActivable = true;
+    public const float skillCoolDown = 10f;
+    public float skillCoolDownRemaining;
     [Header("Take Damage")]
     public bool invincible = false;
     public bool isHurt = false;
@@ -32,9 +41,7 @@ public class EnemyControl : MonoBehaviour
     }
     void AnimatorInitialization()
     {
-        animator.SetBool(walkHash, false);
         animator.ResetTrigger(hurtHash);
-
     }
     void Start()
     {
@@ -44,10 +51,18 @@ public class EnemyControl : MonoBehaviour
 
     public void OnAnimatorMove()
     {
-        if (isDead || isHurt) return;
+        if (isSkill || isDead || isHurt) return;
         inputDirection = canInput ? inputDirection.normalized : Vector2.zero;
         HandleFaceDirection();
         HandleMovement();
+    }
+    public void Update()
+    {
+        UpdateAnimatorValue();
+    }
+    void UpdateAnimatorValue()
+    {
+        animator.SetFloat(inputMagnitudeHash, inputDirection.sqrMagnitude);
     }
     public void HandleFaceDirection()
     {
@@ -56,24 +71,36 @@ public class EnemyControl : MonoBehaviour
     }
     public void HandleMovement()
     {
-        if (inputDirection.magnitude > 0.1f)
+        if (inputDirection.sqrMagnitude > threshold)
         {
-            animator.SetBool(walkHash, true);
-            transform.Translate((Vector3)inputDirection * moveSpeed * Time.deltaTime);
-        }
-        else
-        {
-            animator.SetBool(walkHash, false);
+            float speed = isSprinting ? sprintSpeed : moveSpeed;
+            transform.Translate((Vector3)inputDirection * speed * Time.deltaTime);
         }
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
     public void HandleAttack() { }
+    public void HandleSkill()
+    {
+        if (!skillActivable) return;
+        animator.SetBool(skillHash, true);
+        StartCoroutine(SkillCoolDownCoroutine());
+    }
+    public IEnumerator SkillCoolDownCoroutine()
+    {
+        skillCoolDownRemaining = skillCoolDown;
+        while (skillCoolDownRemaining > 0f)
+        {
+            skillCoolDownRemaining = Mathf.Clamp(skillCoolDownRemaining - Time.deltaTime, 0f, skillCoolDown);
+            yield return null;
+        }
+        skillActivable = true;
+    }
 
     [ContextMenu("Test Hurt")]
     public void HandleHurt()
     {
         if (invincible) return;
-        animator.SetBool(hurtHash, true);
+        animator.SetTrigger(hurtHash);
         onTakeDamage?.Invoke();
     }
     [ContextMenu("Test Dead")]

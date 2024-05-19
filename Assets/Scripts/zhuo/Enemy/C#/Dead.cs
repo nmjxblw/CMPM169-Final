@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System;
 [Serializable]
-public class Dead : EnemyState
+public class Dead : AIState
 {
     public Dead(EnemyAI ai) : base(ai) { }
     public override void OnEnter() { }

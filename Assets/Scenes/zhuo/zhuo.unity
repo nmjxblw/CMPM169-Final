@@ -857,6 +857,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4332560275696679589, guid: 1522be57d98c36a45b173e10b66a6988, type: 3}
+      propertyPath: moveSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332560275696679589, guid: 1522be57d98c36a45b173e10b66a6988, type: 3}
+      propertyPath: sprintSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857291491785842133, guid: 1522be57d98c36a45b173e10b66a6988, type: 3}
+      propertyPath: skillRange
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857291491785842133, guid: 1522be57d98c36a45b173e10b66a6988, type: 3}
+      propertyPath: currentLogic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
