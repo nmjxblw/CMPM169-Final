@@ -9,7 +9,6 @@ public class PlayerMovements : MonoBehaviour
 
     [Header("Sprite Renderers")]
     public SpriteRenderer PlayerBodySprite;
-    public SpriteRenderer GunSprite;
 
     private float vertical;
     private float horizontal;
@@ -30,15 +29,16 @@ public class PlayerMovements : MonoBehaviour
 
         PlayerAnimator.SetFloat("Walking", Mathf.Abs(vertical) + Mathf.Abs(horizontal));
 
-
-        if (horizontal < 0)
+        // rotate player towards mouse pos
+        var playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
+        Vector3 mousePos = Input.mousePosition;
+        if (mousePos.x < playerScreenPoint.x)
         {
             PlayerBodySprite.flipX = true;
-            GunSprite.flipX = true;
-        } else if (horizontal > 0)
+        }
+        else
         {
             PlayerBodySprite.flipX = false;
-            GunSprite.flipX = false;
         }
     }
 }
