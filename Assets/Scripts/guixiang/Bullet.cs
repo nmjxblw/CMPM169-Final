@@ -5,20 +5,17 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float Speed = 1;
+    public bool rotated = false;
+    public int Damage;
 
     private void Start()
     {
-        Invoke(nameof(Die), 5);
-    }
-
-    void Die()
-    {
-        Destroy(gameObject);
+        Destroy(gameObject, 10);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.right * Speed * Time.deltaTime);
+       transform.Translate((rotated ? -Vector3.right : Vector3.right) * Speed * Time.deltaTime);
     }
 }

@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
-    public GameObject GunWrapper;
-    public Gun Gun;
+    public Gun[] Guns;
 
     private Vector3 mousePos;
     private Vector3 objectPos;
@@ -14,11 +13,24 @@ public class GunController : MonoBehaviour
     private bool rotated;
 
     private bool CanShoot = true;
-    
+
+    private Gun Gun;
+
+    private void Start()
+    {
+        foreach (var gun in Guns)
+        {
+            gun.gameObject.SetActive(false);
+        }
+        Gun = Guns[0];
+        Gun.gameObject.SetActive(true);
+    }
 
     // Update is called once per frame
     void Update()
     {
+        SelectGun();
+
         mousePos = Input.mousePosition;
         mousePos.z = 0;
 
@@ -26,11 +38,37 @@ public class GunController : MonoBehaviour
 
         if (Input.GetMouseButton(0) && CanShoot)
         {
-            // shoot a bullet
+            Gun.Shoot(rotated, transform.rotation);
             CanShoot = false;
-            Quaternion quaternion = Quaternion.Euler(GunWrapper.transform.rotation.x, rotated ? GunWrapper.transform.rotation.y - 180: GunWrapper.transform.rotation.y, GunWrapper.transform.rotation.z);
-            Instantiate(Gun.BulletPrefab, Gun.BulletSpawnPos.transform.position, GunWrapper.transform.rotation);
             Invoke(nameof(UpdateCanShoot), Gun.ShootingInterval);
+        }
+    }
+
+    private void SelectGun()
+    {
+        bool selected = false;
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Gun = Guns[0];
+            selected = true;
+        } else if (Input.GetKeyDown(KeyCode.Alpha2) && Guns.Length > 1)
+        {
+            Gun = Guns[1];
+            selected = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && Guns.Length > 2)
+        {
+            Gun = Guns[2];
+            selected = true;
+        }
+
+        if (selected)
+        {
+            foreach (var gun in Guns)
+            {
+                gun.gameObject.SetActive(false);
+            }
+            Gun.gameObject.SetActive(true);
         }
     }
 
@@ -41,7 +79,7 @@ public class GunController : MonoBehaviour
 
     private void RotateGun()
     {
-        objectPos = Camera.main.WorldToScreenPoint(GunWrapper.transform.position);
+        objectPos = Camera.main.WorldToScreenPoint(transform.position);
         var rotation = Gun.gameObject.transform.localRotation;
         rotated = false;
         rotation.y = 0;
@@ -50,6 +88,16 @@ public class GunController : MonoBehaviour
             rotation.y = 180;
             rotated = true;
         }
+
+        int playerOrder = 5;
+        if (mousePos.y < objectPos.y)
+        {
+            Gun.SpriteRenderer.sortingOrder = playerOrder + 1;
+        } else
+        {
+            Gun.SpriteRenderer.sortingOrder = playerOrder - 1;
+        }
+
         Gun.gameObject.transform.localRotation = rotation;
 
         mousePos.x = mousePos.x - objectPos.x;
@@ -57,6 +105,6 @@ public class GunController : MonoBehaviour
 
         rotateAngle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
         if (rotated) rotateAngle -= 180;
-        GunWrapper.transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotateAngle));
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotateAngle));
     }
 }
