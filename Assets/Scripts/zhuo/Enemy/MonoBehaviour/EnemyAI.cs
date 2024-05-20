@@ -34,6 +34,7 @@ public class EnemyAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         enemyControl = enemyControl ?? GetComponent<EnemyControl>();
+        enemyControl.isSkillChanged.AddListener(HandleIsSkillChanged);
         StateMachineInitialization();
         SwitchState(currentLogic);
     }
@@ -83,5 +84,11 @@ public class EnemyAI : MonoBehaviour
         }
         currentState?.OnUpdate();
         enemyControl.inputDirection = inputDirection;
+    }
+
+    public void HandleIsSkillChanged(bool isSkill)
+    {
+        if (isSkill) return;
+        SwitchState(Logic.chase);
     }
 }

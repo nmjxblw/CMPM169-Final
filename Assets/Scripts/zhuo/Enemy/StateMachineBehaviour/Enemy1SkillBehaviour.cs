@@ -7,6 +7,7 @@ public class Enemy1SkillBehaviour : StateMachineBehaviour
     public const float duration = 0.5f;
     public float remainingTime;
     public float rollSpeed = 10f;
+    public Vector3 rollDirection;
     public Transform transform;
     public Animator animator;
     public static readonly int skillHash = Animator.StringToHash("skill");
@@ -22,6 +23,7 @@ public class Enemy1SkillBehaviour : StateMachineBehaviour
         enemyControl.isSkill = true;
         enemyControl.skillActivable = false;
         enemyControl.StartCoroutine(RollingCoroutine());
+        rollDirection = (Vector3)enemyControl.inputDirection;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -34,7 +36,6 @@ public class Enemy1SkillBehaviour : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         enemyControl.isSkill = false;
-        ai.SwitchState(Logic.chase);
         enemyControl.StopCoroutine(RollingCoroutine());
     }
 
@@ -42,7 +43,7 @@ public class Enemy1SkillBehaviour : StateMachineBehaviour
     override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // Implement code that processes and affects root motion
-        transform.Translate((Vector3)enemyControl.inputDirection * rollSpeed * Time.deltaTime);
+        transform.Translate(rollDirection * rollSpeed * Time.deltaTime);
         if (ai.distanceToAgentDestination <= ai.agent.stoppingDistance) animator.SetBool(skillHash, false);
     }
 

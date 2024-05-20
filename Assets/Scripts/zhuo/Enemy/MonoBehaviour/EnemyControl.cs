@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 public class EnemyControl : MonoBehaviour
 {
+    [Header("Enemy Config")]
+    public EnemyConfig enemyConfig;
+    [Header("Animator Part")]
     public Animator animator;
     #region  Animator Hashes
     public static readonly int inputMagnitudeHash = Animator.StringToHash("inputMagnitude");
@@ -24,8 +27,34 @@ public class EnemyControl : MonoBehaviour
     [Header("Face Direction")]
     public float initialFaceDirection;
     [Header("Skill Info")]
-    public bool isSkill = false;
-    public bool skillActivable = true;
+    public bool _isSkill = false;
+    public bool isSkill
+    {
+        get { return _isSkill; }
+        set
+        {
+            if (_isSkill != value)
+            {
+                _isSkill = value;
+                isSkillChanged?.Invoke(_isSkill);
+            }
+        }
+    }
+    public UnityEvent<bool> isSkillChanged;
+    public bool _skillActivable = true;
+    public bool skillActivable
+    {
+        get { return _skillActivable; }
+        set
+        {
+            if (_skillActivable != value)
+            {
+                _skillActivable = value;
+                skillActivableChanged?.Invoke(_skillActivable);
+            }
+        }
+    }
+    public UnityEvent<bool> skillActivableChanged;
     public const float skillCoolDown = 10f;
     public float skillCoolDownRemaining;
     [Header("Take Damage")]

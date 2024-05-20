@@ -7,7 +7,9 @@ using System;
 public class Chase : AIState
 {
     public Chase(EnemyAI ai) : base(ai) { }
-    public override void OnEnter() { }
+    public override void OnEnter() { 
+        ai.enemyControl.canInput = true;
+    }
     public override void OnUpdate()
     {
         if (ai.enemyControl.skillActivable && ai.distanceToAgentDestination <= ai.skillRange)
