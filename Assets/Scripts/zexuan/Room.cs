@@ -19,6 +19,7 @@ public class Room : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject player;
     public CinemachineVirtualCamera virtualCamera;
+    public bool isVisited;
 
     void Awake()
     {
@@ -38,7 +39,7 @@ public class Room : MonoBehaviour
         wallRight.SetActive(!roomRight);
         UpdateRoomText();
 
-        if(isStartRoom)
+        if (isStartRoom)
         {
             GameObject player = Instantiate(playerPrefab, transform.position, Quaternion.identity);
         }
@@ -64,6 +65,10 @@ public class Room : MonoBehaviour
             Debug.Log("Player enter room - confirmed");
             virtualCamera.LookAt = this.transform;
             virtualCamera.Follow = this.transform;
+            if (!isVisited)
+            {
+                isVisited = true;
+            }
         }
     }
 }
