@@ -11,9 +11,14 @@ public class Gun : MonoBehaviour
     public GameObject BulletFiring;
     public float ShootingInterval = 1;
 
+    private void Awake()
+    {
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     private void Start()
     {
-        SpriteRenderer = GetComponent<SpriteRenderer>();   
+           
     }
 
     public void Shoot(bool rotated, Quaternion rotation)

@@ -93,7 +93,8 @@ public class GunController : MonoBehaviour
         if (mousePos.y < objectPos.y)
         {
             Gun.SpriteRenderer.sortingOrder = playerOrder + 1;
-        } else
+        } 
+        else
         {
             Gun.SpriteRenderer.sortingOrder = playerOrder - 1;
         }

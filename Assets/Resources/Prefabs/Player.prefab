@@ -79,9 +79,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Guns:
+  - {fileID: 4003035930587821242}
   - {fileID: 1999660760761355894}
   - {fileID: 4327773891537759788}
-  - {fileID: 4003035930587821242}
 --- !u!1 &2041876274038859421
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7391669607835306456
 Transform:
   m_ObjectHideFlags: 0
@@ -156,8 +156,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 460302309
+  m_SortingLayer: 3
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 4ee7b6d337a142e4dbdf416b0d9692c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 2423862593725999780, guid: cc6d2c7afb2ae6f4bad2e176eec33eeb, type: 3}
   BulletSpawnPos: {fileID: 3729521851985873464}
-  BulletFiring: {fileID: 0}
+  BulletFiring: {fileID: 7821732558188024901}
   ShootingInterval: 0.5
 --- !u!1 &2267423364069046629
 GameObject:
@@ -281,8 +281,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 460302309
+  m_SortingLayer: 3
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 8fb47e408622e654c9b530a0a3933d43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 2423862593725999780, guid: cc6d2c7afb2ae6f4bad2e176eec33eeb, type: 3}
   BulletSpawnPos: {fileID: 1386588020120044387}
-  BulletFiring: {fileID: 0}
+  BulletFiring: {fileID: 4219683872667902838}
   ShootingInterval: 0.2
 --- !u!1 &3729521851985873464
 GameObject:
@@ -374,12 +374,12 @@ GameObject:
   - component: {fileID: 4471612896953711119}
   - component: {fileID: 3969182570382196739}
   m_Layer: 0
-  m_Name: Circle (1)
+  m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4471612896953711119
 Transform:
   m_ObjectHideFlags: 0
@@ -457,9 +457,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2192797916884969330}
   - component: {fileID: 2838126191795029414}
+  - component: {fileID: 269807099489424857}
+  - component: {fileID: 4477652728165045174}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -474,7 +476,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2221720922794185953}
@@ -493,9 +495,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e929788c187a6a64fbe463ab71940393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 20
+  Speed: 50
   PlayerAnimator: {fileID: 2192052089790427314}
   PlayerBodySprite: {fileID: 7949415474760123371}
+--- !u!50 &269807099489424857
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6094182736062030914}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!61 &4477652728165045174
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6094182736062030914}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.3892746, y: -7.2826805}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.9463735, y: 0.70804405}
+  m_EdgeRadius: 0
 --- !u!1 &6622088118194616394
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,8 +644,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 460302309
+  m_SortingLayer: 3
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: f8643f52d7e38374fafe99ce994fe824, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -617,10 +691,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c2144d03c68a3c438f626ada43c883b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 2423862593725999780, guid: cc6d2c7afb2ae6f4bad2e176eec33eeb, type: 3}
+  BulletPrefab: {fileID: 4399577112712511495, guid: d10f1234c8432494cbfc3766f3c4a041, type: 3}
   BulletSpawnPos: {fileID: 8906068786908042931}
-  BulletFiring: {fileID: 0}
-  ShootingInterval: 0.2
+  BulletFiring: {fileID: 7561199673502577498}
+  ShootingInterval: 0.3
 --- !u!1 &7561199673502577498
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,12 +706,12 @@ GameObject:
   - component: {fileID: 6599801492877798036}
   - component: {fileID: 962285342137821945}
   m_Layer: 0
-  m_Name: Circle (2)
+  m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6599801492877798036
 Transform:
   m_ObjectHideFlags: 0
@@ -691,8 +765,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 460302309
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 590f935a13ce5f9419c2461b968b3100, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -776,8 +850,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 460302309
+  m_SortingLayer: 3
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 395df6d72bd14f245a01d2db9895d298, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -822,12 +896,12 @@ GameObject:
   - component: {fileID: 4506024673035399956}
   - component: {fileID: 9109325860058506671}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4506024673035399956
 Transform:
   m_ObjectHideFlags: 0
@@ -881,8 +955,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 460302309
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 590f935a13ce5f9419c2461b968b3100, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

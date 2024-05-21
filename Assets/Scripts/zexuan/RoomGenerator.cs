@@ -33,7 +33,7 @@ public class RoomGenerator : MonoBehaviour
     
     void Start()
     {
-
+        applyButtonOnClick();
     }
 
     void Update()
