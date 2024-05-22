@@ -30,6 +30,7 @@ public class EnemyAI : MonoBehaviour
     [Header("Attack Logic")]
     public float skillRange = 2f;
     public bool targetInSkillRange;
+    public GameObject player;
     public void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -41,7 +42,9 @@ public class EnemyAI : MonoBehaviour
         enemyCharacter.onDead.AddListener(HandleDead);
         StateMachineInitialization();
         SwitchState(currentLogic);
+        player = GameObject.FindGameObjectWithTag("Player");
     }
+
     private void StateMachineInitialization()
     {
         states = new List<AIState>(){
@@ -56,7 +59,7 @@ public class EnemyAI : MonoBehaviour
 
     public void Spawned()
     {
-        agent.SetDestination(target.position);
+        // agent.SetDestination(target.position);
         if (agent.hasPath)
         {
             currentLogic = Logic.chase;
@@ -73,7 +76,8 @@ public class EnemyAI : MonoBehaviour
 
     public void Update()
     {
-        agent.SetDestination(new Vector3(target.position.x, target.position.y, transform.position.y));
+        target = player.transform;
+        agent.SetDestination(new Vector3(target.position.x, target.position.y, 0));
         destination = agent.destination;
         distanceToAgentDestination = Vector3.Distance(transform.position, agent.destination);
         if (distanceToAgentDestination > agent.stoppingDistance)

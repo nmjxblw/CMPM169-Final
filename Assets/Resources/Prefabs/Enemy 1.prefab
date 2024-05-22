@@ -240,7 +240,7 @@ MonoBehaviour:
   enemyConfig: {fileID: 11400000, guid: b667a211a03150f4b8ec5487ece5e654, type: 2}
   enemyCharacter: {fileID: 5662068852871053221}
   animator: {fileID: 4511644351601211061}
-  moveSpeed: 10
+  moveSpeed: 40
   isSprinting: 0
   sprintSpeed: 5
   canInput: 1

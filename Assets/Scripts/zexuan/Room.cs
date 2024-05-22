@@ -21,6 +21,8 @@ public class Room : MonoBehaviour
     public CinemachineVirtualCamera virtualCamera;
     public bool isVisited;
 
+    public EnemyGenerator enemyGenerator;
+
     void Awake()
     {
         virtualCamera = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
@@ -29,6 +31,7 @@ public class Room : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemyGenerator = GameObject.Find("EventSystem").GetComponent<EnemyGenerator>();
         doorUp.SetActive(roomUp);
         doorDown.SetActive(roomDown);
         doorLeft.SetActive(roomLeft);
@@ -66,6 +69,7 @@ public class Room : MonoBehaviour
             if (!isVisited)
             {
                 isVisited = true;
+                enemyGenerator.SpawnEnemiesForLevel(roomStep, transform.position);
             }
         }
     }
