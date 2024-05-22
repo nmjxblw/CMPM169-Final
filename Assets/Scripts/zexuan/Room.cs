@@ -58,11 +58,9 @@ public class Room : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Player enter room");
 
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player enter room - confirmed");
             virtualCamera.LookAt = this.transform;
             virtualCamera.Follow = this.transform;
             if (!isVisited)
