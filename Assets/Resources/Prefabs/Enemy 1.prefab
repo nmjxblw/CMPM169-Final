@@ -161,7 +161,7 @@ NavMeshAgent:
   m_Acceleration: 0
   avoidancePriority: 50
   m_AngularSpeed: 0
-  m_StoppingDistance: 0.2
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -240,7 +240,7 @@ MonoBehaviour:
   enemyConfig: {fileID: 11400000, guid: b667a211a03150f4b8ec5487ece5e654, type: 2}
   enemyCharacter: {fileID: 5662068852871053221}
   animator: {fileID: 4511644351601211061}
-  moveSpeed: 2.5
+  moveSpeed: 10
   isSprinting: 0
   sprintSpeed: 5
   canInput: 1
