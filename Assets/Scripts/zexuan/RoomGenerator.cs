@@ -90,21 +90,7 @@ public class RoomGenerator : MonoBehaviour
 
             if (availableDirections.Count > 0)
             {
-                // perlinOffsetX = UnityEngine.Random.Range(0f, 100f);
-                // perlinOffsetY = UnityEngine.Random.Range(0f, 100f);
-
-                // float perlinValue = Mathf.PerlinNoise(perlinOffsetX, perlinOffsetY);
-                // //Debug.Log(Math.Round(perlinValue, 1));
-                // int index = Mathf.FloorToInt(perlinValue * availableDirections.Count);
-                // if (index >= availableDirections.Count)
-                // {
-                //     index = availableDirections.Count - 1;
-                // }
-                // Direction dir = availableDirections[index];
-                // Debug.Log(dir);
-
                 Direction dir = availableDirections[UnityEngine.Random.Range(0, availableDirections.Count)];
-
 
                 switch (dir)
                 {

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3743541608645760914}
   - component: {fileID: 9157748153259699875}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Ar Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,6 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e08f9f3a5281541b0f76b820e8b85b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 135
+  Speed: 150
   rotated: 0
   Damage: 10
