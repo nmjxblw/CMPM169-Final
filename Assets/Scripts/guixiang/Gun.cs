@@ -23,7 +23,7 @@ public class Gun : MonoBehaviour
 
     public void Shoot(bool rotated, Quaternion rotation)
     {
-        Bullet b = Instantiate(BulletPrefab, BulletSpawnPos.transform.position, rotation).GetComponent<Bullet>();
+        Bullet b = PoolManager.Release(BulletPrefab, BulletSpawnPos.transform.position, rotation).GetComponent<Bullet>();
         b.rotated = rotated;
         ShowBulletFiring();
     }
