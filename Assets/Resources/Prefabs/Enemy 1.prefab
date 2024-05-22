@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7338476965351852077}
   - component: {fileID: 1318635563306107692}
   - component: {fileID: 3066912311878993763}
+  - component: {fileID: 5662068852871053221}
   - component: {fileID: 7857291491785842133}
   - component: {fileID: 4332560275696679589}
   m_Layer: 6
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 460302309
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: ab1e923b0ec88454c8c6a0b883dbae9a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -118,7 +119,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359871873831942025}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -180,6 +181,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e39f6090724e4a4a8aadeb042afa2bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5662068852871053221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359871873831942025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca3fdc8efc2a57c448d7cfac2ccd79c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hp: 0
+  _maxHp: 0
+  onTakenDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onDead:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7857291491785842133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,14 +213,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b5d7009d93b7d42bbbf0889413fc37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
+  agent: {fileID: 1318635563306107692}
   target: {fileID: 0}
   enemyControl: {fileID: 4332560275696679589}
   distanceToAgentDestination: 0
   destination: {x: 0, y: 0, z: 0}
   steeringTarget: {x: 0, y: 0, z: 0}
-  currentBehaviour: 0
+  inputDirection: {x: 0, y: 0}
+  currentLogic: 1
   states: []
+  skillRange: 1.5
+  targetInSkillRange: 0
 --- !u!114 &4332560275696679589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,15 +236,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b0c38035956a843b68fc845227f9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyConfig: {fileID: 11400000, guid: b667a211a03150f4b8ec5487ece5e654, type: 2}
+  enemyCharacter: {fileID: 5662068852871053221}
   animator: {fileID: 4511644351601211061}
-  moveSpeed: 5
+  moveSpeed: 2.5
+  isSprinting: 0
+  sprintSpeed: 5
   canInput: 1
   inputDirection: {x: 0, y: 0}
   initialFaceDirection: 0
+  _isSkill: 0
+  isSkillChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _skillActivable: 1
+  skillActivableChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  skillCoolDownRemaining: 0
   invincible: 0
-  onTakeDamage:
-    m_PersistentCalls:
-      m_Calls: []
-  onDead:
-    m_PersistentCalls:
-      m_Calls: []
+  isHurt: 0
+  isDead: 0

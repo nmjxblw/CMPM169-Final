@@ -492,7 +492,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 460302309
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.24905658, g: 1, b: 0.47713473, a: 1}
@@ -857,25 +857,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4332560275696679589, guid: 1522be57d98c36a45b173e10b66a6988, type: 3}
-      propertyPath: moveSpeed
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4332560275696679589, guid: 1522be57d98c36a45b173e10b66a6988, type: 3}
-      propertyPath: sprintSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4332560275696679589, guid: 1522be57d98c36a45b173e10b66a6988, type: 3}
-      propertyPath: _skillActivable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7857291491785842133, guid: 1522be57d98c36a45b173e10b66a6988, type: 3}
-      propertyPath: skillRange
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7857291491785842133, guid: 1522be57d98c36a45b173e10b66a6988, type: 3}
-      propertyPath: currentLogic
-      value: 1
+    - target: {fileID: 5662068852871053221, guid: 1522be57d98c36a45b173e10b66a6988, type: 3}
+      propertyPath: _maxHp
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -6,6 +6,8 @@ public class EnemyControl : MonoBehaviour
 {
     [Header("Enemy Config")]
     public EnemyConfig enemyConfig;
+    [Header("Enemy Character")]
+    public Character enemyCharacter;
     [Header("Animator Part")]
     public Animator animator;
     #region  Animator Hashes
@@ -60,11 +62,12 @@ public class EnemyControl : MonoBehaviour
     [Header("Take Damage")]
     public bool invincible = false;
     public bool isHurt = false;
-    public UnityEvent onTakeDamage;
     public bool isDead = false;
-    public UnityEvent onDead;
     void OnEnable()
     {
+        isDead = false;
+        isHurt = false;
+        GetComponent<Collider2D>().enabled = true;
         animator = animator ?? GetComponent<Animator>();
         AnimatorInitialization();
     }
@@ -76,6 +79,9 @@ public class EnemyControl : MonoBehaviour
     {
         animator = animator ?? GetComponent<Animator>();
         initialFaceDirection = transform.localScale.x;
+        enemyCharacter = enemyCharacter ?? GetComponent<Character>();
+        enemyCharacter.onTakenDamage.AddListener(HandleTakenDamage);
+        enemyCharacter.onDead.AddListener(HandleDead);
     }
 
     public void OnAnimatorMove()
@@ -126,17 +132,18 @@ public class EnemyControl : MonoBehaviour
     }
 
     [ContextMenu("Test Hurt")]
-    public void HandleHurt()
+    public void HandleTakenDamage(int damage)
     {
         if (invincible) return;
         animator.SetTrigger(hurtHash);
-        onTakeDamage?.Invoke();
+        enemyCharacter.hp -= damage;
     }
     [ContextMenu("Test Dead")]
     public void HandleDead()
     {
+        isDead = true;
         animator.SetBool(deadHash, true);
-        onDead?.Invoke();
+        GetComponent<Collider2D>().enabled = false;
     }
     public void HandleDeadAnimationDone()
     {

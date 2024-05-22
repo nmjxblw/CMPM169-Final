@@ -17,6 +17,7 @@ public class EnemyAI : MonoBehaviour
     public NavMeshAgent agent;
     public Transform target;
     public EnemyControl enemyControl;
+    public Character enemyCharacter;
     [Header("Agent Information")]
     public float distanceToAgentDestination;
     public Vector3 destination;
@@ -35,6 +36,9 @@ public class EnemyAI : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         enemyControl = enemyControl ?? GetComponent<EnemyControl>();
         enemyControl.isSkillChanged.AddListener(HandleIsSkillChanged);
+        enemyCharacter = enemyCharacter ?? GetComponent<Character>();
+        enemyCharacter.onTakenDamage.AddListener(HandleTakeDamage);
+        enemyCharacter.onDead.AddListener(HandleDead);
         StateMachineInitialization();
         SwitchState(currentLogic);
     }
@@ -90,5 +94,15 @@ public class EnemyAI : MonoBehaviour
     {
         if (isSkill) return;
         SwitchState(Logic.chase);
+    }
+
+    public void HandleTakeDamage(int damage)
+    {
+        return;
+    }
+
+    public void HandleDead()
+    {
+        SwitchState(Logic.dead);
     }
 }
