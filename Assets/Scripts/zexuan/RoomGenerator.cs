@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System;
 using UnityEngine.UI;
 using TMPro;
+using NavMeshPlus.Components;
 
 public class RoomGenerator : MonoBehaviour
 {
@@ -30,10 +31,18 @@ public class RoomGenerator : MonoBehaviour
     public GameObject perlinOffsetYSlider;
     public GameObject roomNumberSlider;
     public GameObject applyButton;
+
+    public NavMeshSurface Surface2D;
+
+    void Awake()
+    {
+
+    }
     
     void Start()
     {
         applyButtonOnClick();
+        Surface2D.BuildNavMeshAsync();
     }
 
     void Update()
