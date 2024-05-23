@@ -32,4 +32,13 @@ public class Bullet : MonoBehaviour
     {
         transform.Translate((rotated ? -Vector3.right : Vector3.right) * Speed * Time.deltaTime);
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Enemy")
+        {
+            Destroy(other.gameObject);
+            this.gameObject.SetActive(false);
+        }
+    }
 }

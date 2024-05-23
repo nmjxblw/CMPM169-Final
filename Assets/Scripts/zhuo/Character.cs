@@ -27,4 +27,12 @@ public class Character : MonoBehaviour
             onDead?.Invoke();
         }
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Bullet")
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

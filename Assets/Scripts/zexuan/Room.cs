@@ -46,6 +46,8 @@ public class Room : MonoBehaviour
         {
             GameObject player = Instantiate(playerPrefab, transform.position, Quaternion.identity);
         }
+
+        enemyGenerator = GameObject.Find("EventSystem").GetComponent<EnemyGenerator>();
     }
 
     // Update is called once per frame
