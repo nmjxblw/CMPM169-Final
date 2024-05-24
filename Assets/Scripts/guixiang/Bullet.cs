@@ -46,7 +46,6 @@ public class Bullet : MonoBehaviour
     {
         if (other.tag == "Enemy" || other.tag == "Wall")
         {
-            Destroy(other.gameObject);
             gameObject.SetActive(false);
         }
     }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9157748153259699875}
   - component: {fileID: 7776914073578011248}
   - component: {fileID: 24245082677080529}
+  - component: {fileID: 8962773489710109662}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -102,8 +103,7 @@ MonoBehaviour:
   Speed: 135
   lifeTime: 4
   rotated: 0
-  Damage: 10
-  isPoolBullet: 1
+  isShotgunBullet: 0
 --- !u!58 &7776914073578011248
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -154,3 +154,19 @@ MonoBehaviour:
   damageTarget: 1
   damage: 3
   knockbackForce: 0.1
+--- !u!114 &8962773489710109662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2423862593725999780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e08f9f3a5281541b0f76b820e8b85b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 120
+  lifeTime: 4
+  rotated: 0
+  isShotgunBullet: 0

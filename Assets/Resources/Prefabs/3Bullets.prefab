@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 291143799170343881}
   - component: {fileID: 9177991953731048434}
   - component: {fileID: 7194241722624839705}
+  - component: {fileID: 7362343953419387445}
   m_Layer: 0
   m_Name: Bullet (1)
   m_TagString: Bullet
@@ -136,8 +137,22 @@ MonoBehaviour:
   Speed: 0
   lifeTime: 4
   rotated: 0
-  Damage: 10
   isShotgunBullet: 0
+--- !u!114 &7362343953419387445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610785443920977663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3749e33a4211b82449ffdbd0a38d6ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageTarget: 1
+  damage: 5
+  knockbackForce: 0.2
 --- !u!1 &3532179604150544965
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +165,7 @@ GameObject:
   - component: {fileID: 2545699061975570291}
   - component: {fileID: 4825842155662843916}
   - component: {fileID: 4867419733834577680}
+  - component: {fileID: 3340144228852043629}
   m_Layer: 0
   m_Name: Bullet (2)
   m_TagString: Bullet
@@ -274,8 +290,22 @@ MonoBehaviour:
   Speed: 0
   lifeTime: 4
   rotated: 0
-  Damage: 10
   isShotgunBullet: 0
+--- !u!114 &3340144228852043629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3532179604150544965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3749e33a4211b82449ffdbd0a38d6ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageTarget: 1
+  damage: 5
+  knockbackForce: 0.2
 --- !u!1 &4399577112712511495
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,8 +316,6 @@ GameObject:
   m_Component:
   - component: {fileID: 274948592227002}
   - component: {fileID: 8525974490349183603}
-  - component: {fileID: 7662014357458773097}
-  - component: {fileID: 6766595681891962132}
   m_Layer: 0
   m_Name: 3Bullets
   m_TagString: Bullet
@@ -328,7 +356,6 @@ MonoBehaviour:
   Speed: 120
   lifeTime: 4
   rotated: 0
-  Damage: 0
   isShotgunBullet: 1
 --- !u!1 &6625409169892526318
 GameObject:
@@ -342,6 +369,7 @@ GameObject:
   - component: {fileID: 5306049485188888024}
   - component: {fileID: 6804684311656275225}
   - component: {fileID: 5549186084848687426}
+  - component: {fileID: 8491556529847994602}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -466,5 +494,19 @@ MonoBehaviour:
   Speed: 0
   lifeTime: 4
   rotated: 0
-  Damage: 10
   isShotgunBullet: 0
+--- !u!114 &8491556529847994602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6625409169892526318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3749e33a4211b82449ffdbd0a38d6ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageTarget: 1
+  damage: 5
+  knockbackForce: 0.2

@@ -102,8 +102,7 @@ MonoBehaviour:
   Speed: 150
   lifeTime: 4
   rotated: 0
-  Damage: 10
-  isPoolBullet: 1
+  isShotgunBullet: 0
 --- !u!58 &3260163952525487944
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -152,5 +151,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageTarget: 1
-  damage: 3
+  damage: 4
   knockbackForce: 0
