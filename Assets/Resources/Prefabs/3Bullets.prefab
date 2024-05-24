@@ -250,6 +250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 274948592227002}
   - component: {fileID: 8525974490349183603}
+  - component: {fileID: 7662014357458773097}
   m_Layer: 0
   m_Name: 3Bullets
   m_TagString: Bullet
@@ -290,7 +291,20 @@ MonoBehaviour:
   Speed: 120
   lifeTime: 4
   rotated: 0
-  Damage: 10
+--- !u!114 &7662014357458773097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4399577112712511495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3749e33a4211b82449ffdbd0a38d6ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 8
+  knockbackForce: 0.5
 --- !u!1 &6625409169892526318
 GameObject:
   m_ObjectHideFlags: 0

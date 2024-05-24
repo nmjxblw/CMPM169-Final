@@ -59,10 +59,14 @@ public class EnemyAI : MonoBehaviour
 
     public void Spawned()
     {
-        // agent.SetDestination(target.position);
+        agent.SetDestination(target.position);
         if (agent.hasPath)
         {
             currentLogic = Logic.chase;
+        }
+        else
+        {
+            currentLogic = Logic.idle;
         }
         SwitchState(currentLogic);
     }
@@ -100,8 +104,10 @@ public class EnemyAI : MonoBehaviour
         SwitchState(Logic.chase);
     }
 
-    public void HandleTakeDamage(int damage)
+    public void HandleTakeDamage(DamageDealer damageDealer)
     {
+        if (currentLogic == Logic.idle)
+            SwitchState(Logic.chase);
         return;
     }
 

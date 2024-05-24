@@ -132,15 +132,17 @@ public class EnemyControl : MonoBehaviour
     }
 
     [ContextMenu("Test Hurt")]
-    public void HandleTakenDamage(int damage)
+    public void HandleTakenDamage(DamageDealer damageDealer)
     {
         if (invincible) return;
         animator.SetTrigger(hurtHash);
-        enemyCharacter.hp -= damage;
+        enemyCharacter.hp -= damageDealer.damage;
+        transform.Translate((damageDealer.transform.position - transform.position).normalized * damageDealer.knockbackForce);
     }
     [ContextMenu("Test Dead")]
     public void HandleDead()
     {
+        if (isDead) return;
         isDead = true;
         animator.SetBool(deadHash, true);
         GetComponent<Collider2D>().enabled = false;
