@@ -9,11 +9,21 @@ public class Bullet : MonoBehaviour
     public bool rotated = false;
     public int Damage;
     public Coroutine disableCoroutine;
+    public bool isShotgunBullet;
     public void OnEnable()
     {
         if (disableCoroutine != null)
             StopCoroutine(disableCoroutine);
         disableCoroutine = StartCoroutine(DisableBullet());
+
+        if (isShotgunBullet)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+
     }
 
     private IEnumerator DisableBullet()
@@ -38,7 +48,7 @@ public class Bullet : MonoBehaviour
         if(other.tag == "Enemy")
         {
             Destroy(other.gameObject);
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }

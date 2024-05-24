@@ -102,6 +102,7 @@ MonoBehaviour:
   lifeTime: 4
   rotated: 0
   Damage: 10
+  isPoolBullet: 1
 --- !u!58 &3260163952525487944
 CircleCollider2D:
   m_ObjectHideFlags: 0
