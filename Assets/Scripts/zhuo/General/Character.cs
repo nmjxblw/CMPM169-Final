@@ -32,6 +32,11 @@ public class Character : MonoBehaviour
         currentState = CharacterHealthState.Alive;
         hp = maxHp;
     }
+    void OnDisable()
+    {
+        onTakenDamage.RemoveAllListeners();
+        onDead.RemoveAllListeners();
+    }
     public void TakeDamage(DamageDealer damageDealer)
     {
         onTakenDamage?.Invoke(damageDealer);

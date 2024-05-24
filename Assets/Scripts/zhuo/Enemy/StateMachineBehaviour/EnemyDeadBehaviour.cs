@@ -10,6 +10,7 @@ public class EnemyDeadBehaviour : StateMachineBehaviour
     {
         enemyControl = enemyControl ?? animator.GetComponent<EnemyControl>();
         enemyControl.isDead = true;
+        animator.SetBool("dead", true);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

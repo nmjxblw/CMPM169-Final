@@ -18,6 +18,8 @@ public class EnemyControl : MonoBehaviour
     public static readonly int deadHash = Animator.StringToHash("dead");
     public static readonly int skillHash = Animator.StringToHash("skill");
     public static readonly int jumpHash = Animator.StringToHash("jump");
+    public static int baseLayerIndex;
+    public static int hurtLayerIndex;
     #endregion
     [Header("Moving Setting")]
     public float moveSpeed = 5f;
@@ -65,23 +67,31 @@ public class EnemyControl : MonoBehaviour
     public bool isDead = false;
     void OnEnable()
     {
+        canInput = true;
         isDead = false;
         isHurt = false;
         GetComponent<Collider2D>().enabled = true;
         animator = animator ?? GetComponent<Animator>();
+        enemyCharacter = enemyCharacter ?? GetComponent<Character>();
+        enemyCharacter.onTakenDamage.AddListener(HandleTakenDamage);
+        enemyCharacter.onDead.AddListener(HandleDead);
         AnimatorInitialization();
+    }
+    void OnDisable()
+    {
+        enemyCharacter.onTakenDamage.RemoveListener(HandleTakenDamage);
+        enemyCharacter.onDead.RemoveListener(HandleDead);
     }
     void AnimatorInitialization()
     {
-        animator.ResetTrigger(hurtHash);
+        animator.SetBool(deadHash, false);
     }
     void Start()
     {
         animator = animator ?? GetComponent<Animator>();
         initialFaceDirection = transform.localScale.x;
-        enemyCharacter = enemyCharacter ?? GetComponent<Character>();
-        enemyCharacter.onTakenDamage.AddListener(HandleTakenDamage);
-        enemyCharacter.onDead.AddListener(HandleDead);
+        baseLayerIndex = animator.GetLayerIndex("Base Layer");
+        hurtLayerIndex = animator.GetLayerIndex("Hurt Layer");
     }
 
     public void OnAnimatorMove()
@@ -135,16 +145,17 @@ public class EnemyControl : MonoBehaviour
     public void HandleTakenDamage(DamageDealer damageDealer)
     {
         if (invincible) return;
-        animator.SetTrigger(hurtHash);
+        animator.Play(hurtHash, hurtLayerIndex);
         enemyCharacter.hp -= damageDealer.damage;
-        transform.Translate((damageDealer.transform.position - transform.position).normalized * damageDealer.knockbackForce);
+        transform.Translate(damageDealer.transform.rotation.eulerAngles.normalized * damageDealer.knockbackForce);
     }
     [ContextMenu("Test Dead")]
     public void HandleDead()
     {
         if (isDead) return;
         isDead = true;
-        animator.SetBool(deadHash, true);
+        canInput = false;
+        animator.Play(deadHash, hurtLayerIndex);
         GetComponent<Collider2D>().enabled = false;
     }
     public void HandleDeadAnimationDone()
