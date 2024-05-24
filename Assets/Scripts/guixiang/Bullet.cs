@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
     public float Speed = 1;
     public float lifeTime = 4;
     public bool rotated = false;
-    public int Damage;
     public Coroutine disableCoroutine;
     public bool isShotgunBullet;
     public void OnEnable()
@@ -43,9 +42,9 @@ public class Bullet : MonoBehaviour
         transform.Translate((rotated ? -Vector3.right : Vector3.right) * Speed * Time.deltaTime);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
-        if(other.tag == "Enemy")
+        if (other.tag == "Enemy" || other.tag == "Wall")
         {
             Destroy(other.gameObject);
             gameObject.SetActive(false);

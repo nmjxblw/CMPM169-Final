@@ -9,6 +9,7 @@ public class Enemy1SkillBehaviour : StateMachineBehaviour
     public float rollSpeed = 10f;
     public Vector3 rollDirection;
     public Transform transform;
+    public GameObject skillAttackArea;
     public Animator animator;
     public static readonly int skillHash = Animator.StringToHash("skill");
     public EnemyControl enemyControl;
@@ -18,6 +19,8 @@ public class Enemy1SkillBehaviour : StateMachineBehaviour
     {
         this.animator = animator;
         transform = animator.transform;
+        skillAttackArea = transform.Find("DamageAreas/SkillAttackArea").gameObject;
+        skillAttackArea.SetActive(true);
         enemyControl = transform.GetComponent<EnemyControl>();
         ai = transform.GetComponent<EnemyAI>();
         enemyControl.isSkill = true;
@@ -35,6 +38,7 @@ public class Enemy1SkillBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        skillAttackArea.SetActive(false);
         enemyControl.isSkill = false;
         enemyControl.StopCoroutine(RollingCoroutine());
     }

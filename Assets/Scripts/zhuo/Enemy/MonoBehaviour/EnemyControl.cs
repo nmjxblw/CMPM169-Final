@@ -6,6 +6,7 @@ public class EnemyControl : MonoBehaviour
 {
     [Header("Enemy Config")]
     public EnemyConfig enemyConfig;
+    public EnemyConfig.Config currentConfig;
     [Header("Enemy Character")]
     public Character enemyCharacter;
     [Header("Animator Part")]
@@ -18,6 +19,8 @@ public class EnemyControl : MonoBehaviour
     public static readonly int deadHash = Animator.StringToHash("dead");
     public static readonly int skillHash = Animator.StringToHash("skill");
     public static readonly int jumpHash = Animator.StringToHash("jump");
+    public static int baseLayerIndex;
+    public static int hurtLayerIndex;
     #endregion
     [Header("Moving Setting")]
     public float moveSpeed = 5f;
@@ -65,23 +68,36 @@ public class EnemyControl : MonoBehaviour
     public bool isDead = false;
     void OnEnable()
     {
+        currentConfig = enemyConfig.configs[GameManager.levelDifficulty];
+        canInput = true;
         isDead = false;
         isHurt = false;
         GetComponent<Collider2D>().enabled = true;
         animator = animator ?? GetComponent<Animator>();
+        enemyCharacter = enemyCharacter ?? GetComponent<Character>();
+        enemyCharacter.onTakenDamage.AddListener(HandleTakenDamage);
+        enemyCharacter.onDead.AddListener(HandleDead);
+        enemyCharacter.SetMaxHp(currentConfig.hp);
+        transform.Find("DamageAreas/AttackArea").GetComponent<DamageDealer>().damage = currentConfig.attackDamage;
+        transform.Find("DamageAreas/SkillAttackArea").GetComponent<DamageDealer>().damage = currentConfig.skillDamage;
+        transform.Find("DamageAreas/SkillAttackArea").gameObject.SetActive(false);
         AnimatorInitialization();
+    }
+    void OnDisable()
+    {
+        enemyCharacter.onTakenDamage.RemoveListener(HandleTakenDamage);
+        enemyCharacter.onDead.RemoveListener(HandleDead);
     }
     void AnimatorInitialization()
     {
-        animator.ResetTrigger(hurtHash);
+        animator.SetBool(deadHash, false);
     }
     void Start()
     {
         animator = animator ?? GetComponent<Animator>();
         initialFaceDirection = transform.localScale.x;
-        enemyCharacter = enemyCharacter ?? GetComponent<Character>();
-        enemyCharacter.onTakenDamage.AddListener(HandleTakenDamage);
-        enemyCharacter.onDead.AddListener(HandleDead);
+        baseLayerIndex = animator.GetLayerIndex("Base Layer");
+        hurtLayerIndex = animator.GetLayerIndex("Hurt Layer");
     }
 
     public void OnAnimatorMove()
@@ -132,17 +148,20 @@ public class EnemyControl : MonoBehaviour
     }
 
     [ContextMenu("Test Hurt")]
-    public void HandleTakenDamage(int damage)
+    public void HandleTakenDamage(DamageDealer damageDealer)
     {
         if (invincible) return;
-        animator.SetTrigger(hurtHash);
-        enemyCharacter.hp -= damage;
+        animator.Play(hurtHash, hurtLayerIndex);
+        enemyCharacter.hp -= damageDealer.damage;
+        transform.Translate(damageDealer.transform.rotation.eulerAngles.normalized * damageDealer.knockbackForce);
     }
     [ContextMenu("Test Dead")]
     public void HandleDead()
     {
+        if (isDead) return;
         isDead = true;
-        animator.SetBool(deadHash, true);
+        canInput = false;
+        animator.Play(deadHash, hurtLayerIndex);
         GetComponent<Collider2D>().enabled = false;
     }
     public void HandleDeadAnimationDone()

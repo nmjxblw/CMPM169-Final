@@ -12,6 +12,7 @@ public class EnemyConfig : ScriptableObject
         public int difficulty;
         public int hp;
         public int attackDamage;
+        public int skillDamage;
         public int CompareTo(Config other)
         {
             int result = this.difficulty.CompareTo(other.difficulty);
@@ -20,7 +21,11 @@ public class EnemyConfig : ScriptableObject
                 result = this.attackDamage.CompareTo(other.attackDamage);
                 if (result == 0)
                 {
-                    result = this.hp.CompareTo(other.hp);
+                    result = this.skillDamage.CompareTo(other.skillDamage);
+                    if (result == 0)
+                    {
+                        result = this.hp.CompareTo(other.hp);
+                    }
                 }
             }
             return result;

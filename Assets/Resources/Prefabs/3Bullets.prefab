@@ -286,6 +286,8 @@ GameObject:
   m_Component:
   - component: {fileID: 274948592227002}
   - component: {fileID: 8525974490349183603}
+  - component: {fileID: 7662014357458773097}
+  - component: {fileID: 6766595681891962132}
   m_Layer: 0
   m_Name: 3Bullets
   m_TagString: Bullet
