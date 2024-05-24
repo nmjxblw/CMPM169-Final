@@ -29,8 +29,16 @@ public class Character : MonoBehaviour
 
     public void OnEnable()
     {
+        RefreshHp();
+    }
+    public void RefreshHp(){
         currentState = CharacterHealthState.Alive;
         hp = maxHp;
+    }
+    public void SetMaxHp(int value)
+    {
+        maxHp = value;
+        RefreshHp();
     }
     void OnDisable()
     {

@@ -6,6 +6,7 @@ public class EnemyControl : MonoBehaviour
 {
     [Header("Enemy Config")]
     public EnemyConfig enemyConfig;
+    public EnemyConfig.Config currentConfig;
     [Header("Enemy Character")]
     public Character enemyCharacter;
     [Header("Animator Part")]
@@ -67,6 +68,7 @@ public class EnemyControl : MonoBehaviour
     public bool isDead = false;
     void OnEnable()
     {
+        currentConfig = enemyConfig.configs[GameManager.levelDifficulty];
         canInput = true;
         isDead = false;
         isHurt = false;
@@ -75,6 +77,10 @@ public class EnemyControl : MonoBehaviour
         enemyCharacter = enemyCharacter ?? GetComponent<Character>();
         enemyCharacter.onTakenDamage.AddListener(HandleTakenDamage);
         enemyCharacter.onDead.AddListener(HandleDead);
+        enemyCharacter.SetMaxHp(currentConfig.hp);
+        transform.Find("DamageAreas/AttackArea").GetComponent<DamageDealer>().damage = currentConfig.attackDamage;
+        transform.Find("DamageAreas/SkillAttackArea").GetComponent<DamageDealer>().damage = currentConfig.skillDamage;
+        transform.Find("DamageAreas/SkillAttackArea").gameObject.SetActive(false);
         AnimatorInitialization();
     }
     void OnDisable()

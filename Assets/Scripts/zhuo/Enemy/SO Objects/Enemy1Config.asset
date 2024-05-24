@@ -16,12 +16,16 @@ MonoBehaviour:
   - difficulty: 0
     hp: 10
     attackDamage: 5
+    skillDamage: 8
   - difficulty: 1
     hp: 15
     attackDamage: 7
+    skillDamage: 10
   - difficulty: 2
     hp: 20
     attackDamage: 9
+    skillDamage: 15
   - difficulty: 3
     hp: 30
     attackDamage: 14
+    skillDamage: 20

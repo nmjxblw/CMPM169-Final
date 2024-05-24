@@ -196,6 +196,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyConfig: {fileID: 11400000, guid: b667a211a03150f4b8ec5487ece5e654, type: 2}
+  currentConfig:
+    difficulty: 0
+    hp: 0
+    attackDamage: 0
+    skillDamage: 0
   enemyCharacter: {fileID: 5662068852871053221}
   animator: {fileID: 4511644351601211061}
   moveSpeed: 40
@@ -369,6 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3749e33a4211b82449ffdbd0a38d6ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageTarget: 0
   damage: 10
   knockbackForce: 0
 --- !u!1 &6077087257971715457
@@ -388,7 +394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7188373154744270386
 Transform:
   m_ObjectHideFlags: 0
@@ -451,6 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3749e33a4211b82449ffdbd0a38d6ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageTarget: 0
   damage: 15
   knockbackForce: 0
 --- !u!1 &7531242484026346260
