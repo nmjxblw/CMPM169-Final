@@ -10,7 +10,19 @@ public enum CharacterHealthState
 }
 public class Character : MonoBehaviour
 {
-    public CharacterHealthState currentState = CharacterHealthState.Alive;
+    public CharacterHealthState _currentState = CharacterHealthState.Alive;
+    public CharacterHealthState currentState
+    {
+        get { return _currentState; }
+        set
+        {
+            _currentState = value;
+            if (_currentState == CharacterHealthState.Dead)
+            {
+                onDead?.Invoke();
+            }
+        }
+    }
 
     [SerializeField]
     private int _hp;
@@ -24,14 +36,18 @@ public class Character : MonoBehaviour
     [SerializeField]
     private int _maxHp;
     public int maxHp { get { return _maxHp; } private set { _maxHp = value; } }
+    public bool invincible;
+    public bool hurt;
     public UnityEvent<DamageDealer> onTakenDamage;
+    public bool dead;
     public UnityEvent onDead;
 
     public void OnEnable()
     {
         RefreshHp();
     }
-    public void RefreshHp(){
+    public void RefreshHp()
+    {
         currentState = CharacterHealthState.Alive;
         hp = maxHp;
     }
@@ -47,11 +63,12 @@ public class Character : MonoBehaviour
     }
     public void TakeDamage(DamageDealer damageDealer)
     {
-        onTakenDamage?.Invoke(damageDealer);
-        if (hp <= 0 && currentState == CharacterHealthState.Alive)
-        {
+        if (invincible || dead) return;
+        hp -= damageDealer.damage;
+        if (hp > 0)
+            onTakenDamage?.Invoke(damageDealer);
+        else
             currentState = CharacterHealthState.Dead;
-            onDead?.Invoke();
-        }
+        //TODO:UI Display
     }
 }

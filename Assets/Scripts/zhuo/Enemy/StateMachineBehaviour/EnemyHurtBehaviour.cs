@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EnemyHurtBehaviour : StateMachineBehaviour
 {
-    public EnemyControl enemyControl;
+    public Character enemyCharacter;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        enemyControl = enemyControl ?? animator.GetComponent<EnemyControl>();
-        enemyControl.isHurt = true;
-        enemyControl.invincible = true;
+        enemyCharacter = enemyCharacter ?? animator.GetComponent<Character>();
+        enemyCharacter.invincible = true;
+        enemyCharacter.hurt = true;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -22,8 +22,8 @@ public class EnemyHurtBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        enemyControl.isHurt = false;
-        enemyControl.invincible = false;
+        enemyCharacter.invincible = false;
+        enemyCharacter.hurt = false;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1610785443920977663}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -99,10 +99,10 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 384
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -119,9 +119,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.06573379, y: -0.021910667}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6.471263
+  m_Radius: 6.5
 --- !u!114 &7194241722624839705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +182,7 @@ Transform:
   m_GameObject: {fileID: 3532179604150544965}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -252,10 +252,10 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 384
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -272,9 +272,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.06573379, y: -0.021910667}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6.471263
+  m_Radius: 6.5
 --- !u!114 &4867419733834577680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,6 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 274948592227002}
   - component: {fileID: 8525974490349183603}
+  - component: {fileID: 4771333596050241413}
   m_Layer: 0
   m_Name: 3Bullets
   m_TagString: Bullet
@@ -357,6 +358,20 @@ MonoBehaviour:
   lifeTime: 4
   rotated: 0
   isShotgunBullet: 1
+--- !u!114 &4771333596050241413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4399577112712511495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 253b580b026818343b98ad24f5b3dfde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.5
+  maxMargin: 4
 --- !u!1 &6625409169892526318
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,10 +471,10 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 384
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -476,9 +491,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.06573379, y: -0.021910667}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6.471263
+  m_Radius: 6.5
 --- !u!114 &5549186084848687426
 MonoBehaviour:
   m_ObjectHideFlags: 0

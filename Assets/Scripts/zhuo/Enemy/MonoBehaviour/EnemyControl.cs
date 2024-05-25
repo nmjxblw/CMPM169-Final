@@ -17,6 +17,7 @@ public class EnemyControl : MonoBehaviour
     public static readonly int attackHash = Animator.StringToHash("attack");
     public static readonly int hurtHash = Animator.StringToHash("hurt");
     public static readonly int deadHash = Animator.StringToHash("dead");
+    public static readonly int emptyHash = Animator.StringToHash("empty");
     public static readonly int skillHash = Animator.StringToHash("skill");
     public static readonly int jumpHash = Animator.StringToHash("jump");
     public static int baseLayerIndex;
@@ -32,6 +33,7 @@ public class EnemyControl : MonoBehaviour
     [Header("Face Direction")]
     public float initialFaceDirection;
     [Header("Skill Info")]
+    public bool hasSkill = true;
     public bool _isSkill = false;
     public bool isSkill
     {
@@ -62,16 +64,10 @@ public class EnemyControl : MonoBehaviour
     public UnityEvent<bool> skillActivableChanged;
     public const float skillCoolDown = 10f;
     public float skillCoolDownRemaining;
-    [Header("Take Damage")]
-    public bool invincible = false;
-    public bool isHurt = false;
-    public bool isDead = false;
     void OnEnable()
     {
         currentConfig = enemyConfig.configs[GameManager.levelDifficulty];
         canInput = true;
-        isDead = false;
-        isHurt = false;
         GetComponent<Collider2D>().enabled = true;
         animator = animator ?? GetComponent<Animator>();
         enemyCharacter = enemyCharacter ?? GetComponent<Character>();
@@ -79,8 +75,11 @@ public class EnemyControl : MonoBehaviour
         enemyCharacter.onDead.AddListener(HandleDead);
         enemyCharacter.SetMaxHp(currentConfig.hp);
         transform.Find("DamageAreas/AttackArea").GetComponent<DamageDealer>().damage = currentConfig.attackDamage;
-        transform.Find("DamageAreas/SkillAttackArea").GetComponent<DamageDealer>().damage = currentConfig.skillDamage;
-        transform.Find("DamageAreas/SkillAttackArea").gameObject.SetActive(false);
+        if (hasSkill)
+        {
+            transform.Find("DamageAreas/SkillAttackArea").GetComponent<DamageDealer>().damage = currentConfig.skillDamage;
+            transform.Find("DamageAreas/SkillAttackArea").gameObject.SetActive(false);
+        }
         AnimatorInitialization();
     }
     void OnDisable()
@@ -90,7 +89,7 @@ public class EnemyControl : MonoBehaviour
     }
     void AnimatorInitialization()
     {
-        animator.SetBool(deadHash, false);
+        animator.Play(emptyHash, hurtLayerIndex);
     }
     void Start()
     {
@@ -102,7 +101,7 @@ public class EnemyControl : MonoBehaviour
 
     public void OnAnimatorMove()
     {
-        if (isSkill || isDead || isHurt) return;
+        if (isSkill || enemyCharacter.dead || enemyCharacter.hurt) return;
         inputDirection = canInput ? inputDirection.normalized : Vector2.zero;
         HandleFaceDirection();
         HandleMovement();
@@ -150,16 +149,23 @@ public class EnemyControl : MonoBehaviour
     [ContextMenu("Test Hurt")]
     public void HandleTakenDamage(DamageDealer damageDealer)
     {
-        if (invincible) return;
         animator.Play(hurtHash, hurtLayerIndex);
-        enemyCharacter.hp -= damageDealer.damage;
-        transform.Translate(damageDealer.transform.rotation.eulerAngles.normalized * damageDealer.knockbackForce);
+        IEnumerator Knockback()
+        {
+            float timer = 0.5f;
+            while (timer > 0f)
+            {
+                transform.Translate(damageDealer.transform.rotation.eulerAngles.normalized * damageDealer.knockbackForce * Time.deltaTime);
+                timer -= Time.deltaTime;
+                yield return null;
+            }
+        }
+        StartCoroutine(Knockback());
+
     }
     [ContextMenu("Test Dead")]
     public void HandleDead()
     {
-        if (isDead) return;
-        isDead = true;
         canInput = false;
         animator.Play(deadHash, hurtLayerIndex);
         GetComponent<Collider2D>().enabled = false;
@@ -169,7 +175,8 @@ public class EnemyControl : MonoBehaviour
         IEnumerator DisableSelf()
         {
             yield return new WaitForSeconds(1f);
-            gameObject.SetActive(false);
+            // gameObject.SetActive(false);
+            Destroy(gameObject);
         }
         StartCoroutine(DisableSelf());
     }

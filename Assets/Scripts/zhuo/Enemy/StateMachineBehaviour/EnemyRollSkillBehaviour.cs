@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy1SkillBehaviour : StateMachineBehaviour
+public class EnemyRollSkillBehaviour : StateMachineBehaviour
 {
     public const float duration = 0.5f;
     public float remainingTime;

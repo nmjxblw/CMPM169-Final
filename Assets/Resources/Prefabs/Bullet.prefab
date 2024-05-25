@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 6364231553802467912}
   - component: {fileID: 3743541608645760914}
   - component: {fileID: 9157748153259699875}
-  - component: {fileID: 7776914073578011248}
   - component: {fileID: 24245082677080529}
-  - component: {fileID: 8962773489710109662}
+  - component: {fileID: 7776914073578011248}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -104,6 +103,21 @@ MonoBehaviour:
   lifeTime: 4
   rotated: 0
   isShotgunBullet: 0
+--- !u!114 &24245082677080529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2423862593725999780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3749e33a4211b82449ffdbd0a38d6ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageTarget: 1
+  damage: 3
+  knockbackForce: 0.1
 --- !u!58 &7776914073578011248
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -116,10 +130,10 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 384
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -139,34 +153,3 @@ CircleCollider2D:
   m_Offset: {x: 0.06573379, y: -0.021910667}
   serializedVersion: 2
   m_Radius: 6.471263
---- !u!114 &24245082677080529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2423862593725999780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3749e33a4211b82449ffdbd0a38d6ab3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageTarget: 1
-  damage: 3
-  knockbackForce: 0.1
---- !u!114 &8962773489710109662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2423862593725999780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9e08f9f3a5281541b0f76b820e8b85b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 120
-  lifeTime: 4
-  rotated: 0
-  isShotgunBullet: 0

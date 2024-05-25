@@ -36,7 +36,8 @@ public class EnemyAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         enemyControl = enemyControl ?? GetComponent<EnemyControl>();
-        enemyControl.isSkillChanged.AddListener(HandleIsSkillChanged);
+        if(enemyControl.hasSkill)
+            enemyControl.isSkillChanged.AddListener(HandleIsSkillChanged);
         enemyCharacter = enemyCharacter ?? GetComponent<Character>();
         enemyCharacter.onTakenDamage.AddListener(HandleTakeDamage);
         enemyCharacter.onDead.AddListener(HandleDead);
@@ -70,10 +71,10 @@ public class EnemyAI : MonoBehaviour
         }
         SwitchState(currentLogic);
     }
-    public void SwitchState(Logic behaviour)
+    public void SwitchState(Logic logic)
     {
         currentState?.OnExit();
-        currentLogic = behaviour;
+        currentLogic = logic;
         currentState = states[(int)currentLogic];
         currentState.OnEnter();
     }

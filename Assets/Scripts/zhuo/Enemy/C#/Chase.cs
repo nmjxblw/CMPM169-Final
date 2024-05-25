@@ -24,7 +24,7 @@ public class Chase : AIState
             ai.SwitchState(Logic.attack);
             return;
         }
-        if (ai.enemyControl.skillActivable && ai.distanceToAgentDestination <= ai.skillRange)
+        if (ai.enemyControl.hasSkill && ai.enemyControl.skillActivable && ai.distanceToAgentDestination <= ai.skillRange)
         {
             ai.SwitchState(Logic.skill);
             return;

@@ -34,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 1359871873831942025}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.35, y: 0.57, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -126,10 +126,10 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 384
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -163,7 +163,7 @@ NavMeshAgent:
   m_Acceleration: 0
   avoidancePriority: 50
   m_AngularSpeed: 0
-  m_StoppingDistance: 1
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -209,6 +209,7 @@ MonoBehaviour:
   canInput: 1
   inputDirection: {x: 0, y: 0}
   initialFaceDirection: 0
+  hasSkill: 1
   _isSkill: 0
   isSkillChanged:
     m_PersistentCalls:
@@ -218,9 +219,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   skillCoolDownRemaining: 0
-  invincible: 0
-  isHurt: 0
-  isDead: 0
 --- !u!114 &5662068852871053221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,12 +231,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3fdc8efc2a57c448d7cfac2ccd79c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
+  _currentState: 0
   _hp: 15
   _maxHp: 15
+  invincible: 0
+  hurt: 0
   onTakenDamage:
     m_PersistentCalls:
       m_Calls: []
+  dead: 0
   onDead:
     m_PersistentCalls:
       m_Calls: []
@@ -257,12 +258,12 @@ MonoBehaviour:
   agent: {fileID: 1318635563306107692}
   target: {fileID: 0}
   enemyControl: {fileID: 4332560275696679589}
-  enemyCharacter: {fileID: 0}
+  enemyCharacter: {fileID: 5662068852871053221}
   distanceToAgentDestination: 0
   destination: {x: 0, y: 0, z: 0}
   steeringTarget: {x: 0, y: 0, z: 0}
   inputDirection: {x: 0, y: 0}
-  currentLogic: 1
+  currentLogic: 0
   states: []
   skillRange: 1.5
   targetInSkillRange: 0
