@@ -8,6 +8,7 @@ TagManager:
   - Room
   - Bullet
   - Wall
+  - Gun
   layers:
   - Default
   - TransparentFX

@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum GunType
+{
+    R1, R2, R3
+}
+
 public class GunController : MonoBehaviour
 {
     public Gun[] Guns;
-
     private Vector3 mousePos;
     private Vector3 objectPos;
     private float rotateAngle;
@@ -14,23 +18,16 @@ public class GunController : MonoBehaviour
 
     private bool CanShoot = true;
 
-    private Gun Gun;
+    public Gun Gun;
 
     private void Start()
     {
-        foreach (var gun in Guns)
-        {
-            gun.gameObject.SetActive(false);
-        }
-        Gun = Guns[0];
         Gun.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        SelectGun();
-
         mousePos = Input.mousePosition;
         mousePos.z = 0;
 
@@ -44,31 +41,17 @@ public class GunController : MonoBehaviour
         }
     }
 
-    private void SelectGun()
+    public void SelectGun(GunType gunType)
     {
-        bool selected = false;
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        foreach (var gun in Guns)
         {
-            Gun = Guns[0];
-            selected = true;
-        } else if (Input.GetKeyDown(KeyCode.Alpha2) && Guns.Length > 1)
-        {
-            Gun = Guns[1];
-            selected = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && Guns.Length > 2)
-        {
-            Gun = Guns[2];
-            selected = true;
-        }
-
-        if (selected)
-        {
-            foreach (var gun in Guns)
+            if (gun.GunType == gunType)
             {
-                gun.gameObject.SetActive(false);
+                Gun.gameObject.SetActive(false);
+                gun.gameObject.SetActive(true);
+                Gun = gun;
+                return;
             }
-            Gun.gameObject.SetActive(true);
         }
     }
 
