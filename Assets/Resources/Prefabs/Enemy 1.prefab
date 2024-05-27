@@ -126,7 +126,7 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -243,6 +243,7 @@ MonoBehaviour:
   onDead:
     m_PersistentCalls:
       m_Calls: []
+  generateRoom: {fileID: 0}
 --- !u!114 &7857291491785842133
 MonoBehaviour:
   m_ObjectHideFlags: 0

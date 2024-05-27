@@ -44,7 +44,23 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "Enemy" || other.tag == "Wall")
+        if (other.tag == "Enemy")
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Wall"))
         {
             gameObject.SetActive(false);
         }

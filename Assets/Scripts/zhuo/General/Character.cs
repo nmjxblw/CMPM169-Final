@@ -41,6 +41,7 @@ public class Character : MonoBehaviour
     public UnityEvent<DamageDealer> onTakenDamage;
     public bool dead;
     public UnityEvent onDead;
+    public Room generateRoom;
 
     public void OnEnable()
     {
@@ -60,6 +61,8 @@ public class Character : MonoBehaviour
     {
         onTakenDamage.RemoveAllListeners();
         onDead.RemoveAllListeners();
+        generateRoom.killThisRoomEnemy(this.gameObject);
+        
     }
     public void TakeDamage(DamageDealer damageDealer)
     {

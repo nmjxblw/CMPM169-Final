@@ -30,8 +30,9 @@ public class EnemyGenerator : MonoBehaviour
         }
     }
 
-    public void SpawnEnemiesForLevel(int level, Vector3 roomPosition)
+    public void SpawnEnemiesForLevel(int level, Room room)
     {
+        Vector3 roomPosition = room.transform.position;
         Debug.Log("Spawning enemies for level " + level);
         foreach (var levelData in config.levels)
         {
@@ -47,7 +48,9 @@ public class EnemyGenerator : MonoBehaviour
                     // }
                     for (int i = 0; i< level; i++){
                         Vector3 spawnPosition = roomPosition + GenerateSpawnPosition();
-                        Instantiate(enemyData.enemyPrefab, spawnPosition, Quaternion.identity);
+                        GameObject enemy = Instantiate(enemyData.enemyPrefab, spawnPosition, Quaternion.identity);
+                        enemy.GetComponent<Character>().generateRoom = room;
+                        room.enemies.Add(enemy);
                         NumberOfPresentEnemies++;
                     }
                 }
