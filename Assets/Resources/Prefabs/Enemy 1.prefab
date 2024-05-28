@@ -198,17 +198,24 @@ MonoBehaviour:
   enemyConfig: {fileID: 11400000, guid: b667a211a03150f4b8ec5487ece5e654, type: 2}
   currentConfig:
     difficulty: 0
-    hp: 0
-    attackDamage: 0
-    skillDamage: 0
+    _hp: 0
+    moveAble: 1
+    _moveSpeed: 0
+    sprintAble: 1
+    _sprintSpeed: 0
+    hasAttack: 1
+    _attackDamage: 0
+    hasSkill: 0
+    _skillDamage: 0
+    _skillCoolDown: 0
   enemyCharacter: {fileID: 0}
   animator: {fileID: 4511644351601211061}
-  moveSpeed: 40
   isSprinting: 0
-  sprintSpeed: 5
   canInput: 1
   inputDirection: {x: 0, y: 0}
   initialFaceDirection: 0
+  attackArea: {fileID: 2950805187829858217}
+  skillArea: {fileID: 6077087257971715457}
   hasSkill: 1
   _isSkill: 0
   isSkillChanged:
@@ -241,7 +248,7 @@ MonoBehaviour:
   inputDirection: {x: 0, y: 0}
   currentLogic: 0
   states: []
-  skillRange: 1.5
+  skillRange: 40
   targetInSkillRange: 0
   player: {fileID: 0}
 --- !u!50 &1483381509718243241
@@ -287,6 +294,14 @@ MonoBehaviour:
   _hp: 15
   _maxHp: 15
   invincible: 0
+  _invincibleDuration: 0.5
+  invincibleTimeRemaining: 0
+  onInvincibleStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onInvincibleEnd:
+    m_PersistentCalls:
+      m_Calls: []
   hurt: 0
   onTakenDamage:
     m_PersistentCalls:

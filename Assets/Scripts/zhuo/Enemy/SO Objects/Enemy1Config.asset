@@ -20,9 +20,9 @@ MonoBehaviour:
   - difficulty: 0
     _hp: 15
     moveAble: 1
-    _moveSpeed: 8
+    _moveSpeed: 30
     sprintAble: 1
-    _sprintSpeed: 15
+    _sprintSpeed: 45
     hasAttack: 1
     _attackDamage: 5
     hasSkill: 1
@@ -31,9 +31,9 @@ MonoBehaviour:
   - difficulty: 1
     _hp: 20
     moveAble: 1
-    _moveSpeed: 8
+    _moveSpeed: 30
     sprintAble: 1
-    _sprintSpeed: 15
+    _sprintSpeed: 45
     hasAttack: 1
     _attackDamage: 7
     hasSkill: 1
@@ -42,9 +42,9 @@ MonoBehaviour:
   - difficulty: 2
     _hp: 25
     moveAble: 1
-    _moveSpeed: 8
+    _moveSpeed: 30
     sprintAble: 1
-    _sprintSpeed: 15
+    _sprintSpeed: 45
     hasAttack: 1
     _attackDamage: 10
     hasSkill: 1
@@ -53,9 +53,9 @@ MonoBehaviour:
   - difficulty: 3
     _hp: 30
     moveAble: 1
-    _moveSpeed: 10
+    _moveSpeed: 40
     sprintAble: 1
-    _sprintSpeed: 17
+    _sprintSpeed: 60
     hasAttack: 1
     _attackDamage: 10
     hasSkill: 1

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1040778070382675608}
   - component: {fileID: 5008113288978824231}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GunParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 1095361343025224831}
   - component: {fileID: 7432113207749231796}
   - component: {fileID: -5116280067370158978}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -116,11 +116,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e929788c187a6a64fbe463ab71940393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCharacter: {fileID: 0}
   Speed: 50
   RollingSpeed: 100
   RollingCoolDownTimer: 5
   PlayerAnimator: {fileID: 2192052089790427314}
   PlayerBodySprite: {fileID: 7949415474760123371}
+  hurtLayerIndex: 0
+  invincibleLayerIndex: 0
 --- !u!50 &269807099489424857
 Rigidbody2D:
   serializedVersion: 4
@@ -160,10 +163,10 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 384
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -198,7 +201,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 448
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -241,9 +244,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentState: 0
-  _hp: 50
-  _maxHp: 50
+  _hp: 30
+  _maxHp: 30
   invincible: 0
+  _invincibleDuration: 2
+  invincibleTimeRemaining: 0
+  onInvincibleStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onInvincibleEnd:
+    m_PersistentCalls:
+      m_Calls: []
   hurt: 0
   onTakenDamage:
     m_PersistentCalls:
@@ -263,7 +274,7 @@ GameObject:
   - component: {fileID: 2221720922794185953}
   - component: {fileID: 7949415474760123371}
   - component: {fileID: 2192052089790427314}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,6 +377,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1040778070382675608}
     m_Modifications:
+    - target: {fileID: 3788480672658562033, guid: 1d5025354a330ac4c8e9e06f587b757c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4506835571809420908, guid: 1d5025354a330ac4c8e9e06f587b757c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -410,6 +425,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GunR1
       objectReference: {fileID: 0}
+    - target: {fileID: 4920517859588368681, guid: 1d5025354a330ac4c8e9e06f587b757c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7772912885452522892, guid: 1d5025354a330ac4c8e9e06f587b757c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -439,9 +462,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1040778070382675608}
     m_Modifications:
+    - target: {fileID: 1808815913556330433, guid: 2e466a7010b95e04688abbd467db38e4, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3506973873597360084, guid: 2e466a7010b95e04688abbd467db38e4, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4387317288660393426, guid: 2e466a7010b95e04688abbd467db38e4, type: 3}
       propertyPath: m_Name
       value: GunR2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387317288660393426, guid: 2e466a7010b95e04688abbd467db38e4, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4387317288660393426, guid: 2e466a7010b95e04688abbd467db38e4, type: 3}
       propertyPath: m_IsActive
@@ -521,8 +556,20 @@ PrefabInstance:
       value: GunR3
       objectReference: {fileID: 0}
     - target: {fileID: 723626537800178786, guid: 50d8aa0c8e7c1c0488be089f70cb09c6, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 723626537800178786, guid: 50d8aa0c8e7c1c0488be089f70cb09c6, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3059073270250353307, guid: 50d8aa0c8e7c1c0488be089f70cb09c6, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107972823792260978, guid: 50d8aa0c8e7c1c0488be089f70cb09c6, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6342706283863583195, guid: 50d8aa0c8e7c1c0488be089f70cb09c6, type: 3}
       propertyPath: m_LocalPosition.x

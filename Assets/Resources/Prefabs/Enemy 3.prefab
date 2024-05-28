@@ -214,6 +214,8 @@ MonoBehaviour:
   canInput: 1
   inputDirection: {x: 0, y: 0}
   initialFaceDirection: 0
+  attackArea: {fileID: 7531242484026346260}
+  skillArea: {fileID: 0}
   hasSkill: 0
   _isSkill: 0
   isSkillChanged:
@@ -292,6 +294,14 @@ MonoBehaviour:
   _hp: 15
   _maxHp: 15
   invincible: 0
+  _invincibleDuration: 0.5
+  invincibleTimeRemaining: 0
+  onInvincibleStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onInvincibleEnd:
+    m_PersistentCalls:
+      m_Calls: []
   hurt: 0
   onTakenDamage:
     m_PersistentCalls:

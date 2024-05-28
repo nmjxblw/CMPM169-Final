@@ -17,7 +17,6 @@ public class EnemyControl : MonoBehaviour
     public static readonly int attackHash = Animator.StringToHash("attack");
     public static readonly int hurtHash = Animator.StringToHash("hurt");
     public static readonly int deadHash = Animator.StringToHash("dead");
-    public static readonly int emptyHash = Animator.StringToHash("empty");
     public static readonly int skillHash = Animator.StringToHash("skill");
     public static readonly int jumpHash = Animator.StringToHash("jump");
     public static int baseLayerIndex;
@@ -30,6 +29,9 @@ public class EnemyControl : MonoBehaviour
     public Vector2 inputDirection;
     [Header("Face Direction")]
     public float initialFaceDirection;
+    [Header("Attack Setting")]
+    public GameObject attackArea;
+    public GameObject skillArea;
     [Header("Skill Info")]
     public bool hasSkill = true;
     public bool _isSkill = false;
@@ -63,7 +65,7 @@ public class EnemyControl : MonoBehaviour
     public float skillCoolDownRemaining;
     void OnEnable()
     {
-        
+
         canInput = true;
         GetComponent<Collider2D>().enabled = true;
         animator = animator ?? GetComponent<Animator>();
@@ -78,11 +80,14 @@ public class EnemyControl : MonoBehaviour
     {
         currentConfig = enemyConfig.configs[GameManager.levelDifficulty];
         enemyCharacter.SetMaxHp(currentConfig.hp);
-        transform.Find("DamageAreas/AttackArea").GetComponent<DamageDealer>().damage = currentConfig.attackDamage;
+        attackArea = attackArea == null ? transform.Find("DamageAreas/AttackArea").gameObject : attackArea;
+        attackArea.SetActive(true);
+        attackArea.GetComponent<DamageDealer>().damage = currentConfig.attackDamage;
         if (currentConfig.hasSkill)
         {
-            transform.Find("DamageAreas/SkillAttackArea").GetComponent<DamageDealer>().damage = currentConfig.skillDamage;
-            transform.Find("DamageAreas/SkillAttackArea").gameObject.SetActive(false);
+            skillArea = skillArea == null ? transform.Find("DamageAreas/SkillAttackArea").gameObject : skillArea;
+            skillArea.GetComponent<DamageDealer>().damage = currentConfig.skillDamage;
+            skillArea.SetActive(false);
         }
     }
     void OnDisable()
@@ -92,7 +97,7 @@ public class EnemyControl : MonoBehaviour
     }
     void AnimatorInitialization()
     {
-        animator.Play(emptyHash, hurtLayerIndex);
+        animator.Play("empty", hurtLayerIndex);
     }
     void Start()
     {
@@ -167,7 +172,6 @@ public class EnemyControl : MonoBehaviour
             }
         }
         StartCoroutine(Knockback());
-
     }
     [ContextMenu("Test Dead")]
     public void HandleDead()
@@ -175,6 +179,7 @@ public class EnemyControl : MonoBehaviour
         canInput = false;
         animator.Play(deadHash, hurtLayerIndex);
         GetComponent<Collider2D>().enabled = false;
+        transform.Find("DamageAreas/AttackArea").gameObject.SetActive(false);
     }
     public void HandleDeadAnimationDone()
     {

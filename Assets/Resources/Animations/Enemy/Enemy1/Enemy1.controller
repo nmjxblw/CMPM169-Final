@@ -608,7 +608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   remainingTime: 0
-  rollSpeed: 3
+  rollSpeed: 80
   rollDirection: {x: 0, y: 0, z: 0}
   transform: {fileID: 0}
   skillAttackArea: {fileID: 0}

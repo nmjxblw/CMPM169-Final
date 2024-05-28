@@ -18,46 +18,46 @@ MonoBehaviour:
     Damage,Has Skill,Skill Damage,Skill Cooldown,
   configs:
   - difficulty: 0
-    _hp: 0
+    _hp: 15
     moveAble: 1
-    _moveSpeed: 0
+    _moveSpeed: 40
     sprintAble: 1
-    _sprintSpeed: 0
+    _sprintSpeed: 60
     hasAttack: 1
-    _attackDamage: 0
+    _attackDamage: 5
     hasSkill: 0
     _skillDamage: 0
     _skillCoolDown: 0
   - difficulty: 1
-    _hp: 0
+    _hp: 20
     moveAble: 1
-    _moveSpeed: 0
+    _moveSpeed: 40
     sprintAble: 1
-    _sprintSpeed: 0
+    _sprintSpeed: 60
     hasAttack: 1
-    _attackDamage: 0
+    _attackDamage: 7
     hasSkill: 0
     _skillDamage: 0
     _skillCoolDown: 0
   - difficulty: 2
-    _hp: 0
+    _hp: 25
     moveAble: 1
-    _moveSpeed: 0
+    _moveSpeed: 40
     sprintAble: 1
-    _sprintSpeed: 0
+    _sprintSpeed: 60
     hasAttack: 1
-    _attackDamage: 0
+    _attackDamage: 10
     hasSkill: 0
     _skillDamage: 0
     _skillCoolDown: 0
   - difficulty: 3
-    _hp: 0
+    _hp: 30
     moveAble: 1
-    _moveSpeed: 0
+    _moveSpeed: 50
     sprintAble: 1
-    _sprintSpeed: 0
+    _sprintSpeed: 75
     hasAttack: 1
-    _attackDamage: 0
+    _attackDamage: 10
     hasSkill: 0
     _skillDamage: 0
     _skillCoolDown: 0
