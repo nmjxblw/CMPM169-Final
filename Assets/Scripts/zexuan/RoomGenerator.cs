@@ -18,6 +18,7 @@ public class RoomGenerator : MonoBehaviour
     private int gridSize = 10;
     private Room[,] grid;
     private List<Room> rooms = new List<Room>();
+    public Transform roomsContainer;
     private GameObject startRoom, endRoom;
 
     [Header("Position Settings")]
@@ -34,11 +35,11 @@ public class RoomGenerator : MonoBehaviour
 
     public NavMeshSurface Surface2D;
 
-    void Awake()
+    void OnEnable()
     {
-
+        roomsContainer = roomsContainer == null ? transform.Find("RoomsContainer") : roomsContainer;
     }
-    
+
     void Start()
     {
         applyButtonOnClick();
@@ -280,14 +281,19 @@ public class RoomGenerator : MonoBehaviour
                         previousRoom.roomRight = true;
                         finalRoom.roomLeft = true;
                     }
-                    
+
                     finalRoom.roomStep = previousRoom.roomStep + 1;
                     finalRoom.isEndRoom = true;
                     previousRoom.isBeforeEndRoom = true;
                     endRoom = finalRoom.gameObject;
-                    
+
                 }
             }
+        }
+
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            rooms[i].transform.parent = roomsContainer;
         }
     }
 

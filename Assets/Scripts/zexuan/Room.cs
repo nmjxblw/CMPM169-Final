@@ -20,11 +20,35 @@ public class Room : MonoBehaviour
     public GameObject player;
     public CinemachineVirtualCamera virtualCamera;
     public bool isVisited;
-    public bool isLocked;
-    public int enemyCount;
+    public bool isLocked = true;
+    [SerializeField]
+    private int _enemyCount;
+    public int enemyCount
+    {
+        get
+        {
+            return _enemyCount;
+        }
+        private set
+        {
+            _enemyCount = value;
+            if (_enemyCount <= 0)
+            {
+                isLocked = false;
+                RoomIsEmpty();
+            }
+        }
+    }
 
     public EnemyGenerator enemyGenerator;
     public List<GameObject> enemies;
+
+    public Transform enemiesContainer;
+
+    private void OnEnable()
+    {
+        enemiesContainer = enemiesContainer == null ? transform.Find("EnemiesContainer") : enemiesContainer;
+    }
 
     void Awake()
     {
@@ -43,6 +67,10 @@ public class Room : MonoBehaviour
         wallDown.SetActive(isLocked);
         wallLeft.SetActive(isLocked);
         wallRight.SetActive(isLocked);
+        vortexUp.SetActive(false);
+        vortexDown.SetActive(false);
+        vortexLeft.SetActive(false);
+        vortexRight.SetActive(false);
         UpdateRoomText();
 
         if (isStartRoom)
@@ -51,27 +79,6 @@ public class Room : MonoBehaviour
         }
 
         enemyGenerator = GameObject.Find("EventSystem").GetComponent<EnemyGenerator>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        isLocked = enemyCount > 0;
-
-        if (isLocked)
-        {
-            vortexUp.SetActive(false);
-            vortexDown.SetActive(false);
-            vortexLeft.SetActive(false);
-            vortexRight.SetActive(false);
-        }
-        else
-        {
-            vortexUp.SetActive(roomUp);
-            vortexDown.SetActive(roomDown);
-            vortexLeft.SetActive(roomLeft);
-            vortexRight.SetActive(roomRight);
-        }
     }
 
     private void UpdateRoomText()
@@ -92,16 +99,25 @@ public class Room : MonoBehaviour
                 enemyGenerator.SpawnEnemiesForLevel(roomStep, this);
             }
         }
-
-        if (other.CompareTag("Enemy"))
-        {
-            enemyCount++;
-        }
     }
 
     public void killThisRoomEnemy(GameObject enemy)
     {
         enemyCount--;
         enemies.Remove(enemy);
+    }
+
+    public void HandleEnemySpawnedDone()
+    {
+        isLocked = true;
+        enemyCount = enemies.Count;
+    }
+
+    public void RoomIsEmpty()
+    {
+        vortexUp.SetActive(roomUp);
+        vortexDown.SetActive(roomDown);
+        vortexLeft.SetActive(roomLeft);
+        vortexRight.SetActive(roomRight);
     }
 }

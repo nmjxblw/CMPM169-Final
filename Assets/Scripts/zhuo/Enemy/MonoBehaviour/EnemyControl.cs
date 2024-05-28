@@ -8,7 +8,7 @@ public class EnemyControl : MonoBehaviour
     public EnemyConfig enemyConfig;
     public EnemyConfig.Config currentConfig;
     [Header("Enemy Character")]
-    public Character enemyCharacter;
+    public EnemyCharacter enemyCharacter;
     [Header("Animator Part")]
     public Animator animator;
     #region  Animator Hashes
@@ -70,7 +70,7 @@ public class EnemyControl : MonoBehaviour
         canInput = true;
         GetComponent<Collider2D>().enabled = true;
         animator = animator ?? GetComponent<Animator>();
-        enemyCharacter = enemyCharacter ?? GetComponent<Character>();
+        enemyCharacter = enemyCharacter ?? GetComponent<EnemyCharacter>();
         enemyCharacter.onTakenDamage.AddListener(HandleTakenDamage);
         enemyCharacter.onDead.AddListener(HandleDead);
         enemyCharacter.SetMaxHp(currentConfig.hp);

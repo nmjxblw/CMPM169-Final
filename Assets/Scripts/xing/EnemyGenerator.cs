@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyGenerator : MonoBehaviour
 {
@@ -38,25 +39,28 @@ public class EnemyGenerator : MonoBehaviour
         {
             // if (levelData.levelNumber == level)
             // {
-                foreach (var enemyData in levelData.enemies)
+            foreach (var enemyData in levelData.enemies)
+            {
+                // for (int i = 0; i < enemyData.count; i++)
+                // {
+                //     Vector3 spawnPosition = roomPosition + GenerateSpawnPosition();
+                //     Instantiate(enemyData.enemyPrefab, spawnPosition, Quaternion.identity);
+                //     NumberOfPresentEnemies++;
+                // }
+                for (int i = 0; i < level; i++)
                 {
-                    // for (int i = 0; i < enemyData.count; i++)
-                    // {
-                    //     Vector3 spawnPosition = roomPosition + GenerateSpawnPosition();
-                    //     Instantiate(enemyData.enemyPrefab, spawnPosition, Quaternion.identity);
-                    //     NumberOfPresentEnemies++;
-                    // }
-                    for (int i = 0; i< level; i++){
-                        Vector3 spawnPosition = roomPosition + GenerateSpawnPosition();
-                        GameObject enemy = Instantiate(enemyData.enemyPrefab, spawnPosition, Quaternion.identity);
-                        enemy.GetComponent<Character>().generateRoom = room;
-                        room.enemies.Add(enemy);
-                        NumberOfPresentEnemies++;
-                    }
+                    Vector3 spawnPosition = roomPosition + GenerateSpawnPosition();
+                    GameObject enemy = Instantiate(enemyData.enemyPrefab, spawnPosition, Quaternion.identity);
+                    enemy.transform.parent = room.enemiesContainer;
+                    enemy.GetComponent<EnemyCharacter>().generateRoom = room;
+                    room.enemies.Add(enemy);
+                    NumberOfPresentEnemies++;
                 }
-                break;
+            }
+            break;
             // }
         }
+        room.HandleEnemySpawnedDone();
     }
 
     private Vector3 GenerateSpawnPosition()

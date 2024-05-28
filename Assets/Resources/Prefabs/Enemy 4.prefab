@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 1318635563306107692}
   - component: {fileID: 3066912311878993763}
   - component: {fileID: 4332560275696679589}
-  - component: {fileID: 5662068852871053221}
   - component: {fileID: 7857291491785842133}
   - component: {fileID: 1483381509718243241}
+  - component: {fileID: 8887362431984512548}
   m_Layer: 6
   m_Name: Enemy 4
   m_TagString: Enemy
@@ -201,7 +201,7 @@ MonoBehaviour:
     hp: 0
     attackDamage: 0
     skillDamage: 0
-  enemyCharacter: {fileID: 5662068852871053221}
+  enemyCharacter: {fileID: 0}
   animator: {fileID: 4511644351601211061}
   moveSpeed: 40
   isSprinting: 0
@@ -219,31 +219,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   skillCoolDownRemaining: 0
---- !u!114 &5662068852871053221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1359871873831942025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca3fdc8efc2a57c448d7cfac2ccd79c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentState: 0
-  _hp: 15
-  _maxHp: 15
-  invincible: 0
-  hurt: 0
-  onTakenDamage:
-    m_PersistentCalls:
-      m_Calls: []
-  dead: 0
-  onDead:
-    m_PersistentCalls:
-      m_Calls: []
-  generateRoom: {fileID: 0}
 --- !u!114 &7857291491785842133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +234,7 @@ MonoBehaviour:
   agent: {fileID: 1318635563306107692}
   target: {fileID: 0}
   enemyControl: {fileID: 4332560275696679589}
-  enemyCharacter: {fileID: 5662068852871053221}
+  enemyCharacter: {fileID: 0}
   distanceToAgentDestination: 0
   destination: {x: 0, y: 0, z: 0}
   steeringTarget: {x: 0, y: 0, z: 0}
@@ -296,6 +271,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &8887362431984512548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359871873831942025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 154f77e078bfb8b499123d417a888507, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentState: 0
+  _hp: 15
+  _maxHp: 15
+  invincible: 0
+  hurt: 0
+  onTakenDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  dead: 0
+  onDead:
+    m_PersistentCalls:
+      m_Calls: []
+  generateRoom: {fileID: 0}
 --- !u!1 &2950805187829858217
 GameObject:
   m_ObjectHideFlags: 0

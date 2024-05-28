@@ -25,7 +25,7 @@ public class Character : MonoBehaviour
     }
 
     [SerializeField]
-    private int _hp;
+    protected int _hp;
     public int hp
     {
         get
@@ -34,37 +34,34 @@ public class Character : MonoBehaviour
         { _hp = Math.Clamp(value, 0, maxHp); }
     }
     [SerializeField]
-    private int _maxHp;
-    public int maxHp { get { return _maxHp; } private set { _maxHp = value; } }
+    protected int _maxHp;
+    public int maxHp { get { return _maxHp; } protected set { _maxHp = value; } }
     public bool invincible;
     public bool hurt;
     public UnityEvent<DamageDealer> onTakenDamage;
     public bool dead;
     public UnityEvent onDead;
-    public Room generateRoom;
 
-    public void OnEnable()
+    public virtual void OnEnable()
     {
         RefreshHp();
     }
-    public void RefreshHp()
+    public virtual void RefreshHp()
     {
         currentState = CharacterHealthState.Alive;
         hp = maxHp;
     }
-    public void SetMaxHp(int value)
+    public virtual void SetMaxHp(int value)
     {
         maxHp = value;
         RefreshHp();
     }
-    void OnDisable()
+    protected virtual void OnDisable()
     {
         onTakenDamage.RemoveAllListeners();
         onDead.RemoveAllListeners();
-        generateRoom.killThisRoomEnemy(this.gameObject);
-        
     }
-    public void TakeDamage(DamageDealer damageDealer)
+    public virtual void TakeDamage(DamageDealer damageDealer)
     {
         if (invincible || dead) return;
         hp -= damageDealer.damage;
