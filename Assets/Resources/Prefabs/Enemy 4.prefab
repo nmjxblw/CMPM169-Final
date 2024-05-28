@@ -195,17 +195,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b0c38035956a843b68fc845227f9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyConfig: {fileID: 11400000, guid: 9c20776646e97e84db49573af818eced, type: 2}
+  enemyConfig: {fileID: 11400000, guid: cefece63676f6be4a9285225c56fdd46, type: 2}
   currentConfig:
     difficulty: 0
-    hp: 0
-    attackDamage: 0
-    skillDamage: 0
+    _hp: 0
+    moveAble: 1
+    _moveSpeed: 0
+    sprintAble: 1
+    _sprintSpeed: 0
+    hasAttack: 1
+    _attackDamage: 0
+    hasSkill: 0
+    _skillDamage: 0
+    _skillCoolDown: 0
   enemyCharacter: {fileID: 0}
   animator: {fileID: 4511644351601211061}
-  moveSpeed: 40
   isSprinting: 0
-  sprintSpeed: 5
   canInput: 1
   inputDirection: {x: 0, y: 0}
   initialFaceDirection: 0

@@ -12,20 +12,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c39090b4e503f4aa8fb0cc8a696c26, type: 3}
   m_Name: Enemy3Config
   m_EditorClassIdentifier: 
+  dataName: EnemyConfigs/Enemy3
+  dataFile: {fileID: 4900000, guid: 3b52aaafe5448414aafe40be52978922, type: 3}
+  firstLine: Difficulty,Hp,Moveable,Speed,Sprintable,Sprint Speed,Has Attack,Attack
+    Damage,Has Skill,Skill Damage,Skill Cooldown,
   configs:
   - difficulty: 0
-    hp: 5
-    attackDamage: 5
-    skillDamage: 8
+    _hp: 0
+    moveAble: 1
+    _moveSpeed: 0
+    sprintAble: 1
+    _sprintSpeed: 0
+    hasAttack: 1
+    _attackDamage: 0
+    hasSkill: 0
+    _skillDamage: 0
+    _skillCoolDown: 0
   - difficulty: 1
-    hp: 5
-    attackDamage: 7
-    skillDamage: 10
+    _hp: 0
+    moveAble: 1
+    _moveSpeed: 0
+    sprintAble: 1
+    _sprintSpeed: 0
+    hasAttack: 1
+    _attackDamage: 0
+    hasSkill: 0
+    _skillDamage: 0
+    _skillCoolDown: 0
   - difficulty: 2
-    hp: 5
-    attackDamage: 9
-    skillDamage: 15
+    _hp: 0
+    moveAble: 1
+    _moveSpeed: 0
+    sprintAble: 1
+    _sprintSpeed: 0
+    hasAttack: 1
+    _attackDamage: 0
+    hasSkill: 0
+    _skillDamage: 0
+    _skillCoolDown: 0
   - difficulty: 3
-    hp: 5
-    attackDamage: 14
-    skillDamage: 20
+    _hp: 0
+    moveAble: 1
+    _moveSpeed: 0
+    sprintAble: 1
+    _sprintSpeed: 0
+    hasAttack: 1
+    _attackDamage: 0
+    hasSkill: 0
+    _skillDamage: 0
+    _skillCoolDown: 0

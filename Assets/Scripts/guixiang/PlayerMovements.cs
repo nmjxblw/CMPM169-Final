@@ -15,6 +15,10 @@ public class PlayerMovements : MonoBehaviour
     private string _walkingAnimName = "Walking";
     private string _rollAnimName = "Roll";
 
+    [Header("Hurt and Dead")]
+    public static int hurtHash = Animator.StringToHash("hurt");
+    public static int deadHash = Animator.StringToHash("dead");
+
     private float _curSpeed;
     private bool _canRoll = true;
 

@@ -9,6 +9,37 @@ public class EnemyGenerator : MonoBehaviour
     public int NumberOfPresentEnemies = 0;
     public int currentLevel = 0;
 
+    private static EnemyGenerator _instance;
+    public static EnemyGenerator Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindFirstObjectByType<EnemyGenerator>();
+                if (_instance == null)
+                {
+                    GameObject obj = new GameObject("EnemyGenerator");
+                    _instance = obj.AddComponent<EnemyGenerator>();
+                }
+            }
+            return _instance;
+        }
+    }
+
+    void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     void Update()
     {
         // Check if the 'K' key is pressed

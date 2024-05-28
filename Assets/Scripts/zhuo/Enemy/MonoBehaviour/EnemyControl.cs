@@ -24,9 +24,7 @@ public class EnemyControl : MonoBehaviour
     public static int hurtLayerIndex;
     #endregion
     [Header("Moving Setting")]
-    public float moveSpeed = 5f;
     public bool isSprinting = false;
-    public float sprintSpeed = 8f;
     public bool canInput = true;
     public const float threshold = 0.01f;
     public Vector2 inputDirection;
@@ -62,25 +60,30 @@ public class EnemyControl : MonoBehaviour
         }
     }
     public UnityEvent<bool> skillActivableChanged;
-    public const float skillCoolDown = 10f;
     public float skillCoolDownRemaining;
     void OnEnable()
     {
-        currentConfig = enemyConfig.configs[GameManager.levelDifficulty];
+        
         canInput = true;
         GetComponent<Collider2D>().enabled = true;
         animator = animator ?? GetComponent<Animator>();
         enemyCharacter = enemyCharacter ?? GetComponent<EnemyCharacter>();
         enemyCharacter.onTakenDamage.AddListener(HandleTakenDamage);
         enemyCharacter.onDead.AddListener(HandleDead);
+        UpdateEnemyConfig();
+        AnimatorInitialization();
+    }
+
+    public void UpdateEnemyConfig()
+    {
+        currentConfig = enemyConfig.configs[GameManager.levelDifficulty];
         enemyCharacter.SetMaxHp(currentConfig.hp);
         transform.Find("DamageAreas/AttackArea").GetComponent<DamageDealer>().damage = currentConfig.attackDamage;
-        if (hasSkill)
+        if (currentConfig.hasSkill)
         {
             transform.Find("DamageAreas/SkillAttackArea").GetComponent<DamageDealer>().damage = currentConfig.skillDamage;
             transform.Find("DamageAreas/SkillAttackArea").gameObject.SetActive(false);
         }
-        AnimatorInitialization();
     }
     void OnDisable()
     {
@@ -103,8 +106,11 @@ public class EnemyControl : MonoBehaviour
     {
         if (isSkill || enemyCharacter.dead || enemyCharacter.hurt) return;
         inputDirection = canInput ? inputDirection.normalized : Vector2.zero;
-        HandleFaceDirection();
-        HandleMovement();
+        if (currentConfig.moveAble)
+        {
+            HandleFaceDirection();
+            HandleMovement();
+        }
     }
     public void Update()
     {
@@ -123,7 +129,7 @@ public class EnemyControl : MonoBehaviour
     {
         if (inputDirection.sqrMagnitude > threshold)
         {
-            float speed = isSprinting ? sprintSpeed : moveSpeed;
+            float speed = isSprinting ? currentConfig.sprintSpeed : currentConfig.moveSpeed;
             transform.Translate((Vector3)inputDirection * speed * Time.deltaTime);
         }
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
@@ -137,10 +143,10 @@ public class EnemyControl : MonoBehaviour
     }
     public IEnumerator SkillCoolDownCoroutine()
     {
-        skillCoolDownRemaining = skillCoolDown;
+        skillCoolDownRemaining = currentConfig.skillCoolDown;
         while (skillCoolDownRemaining > 0f)
         {
-            skillCoolDownRemaining = Mathf.Clamp(skillCoolDownRemaining - Time.deltaTime, 0f, skillCoolDown);
+            skillCoolDownRemaining = Mathf.Clamp(skillCoolDownRemaining - Time.deltaTime, 0f, currentConfig.skillCoolDown);
             yield return null;
         }
         skillActivable = true;
