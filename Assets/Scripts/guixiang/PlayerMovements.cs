@@ -28,6 +28,7 @@ public class PlayerMovements : MonoBehaviour
 
     private float vertical;
     private float horizontal;
+    public Vector2 lastInputDirection = new Vector2(1, 0);
     // Start is called before the first frame update
     void Start()
     {
@@ -47,9 +48,20 @@ public class PlayerMovements : MonoBehaviour
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
 
+        if (vertical != 0 || horizontal != 0)
+        {
+            lastInputDirection = new Vector2(horizontal, vertical).normalized;
+        }
+
         if (playerCharacter.hurt || playerCharacter.dead)
         {
             PlayerAnimator.SetFloat(_walkingAnimName, 0);
+        }
+        else if (PlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("roll_anim"))
+        {
+            transform.Translate(Vector3.up * lastInputDirection.y * _curSpeed * Time.deltaTime);
+            transform.Translate(Vector3.right * lastInputDirection.x * _curSpeed * Time.deltaTime);
+            PlayerBodySprite.flipX = lastInputDirection.x < 0;
         }
         else
         {
@@ -75,12 +87,14 @@ public class PlayerMovements : MonoBehaviour
         if (!PlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("roll_anim"))
         {
             PlayerAnimator.SetBool(_rollAnimName, false);
+            playerCharacter.invincible = false;
             _curSpeed = Speed;
         }
         if (_canRoll && Input.GetKeyDown(KeyCode.Space))
         {
             _canRoll = false;
             PlayerAnimator.SetBool(_rollAnimName, true);
+            playerCharacter.invincible = true;
             _curSpeed = RollingSpeed;
             Invoke(nameof(UpdateCanRoll), RollingCoolDownTimer);
         }

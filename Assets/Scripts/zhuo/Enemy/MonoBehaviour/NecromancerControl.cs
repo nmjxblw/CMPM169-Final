@@ -77,7 +77,7 @@ public class NecromancerControl : MonoBehaviour
 
     public void OnAnimatorMove()
     {
-        inputDirection = canInput ? new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized : Vector2.zero;
+        inputDirection = canInput ? inputDirection.normalized : Vector2.zero;
         if (enemyCharacter.hurt || enemyCharacter.dead || isSkill) return;
         HandleFaceDirection();
         HandleMovement();
@@ -100,20 +100,19 @@ public class NecromancerControl : MonoBehaviour
     public void Update()
     {
         UpdateAnimatorValue();
-        if (Input.GetKey(KeyCode.F))
-            HandleAttack();
-        if (Input.GetKey(KeyCode.E))
-            HandleSkill1();
-        if (Input.GetKey(KeyCode.B))
-            HandleSkill2();
     }
     public void UpdateAnimatorValue()
     {
         animator.SetFloat(inputMagnitude, inputDirection.magnitude);
     }
-
+    public void FaceToTarget()
+    {
+        float localScaleX = transform.localScale.x * initialFaceDirection * (target.position.x - transform.position.x) >= 0 ? transform.localScale.x : -transform.localScale.x;
+        transform.localScale = new Vector3(localScaleX, transform.localScale.y, transform.localScale.z);
+    }
     public void HandleAttack()
     {
+        FaceToTarget();
         animator.Play(attackHash, basicLayerIndex);
     }
 
@@ -126,7 +125,21 @@ public class NecromancerControl : MonoBehaviour
 
     public void HandleSkill1()
     {
+        if (!skill1Activatable) return;
+        FaceToTarget();
         animator.Play(skill1Hash, basicLayerIndex);
+        IEnumerator StartSkill1Cooldown()
+        {
+            skill1Activatable = false;
+            skill1RemainingTime = currentConfig.skill1Cooldown;
+            while (skill1RemainingTime > 0f)
+            {
+                skill1RemainingTime -= Time.deltaTime;
+                yield return null;
+            }
+            skill1Activatable = true;
+        }
+        StartCoroutine(StartSkill1Cooldown());
     }
 
     public void DisplaySkill1()
@@ -141,7 +154,21 @@ public class NecromancerControl : MonoBehaviour
 
     public void HandleSkill2()
     {
+        if (!skill2Activatable) return;
+        FaceToTarget();
         animator.Play(skill2Hash, basicLayerIndex);
+        IEnumerator StartSkill2Cooldown()
+        {
+            skill2Activatable = false;
+            skill2RemainingTime = currentConfig.skill2Cooldown;
+            while (skill2RemainingTime > 0f)
+            {
+                skill2RemainingTime -= Time.deltaTime;
+                yield return null;
+            }
+            skill2Activatable = true;
+        }
+        StartCoroutine(StartSkill2Cooldown());
     }
 
     public void DisplaySkill2()
@@ -178,6 +205,7 @@ public class NecromancerControl : MonoBehaviour
         animator.Play(deadHash, hurtLayerIndex);
         attackArea.SetActive(false);
         GetComponent<Collider2D>().enabled = false;
+        StopAllCoroutines();
     }
 
     public void HandleDeadAnimationDone()

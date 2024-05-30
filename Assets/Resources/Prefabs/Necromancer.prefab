@@ -45,10 +45,10 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 576
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -62,11 +62,11 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.2}
-  m_Size: {x: 0.2, y: 0.4}
+  m_Offset: {x: 0, y: 0.15}
+  m_Size: {x: 0.15, y: 0.3}
   m_Direction: 0
 --- !u!114 &8269968585500859818
 MonoBehaviour:
@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 7553580623464614211}
   - component: {fileID: 5699341565783668607}
   - component: {fileID: 6858358191503948039}
+  - component: {fileID: 2424385787210039419}
   - component: {fileID: 4484918456484802216}
   - component: {fileID: 916515356836937421}
   - component: {fileID: 1059060062593741286}
@@ -219,6 +220,32 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2424385787210039419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3796042200247775263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0761ce043117c47aa48176f309b0c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 6858358191503948039}
+  enemyCharacter: {fileID: 916515356836937421}
+  necromancerControl: {fileID: 4484918456484802216}
+  target: {fileID: 0}
+  destination: {x: 0, y: 0, z: 0}
+  steeringTarget: {x: 0, y: 0, z: 0}
+  distanceToAgentDestination: 0
+  distanceToTarget: 0
+  randomFactor: 0
+  decisionInterval: 3
+  decisionTimer: 0
+  currentAttackModel: 0
+  furyThreshold: 0.33333334
+  currentFuryModel: 0
 --- !u!114 &4484918456484802216
 MonoBehaviour:
   m_ObjectHideFlags: 0

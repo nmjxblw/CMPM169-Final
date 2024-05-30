@@ -20,8 +20,8 @@ MonoBehaviour:
   - difficulty: 0
     _hp: 1000
     _invincibleDuration: 0.5
-    _moveSpeed: 10
-    _sprintSpeed: 20
+    _moveSpeed: 50
+    _sprintSpeed: 80
     _attackDamage: 10
     _skill1Damage: 10
     _skill1Cooldown: 10

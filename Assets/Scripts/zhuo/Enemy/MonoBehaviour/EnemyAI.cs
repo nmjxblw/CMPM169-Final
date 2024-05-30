@@ -31,12 +31,12 @@ public class EnemyAI : MonoBehaviour
     public float skillRange = 2f;
     public bool targetInSkillRange;
     public GameObject player;
-    public void Start()
+    public virtual void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         enemyControl = enemyControl ?? GetComponent<EnemyControl>();
-        if(enemyControl.hasSkill)
+        if (enemyControl.hasSkill)
             enemyControl.isSkillChanged.AddListener(HandleIsSkillChanged);
         enemyCharacter = enemyCharacter ?? GetComponent<Character>();
         enemyCharacter.onTakenDamage.AddListener(HandleTakeDamage);
@@ -46,7 +46,7 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    private void StateMachineInitialization()
+    protected virtual void StateMachineInitialization()
     {
         states = new List<AIState>(){
             new Idle(this),
@@ -58,7 +58,7 @@ public class EnemyAI : MonoBehaviour
         };
     }
 
-    public void Spawned()
+    public virtual void Spawned()
     {
         agent.SetDestination(target.position);
         if (agent.hasPath)
@@ -71,7 +71,7 @@ public class EnemyAI : MonoBehaviour
         }
         SwitchState(currentLogic);
     }
-    public void SwitchState(Logic logic)
+    public virtual void SwitchState(Logic logic)
     {
         currentState?.OnExit();
         currentLogic = logic;
@@ -79,7 +79,7 @@ public class EnemyAI : MonoBehaviour
         currentState.OnEnter();
     }
 
-    public void Update()
+    public virtual void Update()
     {
         target = player.transform;
         agent.SetDestination(new Vector3(target.position.x, target.position.y, 0));
@@ -99,20 +99,20 @@ public class EnemyAI : MonoBehaviour
         enemyControl.inputDirection = inputDirection;
     }
 
-    public void HandleIsSkillChanged(bool isSkill)
+    public virtual void HandleIsSkillChanged(bool isSkill)
     {
         if (isSkill) return;
         SwitchState(Logic.chase);
     }
 
-    public void HandleTakeDamage(DamageDealer damageDealer)
+    public virtual void HandleTakeDamage(DamageDealer damageDealer)
     {
         if (currentLogic == Logic.idle)
             SwitchState(Logic.chase);
         return;
     }
 
-    public void HandleDead()
+    public virtual void HandleDead()
     {
         SwitchState(Logic.dead);
     }

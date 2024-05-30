@@ -118,12 +118,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCharacter: {fileID: 0}
   Speed: 50
-  RollingSpeed: 100
+  RollingSpeed: 80
   RollingCoolDownTimer: 5
   PlayerAnimator: {fileID: 2192052089790427314}
   PlayerBodySprite: {fileID: 7949415474760123371}
   hurtLayerIndex: 0
   invincibleLayerIndex: 0
+  lastInputDirection: {x: 1, y: 0}
 --- !u!50 &269807099489424857
 Rigidbody2D:
   serializedVersion: 4
