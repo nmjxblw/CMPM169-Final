@@ -11,6 +11,7 @@ public enum GunType
 public class GunController : MonoBehaviour
 {
     public Gun[] Guns;
+    public float AdjustFiringInterval = 0;
     private Vector3 mousePos;
     private Vector3 objectPos;
     private float rotateAngle;
@@ -37,11 +38,11 @@ public class GunController : MonoBehaviour
         {
             Gun.Shoot(rotated, transform.rotation);
             CanShoot = false;
-            Invoke(nameof(UpdateCanShoot), Gun.ShootingInterval);
+            Invoke(nameof(UpdateCanShoot), Gun.ShootingInterval - AdjustFiringInterval);
         }
     }
 
-    public void SelectGun(GunType gunType)
+    public bool SelectGun(GunType gunType)
     {
         foreach (var gun in Guns)
         {
@@ -50,9 +51,10 @@ public class GunController : MonoBehaviour
                 Gun.gameObject.SetActive(false);
                 gun.gameObject.SetActive(true);
                 Gun = gun;
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     private void UpdateCanShoot()
