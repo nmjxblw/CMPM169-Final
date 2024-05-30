@@ -64,6 +64,13 @@ public class Character : MonoBehaviour
         maxHp = value;
         RefreshHp();
     }
+    public virtual void SetInvincibleDuration(float duration)
+    {
+        invincibleDuration = duration;
+        //Refresh invincible remaining time while get buff.
+        if (invincibleCoroutine != null)
+            invincibleTimeRemaining = duration;
+    }
     protected virtual void OnDisable()
     {
         onInvincibleStart.RemoveAllListeners();

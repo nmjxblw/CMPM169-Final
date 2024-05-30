@@ -14,6 +14,7 @@ public class DamageDealer : MonoBehaviour
     public float knockbackForce;
     public void OnTriggerStay2D(Collider2D other)
     {
+        // Debug.Log($"{gameObject.name} hit {other.gameObject.name}");
         if (gameObject.CompareTag(other.gameObject.tag))
         {
             return;

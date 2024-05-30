@@ -211,12 +211,4 @@ public class EnemyConfig : ScriptableObject
             configs[i].difficulty = i;
         }
     }
-
-    private void OnApplicationQuit()
-    {
-        if (configs != null && configs.Count > 0)
-        {
-            WriteDataToCSV();
-        }
-    }
 }
