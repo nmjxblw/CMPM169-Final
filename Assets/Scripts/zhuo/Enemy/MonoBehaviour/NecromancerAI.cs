@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
+using NavMeshPlus.Components;
 
 public class NercomancerAI : MonoBehaviour
 {
@@ -84,12 +85,12 @@ public class NercomancerAI : MonoBehaviour
         agent = agent ?? GetComponent<NavMeshAgent>();
         enemyCharacter = enemyCharacter ?? GetComponent<EnemyCharacter>();
         necromancerControl = necromancerControl ?? GetComponent<NecromancerControl>();
-        enemyCharacter.onTakenDamage.AddListener(OnTakenDamage);
+        enemyCharacter.onTakenDamage.AddListener(HandleTakenDamage);
     }
 
-    public void OnTakenDamage(DamageDealer damageDealer)
+    public void HandleTakenDamage(DamageDealer damageDealer)
     {
-        if (currentFuryModel == FuryModel.normal)
+        if (currentFuryModel == FuryModel.fury)
             return;
         if (enemyCharacter.hp / enemyCharacter.maxHp <= furyThreshold)
         {
@@ -148,18 +149,18 @@ public class NercomancerAI : MonoBehaviour
         randomFactor = Random.Range(0, 100);
         if (currentFuryModel == FuryModel.fury)
         {
-            if (randomFactor >= 80)
+            if (randomFactor >= 80 && necromancerControl.skill2Activatable)
                 currentAttackModel = AttackModel.skill2;
-            else if (randomFactor >= 50)
+            else if (randomFactor >= 50 && necromancerControl.skill1Activatable)
                 currentAttackModel = AttackModel.skill1;
             else
                 currentAttackModel = AttackModel.attack;
         }
         else
         {
-            if (randomFactor >= 90)
+            if (randomFactor >= 90 && necromancerControl.skill2Activatable)
                 currentAttackModel = AttackModel.skill2;
-            else if (randomFactor >= 70)
+            else if (randomFactor >= 70 && necromancerControl.skill1Activatable)
                 currentAttackModel = AttackModel.skill1;
             else if (randomFactor >= 40)
                 currentAttackModel = AttackModel.attack;
@@ -187,9 +188,9 @@ public class NercomancerAI : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
         if (target != null)
         {
+            Gizmos.color = Color.red;
             Gizmos.DrawSphere(target.transform.position, 20f);
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(destination, 1f);

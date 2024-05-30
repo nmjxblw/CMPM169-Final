@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageTarget: 0
   damage: 0
-  knockbackForce: 0
+  knockbackForce: 50
 --- !u!1 &3796042200247775263
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,6 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f0761ce043117c47aa48176f309b0c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAwake: 0
   agent: {fileID: 6858358191503948039}
   enemyCharacter: {fileID: 916515356836937421}
   necromancerControl: {fileID: 4484918456484802216}
@@ -240,6 +241,10 @@ MonoBehaviour:
   steeringTarget: {x: 0, y: 0, z: 0}
   distanceToAgentDestination: 0
   distanceToTarget: 0
+  moveInterval: 4
+  moveTimer: 0
+  stackTimer: 2
+  lastPos: {x: 0, y: 0, z: 0}
   randomFactor: 0
   decisionInterval: 3
   decisionTimer: 0
