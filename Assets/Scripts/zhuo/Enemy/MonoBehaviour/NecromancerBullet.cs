@@ -10,12 +10,18 @@ public class NecromancerBullet : MonoBehaviour
     public float accelerateDuration = 2f;
     public float acceleration => (maxSpeed - initialSpeed) / (accelerateDuration * Time.fixedDeltaTime);
     public float lifeTime = 4f;
+    public float remainingLifeTime;
     private void OnEnable()
     {
         currentSpeed = initialSpeed;
         IEnumerator DisableSelf()
         {
-            yield return new WaitForSeconds(lifeTime);
+            remainingLifeTime = lifeTime;
+            while (remainingLifeTime > 0f)
+            {
+                remainingLifeTime -= Time.deltaTime;
+                yield return null;
+            }
             gameObject.SetActive(false);
         }
         StartCoroutine(DisableSelf());
@@ -36,7 +42,7 @@ public class NecromancerBullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Wall") && remainingLifeTime <= lifeTime - 0.5f)
         {
             gameObject.SetActive(false);
         }
@@ -44,7 +50,7 @@ public class NecromancerBullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Wall") && remainingLifeTime <= lifeTime - 0.5f)
         {
             gameObject.SetActive(false);
         }
