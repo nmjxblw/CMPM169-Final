@@ -21,6 +21,8 @@ public class Room : MonoBehaviour
     public CinemachineVirtualCamera virtualCamera;
     public bool isVisited;
     public bool isLocked = true;
+    public bool isBuffRoom;
+    public bool isWeaponRoom;
     [SerializeField]
     private int _enemyCount;
     public int enemyCount
@@ -119,5 +121,39 @@ public class Room : MonoBehaviour
         vortexDown.SetActive(roomDown);
         vortexLeft.SetActive(roomLeft);
         vortexRight.SetActive(roomRight);
+
+        if(isBuffRoom)
+        {
+            //禁止玩家输入
+            Time.timeScale = 0;
+            applyBuff(BuffContainer.Instance.healthBuff, BuffContainer.Instance.healthRecoveryBuff);
+        }
+
+
+    }
+
+    public void applyBuff(Buff buff1, Buff buff2)
+    {
+        UIManager.Instance.choosePanel.SetActive(true);
+        UIManager.Instance.buff1Name.GetComponent<TextMeshProUGUI>().text = buff1.name;
+        UIManager.Instance.buff1Description.GetComponent<TextMeshProUGUI>().text = buff1.description;
+        UIManager.Instance.buff1ApplyButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            BuffManager.Instance.AddBuff(buff1);
+            UIManager.Instance.choosePanel.SetActive(false);
+            //恢复游戏
+            Time.timeScale = 1;
+        });
+
+        UIManager.Instance.buff2Name.GetComponent<TextMeshProUGUI>().text = buff2.name;
+        UIManager.Instance.buff2Description.GetComponent<TextMeshProUGUI>().text = buff2.description;
+        UIManager.Instance.buff2ApplyButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            BuffManager.Instance.AddBuff(buff2);
+            UIManager.Instance.choosePanel.SetActive(false);
+            //恢复游戏
+            Time.timeScale = 1;
+        });
+        
     }
 }

@@ -2375,6 +2375,9 @@ MonoBehaviour:
   virtualCamera: {fileID: 0}
   isVisited: 0
   isLocked: 1
+  isBuffRoom: 1
+  isWeaponRoom: 0
+  _enemyCount: 0
   enemyGenerator: {fileID: 0}
   enemies: []
   enemiesContainer: {fileID: 6590088822544748153}
