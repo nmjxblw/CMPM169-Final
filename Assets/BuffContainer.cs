@@ -87,7 +87,7 @@ public class BuffContainer : MonoBehaviour
         {
             int maxHp = Player.GetComponent<Character>().maxHp;
             int targetHp = (int)(maxHp * 0.5);
-            Player.GetComponent<Character>().hp = targetHp;
+            Player.GetComponent<Character>().hp += targetHp;
             if(Player.GetComponent<Character>().hp > maxHp)
             {
                 Player.GetComponent<Character>().hp = maxHp;
