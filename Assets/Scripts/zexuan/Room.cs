@@ -36,8 +36,7 @@ public class Room : MonoBehaviour
             _enemyCount = value;
             if (_enemyCount <= 0)
             {
-                isLocked = false;
-                RoomIsEmpty();
+                enemyGenerator.SpawnNextWave(this);
             }
         }
     }
@@ -105,8 +104,8 @@ public class Room : MonoBehaviour
 
     public void killThisRoomEnemy(GameObject enemy)
     {
-        enemyCount--;
         enemies.Remove(enemy);
+        enemyCount=enemies.Count;
     }
 
     public void HandleEnemySpawnedDone()
