@@ -48,6 +48,7 @@ public class Character : MonoBehaviour
     public UnityEvent<DamageDealer> onTakenDamage;
     public bool dead;
     public UnityEvent onDead;
+    public UnityEvent UIUpdateEvent;
 
     public virtual void OnEnable()
     {
@@ -89,6 +90,7 @@ public class Character : MonoBehaviour
         else
             currentState = CharacterHealthState.Dead;
         //TODO:UI Display
+        UIUpdateEvent?.Invoke();
     }
     public virtual void TriggerInvincible()
     {
