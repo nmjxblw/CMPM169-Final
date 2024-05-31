@@ -35,7 +35,7 @@ public class Character : MonoBehaviour
     }
     [SerializeField]
     protected int _maxHp;
-    public int maxHp { get { return _maxHp; } protected set { _maxHp = value; } }
+    public int maxHp { get { return _maxHp; } set { _maxHp = value; } }
     public bool invincible;
     [SerializeField]
     protected float _invincibleDuration = 0.5f;
@@ -50,7 +50,7 @@ public class Character : MonoBehaviour
     public UnityEvent onDead;
     public UnityEvent UIUpdateEvent;
 
-    public virtual void OnEnable()
+    public virtual void Awake()
     {
         onInvincibleStart.AddListener(TriggerInvincible);
         RefreshHp();

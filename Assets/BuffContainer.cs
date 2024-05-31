@@ -63,20 +63,16 @@ public class BuffContainer : MonoBehaviour
         healthBuff.ApplyEffect = () =>
         {
             int maxHp = Player.GetComponent<Character>().maxHp;
-            int targetMaxHp = (int)(maxHp * 1.2);
-            Player.GetComponent<Character>().SetMaxHp(targetMaxHp);
-            int hp = Player.GetComponent<Character>().hp;
-            int targetHp = (int)(hp * 1.2);
-            Player.GetComponent<Character>().hp = targetHp;
+            int targetMaxHp = (int)(maxHp * 0.2);
+            Player.GetComponent<Character>().maxHp += targetMaxHp;
+            Player.GetComponent<Character>().hp += targetMaxHp;
         };
         healthBuff.RemoveEffect = () =>
         {
             int maxHp = Player.GetComponent<Character>().maxHp;
-            int targetMaxHp = (int)(maxHp / 1.2);
-            Player.GetComponent<Character>().SetMaxHp(targetMaxHp);
-            int hp = Player.GetComponent<Character>().hp;
-            int targetHp = (int)(hp / 1.2);
-            Player.GetComponent<Character>().hp = targetHp;
+            int targetMaxHp = (int)(maxHp * 0.2);
+            Player.GetComponent<Character>().maxHp -= targetMaxHp;
+            Player.GetComponent<Character>().hp -= targetMaxHp;
         };
     }
 

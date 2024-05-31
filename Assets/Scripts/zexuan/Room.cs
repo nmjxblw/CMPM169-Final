@@ -136,6 +136,7 @@ public class Room : MonoBehaviour
         UIManager.Instance.choosePanel.SetActive(true);
         UIManager.Instance.buff1Name.GetComponent<TextMeshProUGUI>().text = buff1.name;
         UIManager.Instance.buff1Description.GetComponent<TextMeshProUGUI>().text = buff1.description;
+        UIManager.Instance.buff1ApplyButton.GetComponent<Button>().onClick.RemoveAllListeners();
         UIManager.Instance.buff1ApplyButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             BuffManager.Instance.AddBuff(buff1);
@@ -146,6 +147,7 @@ public class Room : MonoBehaviour
 
         UIManager.Instance.buff2Name.GetComponent<TextMeshProUGUI>().text = buff2.name;
         UIManager.Instance.buff2Description.GetComponent<TextMeshProUGUI>().text = buff2.description;
+        UIManager.Instance.buff2ApplyButton.GetComponent<Button>().onClick.RemoveAllListeners();
         UIManager.Instance.buff2ApplyButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             BuffManager.Instance.AddBuff(buff2);
