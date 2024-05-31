@@ -124,8 +124,6 @@ public class Room : MonoBehaviour
 
         if(isBuffRoom)
         {
-            //禁止玩家输入
-            Time.timeScale = 0;
             applyBuff(BuffContainer.Instance.healthBuff, BuffContainer.Instance.healthRecoveryBuff);
         }
 
@@ -134,6 +132,7 @@ public class Room : MonoBehaviour
 
     public void applyBuff(Buff buff1, Buff buff2)
     {
+        Time.timeScale = 0;
         UIManager.Instance.choosePanel.SetActive(true);
         UIManager.Instance.buff1Name.GetComponent<TextMeshProUGUI>().text = buff1.name;
         UIManager.Instance.buff1Description.GetComponent<TextMeshProUGUI>().text = buff1.description;
