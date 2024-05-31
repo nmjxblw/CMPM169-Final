@@ -97,7 +97,7 @@ public class EnemyControl : MonoBehaviour
     }
     void AnimatorInitialization()
     {
-        animator.Play("empty", hurtLayerIndex);
+        // animator.Play("empty", hurtLayerIndex);
     }
     void Start()
     {

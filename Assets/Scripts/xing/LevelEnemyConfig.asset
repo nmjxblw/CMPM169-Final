@@ -15,7 +15,7 @@ MonoBehaviour:
   levels:
   - levelNumber: 0
     enemies:
-    - enemyPrefab: {fileID: 3796042200247775263, guid: 86a38084c40ff1c4d9e0ea52b1be0953, type: 3}
+    - enemyPrefab: {fileID: 1359871873831942025, guid: 1522be57d98c36a45b173e10b66a6988, type: 3}
       count: 1
   - levelNumber: 1
     enemies:
