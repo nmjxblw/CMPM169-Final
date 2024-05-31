@@ -13,11 +13,13 @@ public class LevelData
 {
     public int levelNumber;
     public EnemySpawnData[] enemies;
+    public bool isBuffGift;
+    public bool isWeaponGift;
 }
 
 [System.Serializable]
 public class EnemySpawnData
 {
     public GameObject enemyPrefab;
-    public int count; // Number of this enemy type to spawn
+    public int count; 
 }
