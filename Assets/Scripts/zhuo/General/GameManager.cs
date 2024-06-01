@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
+    [SerializeField]
     public static int levelDifficulty = 0;
     public static GameManager Instance
     {

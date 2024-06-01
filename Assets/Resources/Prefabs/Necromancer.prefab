@@ -212,14 +212,14 @@ NavMeshAgent:
   m_Acceleration: 0
   avoidancePriority: 50
   m_AngularSpeed: 0
-  m_StoppingDistance: 0.1
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 0.4
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!114 &2424385787210039419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,11 +236,12 @@ MonoBehaviour:
   agent: {fileID: 6858358191503948039}
   enemyCharacter: {fileID: 916515356836937421}
   necromancerControl: {fileID: 4484918456484802216}
+  inputDirection: {x: 0, y: 0}
   target: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
   steeringTarget: {x: 0, y: 0, z: 0}
   distanceToAgentDestination: 0
-  distanceToTarget: 0
+  inStopRange: 0
   moveInterval: 4
   moveTimer: 0
   stackTimer: 2
@@ -251,6 +252,9 @@ MonoBehaviour:
   currentAttackModel: 0
   furyThreshold: 0.33333334
   currentFuryModel: 0
+  StageChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4484918456484802216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +281,7 @@ MonoBehaviour:
     _skill2Cooldown: 0
   animator: {fileID: 5699341565783668607}
   enemyCharacter: {fileID: 916515356836937421}
+  rb: {fileID: 1059060062593741286}
   canInput: 1
   inputDirection: {x: 0, y: 0}
   isSprinting: 0
@@ -325,6 +330,9 @@ MonoBehaviour:
   onDead:
     m_PersistentCalls:
       m_Calls: []
+  UIUpdateEvent:
+    m_PersistentCalls:
+      m_Calls: []
   generateRoom: {fileID: 0}
 --- !u!50 &1059060062593741286
 Rigidbody2D:
@@ -334,7 +342,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3796042200247775263}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -351,7 +359,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &5091701534479943519
 CapsuleCollider2D:

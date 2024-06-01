@@ -36,7 +36,8 @@ public class NecromancerBullet : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            gameObject.SetActive(false);
+            if (!other.GetComponent<Character>().invincible)
+                gameObject.SetActive(false);
         }
     }
 

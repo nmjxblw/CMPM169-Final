@@ -29,6 +29,7 @@ public class NecromancerControl : MonoBehaviour
     public static readonly int skill1Hash = Animator.StringToHash("skill1");
     public static readonly int skill2Hash = Animator.StringToHash("skill2");
     public static readonly int hurtHash = Animator.StringToHash("hurt");
+    public static readonly int hitReactionHash = Animator.StringToHash("hit_reaction");
     public static readonly int deadHash = Animator.StringToHash("dead");
     [Header("Attack Target")]
     public Transform target;
@@ -183,7 +184,11 @@ public class NecromancerControl : MonoBehaviour
 
     public void HandleTakenDamage(DamageDealer damageDealer)
     {
-        if (isAttack || isSkill) return;
+        if (isAttack || isSkill)
+        {
+            animator.Play(hitReactionHash, hurtLayerIndex);
+            return;
+        }
         animator.Play(hurtHash, hurtLayerIndex);
         float localScaleX = transform.localScale.x * initialFaceDirection * (transform.position.x - damageDealer.transform.position.x) <= 0 ? transform.localScale.x : -transform.localScale.x;
         transform.localScale = new Vector3(localScaleX, transform.localScale.y, transform.localScale.z);

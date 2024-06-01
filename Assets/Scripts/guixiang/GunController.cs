@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum GunType
-{
-    R1, R2, R3
-}
-
 public class GunController : MonoBehaviour
 {
     public Gun[] Guns;

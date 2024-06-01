@@ -6,16 +6,20 @@ public class PlayerMovements : MonoBehaviour
 {
     [Header("Player Character")]
     public PlayerCharacter playerCharacter;
-    public float Speed = 10f;
-    public float RollingSpeed = 20f;
-    public float RollingCoolDownTimer = 0.5f;
+    public Rigidbody2D rb;
+    public float moveSpeed = 50f;
+    public float rollingSpeed = 80f;
+    public float rollingCoolDown = 0.5f;
+    public float rollingCoolDownRemainingTime;
+    public float maxRollingTime = 1f;
+    public float rollingTimeRemaining;
     public Animator PlayerAnimator;
 
     [Header("Sprite Renderers")]
     public SpriteRenderer PlayerBodySprite;
 
-    private string _walkingAnimName = "Walking";
-    private string _rollAnimName = "Roll";
+    private readonly int walkingHash = Animator.StringToHash("Walking");
+    private readonly int rollHash = Animator.StringToHash("Roll");
 
     [Header("Hurt and Dead")]
     public static readonly int hurtHash = Animator.StringToHash("hurt");
@@ -23,108 +27,102 @@ public class PlayerMovements : MonoBehaviour
     public static readonly int invincibleHash = Animator.StringToHash("invincible");
     public int hurtLayerIndex;
     public int invincibleLayerIndex;
-    private float _curSpeed;
-    private bool _canRoll = true;
-
-    private float vertical;
-    private float horizontal;
+    private float curSpeed;
+    public bool isRolling = false;
+    public bool canRoll = true;
+    public Vector2 inputDirection;
     public Vector2 lastInputDirection = new Vector2(1, 0);
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         playerCharacter = playerCharacter ?? GetComponent<PlayerCharacter>();
         playerCharacter.onTakenDamage.AddListener(HandleTakenDamage);
         playerCharacter.onDead.AddListener(HandleDead);
         playerCharacter.onInvincibleStart.AddListener(HandleInvincibleStart);
         playerCharacter.onInvincibleEnd.AddListener(HandleInvincibleEnd);
-        _curSpeed = Speed;
         hurtLayerIndex = PlayerAnimator.GetLayerIndex("Hurt Layer");
         invincibleLayerIndex = PlayerAnimator.GetLayerIndex("Invincible Layer");
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        vertical = Input.GetAxis("Vertical");
-        horizontal = Input.GetAxis("Horizontal");
+        inputDirection.x = Input.GetAxis("Horizontal");
+        inputDirection.y = Input.GetAxis("Vertical");
+        inputDirection = inputDirection.normalized;
+        lastInputDirection = inputDirection.sqrMagnitude > 0 ? inputDirection : lastInputDirection;
+        UpdateAnimatorValue();
+    }
+    public void HandleSpriteFlip()
+    {
+        var playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
+        Vector3 mousePos = Input.mousePosition;
+        PlayerBodySprite.flipX = mousePos.x < playerScreenPoint.x;
+    }
 
-        if (vertical != 0 || horizontal != 0)
-        {
-            lastInputDirection = new Vector2(horizontal, vertical).normalized;
-        }
 
-        if (playerCharacter.hurt || playerCharacter.dead)
+    public void UpdateAnimatorValue()
+    {
+        PlayerAnimator.SetFloat(walkingHash, inputDirection.sqrMagnitude);
+        PlayerAnimator.SetBool(rollHash, Input.GetKey(KeyCode.Space) && canRoll);
+    }
+
+    public void FixedUpdate()
+    {
+        if (playerCharacter.hurt || playerCharacter.dead || isRolling)
         {
-            PlayerAnimator.SetFloat(_walkingAnimName, 0);
-        }
-        else if (PlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("roll_anim"))
-        {
-            transform.Translate(Vector3.up * lastInputDirection.y * _curSpeed * Time.deltaTime);
-            transform.Translate(Vector3.right * lastInputDirection.x * _curSpeed * Time.deltaTime);
-            PlayerBodySprite.flipX = lastInputDirection.x < 0;
+            inputDirection = Vector2.zero;
         }
         else
         {
-            transform.Translate(Vector3.up * vertical * _curSpeed * Time.deltaTime);
-            transform.Translate(Vector3.right * horizontal * _curSpeed * Time.deltaTime);
-
-            PlayerAnimator.SetFloat(_walkingAnimName, Mathf.Abs(vertical) + Mathf.Abs(horizontal));
-
-            var playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
-            Vector3 mousePos = Input.mousePosition;
-            if (mousePos.x < playerScreenPoint.x)
-            {
-                PlayerBodySprite.flipX = true;
-            }
-            else
-            {
-                PlayerBodySprite.flipX = false;
-            }
+            HandleSpriteFlip();
+            HandlePlayerMoving();
         }
-        // rotate player towards mouse pos
+        RollingCoolDownFixedUpdate();
+        FixedUpdateMaxRollingTime();
+    }
+    public void HandlePlayerMoving()
+    {
+        rb.velocity = inputDirection * moveSpeed;
+    }
 
-
-        if (!PlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("roll_anim"))
+    void RollingCoolDownFixedUpdate()
+    {
+        if (!canRoll)
         {
-            PlayerAnimator.SetBool(_rollAnimName, false);
-            playerCharacter.invincible = false;
-            _curSpeed = Speed;
-        }
-        if (_canRoll && Input.GetKeyDown(KeyCode.Space))
-        {
-            _canRoll = false;
-            PlayerAnimator.SetBool(_rollAnimName, true);
-            playerCharacter.invincible = true;
-            _curSpeed = RollingSpeed;
-            Invoke(nameof(UpdateCanRoll), RollingCoolDownTimer);
+            rollingCoolDownRemainingTime -= Time.fixedDeltaTime;
+            if (rollingCoolDownRemainingTime <= 0)
+            {
+                canRoll = true;
+            }
         }
     }
 
-    void UpdateCanRoll()
+    void FixedUpdateMaxRollingTime()
     {
-        _canRoll = true;
+        if (isRolling)
+        {
+            rollingTimeRemaining -= Time.fixedDeltaTime;
+            if (rollingTimeRemaining <= 0)
+            {
+                canRoll = false;
+            }
+        }
     }
 
     public void HandleTakenDamage(DamageDealer damageDealer)
     {
         PlayerAnimator.Play(hurtHash, hurtLayerIndex);
-        //TODO: Apply Hurt Knockback Force
-        PlayerBodySprite.flipX = damageDealer.transform.position.x > transform.position.x;
-        IEnumerator Knockback()
-        {
-            float timer = 0.5f;
-            while (timer > 0f)
-            {
-                transform.Translate(damageDealer.transform.rotation.eulerAngles.normalized * damageDealer.knockbackForce * Time.deltaTime);
-                timer -= Time.deltaTime;
-                yield return null;
-            }
-        }
-        StartCoroutine(Knockback());
+        rb.velocity = Vector2.zero;
+        PlayerBodySprite.flipX = damageDealer.transform.position.x < transform.position.x;
+        Vector2 dir = new Vector2(transform.position.x - transform.position.x, transform.position.y - transform.position.y).normalized;
+        rb.AddForce(dir * damageDealer.knockbackForce, ForceMode2D.Impulse);
     }
 
     public void HandleDead()
-    {
+    {   
+        rb.velocity = Vector2.zero;
         PlayerAnimator.Play(deadHash, hurtLayerIndex);
     }
 

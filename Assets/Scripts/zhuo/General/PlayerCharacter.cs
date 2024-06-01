@@ -4,5 +4,11 @@ using UnityEngine;
 
 public class PlayerCharacter : Character
 {
-    
+    public CharacterConfig config;
+
+    public virtual void HandleConfigUpdate()
+    {
+        maxHp = config.maxHp;
+
+    }
 }

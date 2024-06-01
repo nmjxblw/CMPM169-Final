@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     public GunController GunController;
-    public PlayerMovements PlayerMovements;
+    public PlayerMovements playerMovements;
 
     public UnityEvent<GunType> onGunChanged;
 
@@ -35,13 +35,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void IncreaseSpeed(float speeed)
+    public void IncreaseSpeed(float speed)
     {
-        PlayerMovements.Speed += speeed;
+        playerMovements.moveSpeed += speed;
     }
 
-    public void DecreaseSpeed(float speeed)
+    public void DecreaseSpeed(float speed)
     {
-        PlayerMovements.Speed -= speeed;
+        playerMovements.moveSpeed -= speed;
     }
 }

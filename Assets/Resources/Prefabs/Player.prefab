@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GunController: {fileID: 5008113288978824231}
-  PlayerMovements: {fileID: 0}
+  playerMovements: {fileID: 0}
   onGunChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -122,13 +122,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCharacter: {fileID: 0}
-  Speed: 50
-  RollingSpeed: 80
-  RollingCoolDownTimer: 5
+  rb: {fileID: 269807099489424857}
+  moveSpeed: 50
+  rollingSpeed: 80
+  rollingCoolDown: 0.5
+  rollingCoolDownRemainingTime: 0
+  maxRollingTime: 1
+  rollingTimeRemaining: 0
   PlayerAnimator: {fileID: 2192052089790427314}
   PlayerBodySprite: {fileID: 7949415474760123371}
   hurtLayerIndex: 0
   invincibleLayerIndex: 0
+  isRolling: 0
+  canRoll: 1
+  inputDirection: {x: 0, y: 0}
   lastInputDirection: {x: 1, y: 0}
 --- !u!50 &269807099489424857
 Rigidbody2D:
@@ -254,7 +261,7 @@ MonoBehaviour:
   _maxHp: 30
   invincible: 0
   _invincibleDuration: 2
-  invincibleTimeRemaining: 0
+  invincibleTimeRemaining: 2
   onInvincibleStart:
     m_PersistentCalls:
       m_Calls: []
@@ -272,6 +279,7 @@ MonoBehaviour:
   UIUpdateEvent:
     m_PersistentCalls:
       m_Calls: []
+  config: {fileID: 0}
 --- !u!1 &7800068904720325909
 GameObject:
   m_ObjectHideFlags: 0

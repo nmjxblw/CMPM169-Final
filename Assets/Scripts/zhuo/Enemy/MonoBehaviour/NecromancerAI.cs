@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 using NavMeshPlus.Components;
+using UnityEngine.Events;
 
 public class NercomancerAI : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class NercomancerAI : MonoBehaviour
     [Header("Fury Model")]
     [Range(0f, 1f)] public float furyThreshold = 1f / 3f;
     public FuryModel currentFuryModel = FuryModel.normal;
+    public UnityEvent StageChangeEvent;
     public void OnEnable()
     {
         target = target == null ? GameObject.FindGameObjectWithTag("Player") : target;
@@ -92,10 +94,11 @@ public class NercomancerAI : MonoBehaviour
     {
         if (currentFuryModel == FuryModel.fury)
             return;
-        if (enemyCharacter.hp / enemyCharacter.maxHp <= furyThreshold)
+        if ((float)enemyCharacter.hp / (float)enemyCharacter.maxHp <= furyThreshold)
         {
             currentFuryModel = FuryModel.fury;
             decisionInterval = 1f;
+            StageChangeEvent?.Invoke();
         }
     }
     public void Update()
@@ -184,6 +187,11 @@ public class NercomancerAI : MonoBehaviour
                 necromancerControl.HandleSkill2();
                 break;
         }
+    }
+
+    public void HandleDead()
+    {
+        agent.isStopped = true;
     }
 
     private void OnDrawGizmos()

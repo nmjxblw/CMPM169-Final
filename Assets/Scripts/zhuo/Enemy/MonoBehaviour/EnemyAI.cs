@@ -84,7 +84,8 @@ public class EnemyAI : MonoBehaviour
         target = player.transform;
         agent.SetDestination(new Vector3(target.position.x, target.position.y, 0));
         destination = agent.destination;
-        distanceToAgentDestination = Vector3.Distance(transform.position, agent.destination);
+        Vector2 distance = new Vector2(destination.x - transform.position.x, destination.y - transform.position.y);
+        distanceToAgentDestination = distance.magnitude;
         if (distanceToAgentDestination > agent.stoppingDistance)
         {
             steeringTarget = agent.steeringTarget;

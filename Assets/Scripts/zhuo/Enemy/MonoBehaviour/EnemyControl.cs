@@ -22,6 +22,8 @@ public class EnemyControl : MonoBehaviour
     public static int baseLayerIndex;
     public static int hurtLayerIndex;
     #endregion
+    [Header("Rigidbody 2D")]
+    public Rigidbody2D rb;
     [Header("Moving Setting")]
     public bool isSprinting = false;
     public bool canInput = true;

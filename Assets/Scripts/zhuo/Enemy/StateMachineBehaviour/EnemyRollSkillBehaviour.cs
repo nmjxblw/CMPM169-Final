@@ -23,6 +23,7 @@ public class EnemyRollSkillBehaviour : StateMachineBehaviour
         ai = transform.GetComponent<EnemyAI>();
         enemyControl.isSkill = true;
         enemyControl.skillActivable = false;
+        enemyControl.attackArea.SetActive(false);
         enemyControl.skillArea.SetActive(true);
         enemyControl.StartCoroutine(RollingCoroutine());
         rollDirection = (Vector3)enemyControl.inputDirection;
@@ -38,6 +39,7 @@ public class EnemyRollSkillBehaviour : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         enemyControl.skillArea.SetActive(false);
+        enemyControl.attackArea.SetActive(true);
         enemyControl.isSkill = false;
         enemyControl.StopCoroutine(RollingCoroutine());
     }

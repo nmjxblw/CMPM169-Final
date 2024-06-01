@@ -38,12 +38,11 @@ public class Character : MonoBehaviour
     public int maxHp { get { return _maxHp; } set { _maxHp = value; } }
     public bool invincible;
     [SerializeField]
-    protected float _invincibleDuration = 0.5f;
+    protected float _invincibleDuration;
     public float invincibleDuration { get { return _invincibleDuration; } protected set { _invincibleDuration = value; } }
     public float invincibleTimeRemaining;
     public UnityEvent onInvincibleStart;
     public UnityEvent onInvincibleEnd;
-    public Coroutine invincibleCoroutine;
     public bool hurt;
     public UnityEvent<DamageDealer> onTakenDamage;
     public bool dead;
@@ -52,7 +51,6 @@ public class Character : MonoBehaviour
 
     public virtual void Awake()
     {
-        onInvincibleStart.AddListener(TriggerInvincible);
         RefreshHp();
     }
     public virtual void RefreshHp()
@@ -69,7 +67,7 @@ public class Character : MonoBehaviour
     {
         invincibleDuration = duration;
         //Refresh invincible remaining time while get buff.
-        if (invincibleCoroutine != null)
+        if (invincible)
             invincibleTimeRemaining = duration;
     }
     protected virtual void OnDisable()
@@ -81,34 +79,38 @@ public class Character : MonoBehaviour
     public virtual void TakeDamage(DamageDealer damageDealer)
     {
         if (invincible || dead) return;
-        hp -= damageDealer.damage;
-        if (hp > 0)
-        {
-            onInvincibleStart?.Invoke();
-            onTakenDamage?.Invoke(damageDealer);
-        }
         else
-            currentState = CharacterHealthState.Dead;
-        //TODO:UI Display
-        UIUpdateEvent?.Invoke();
+        {
+            TriggerInvincible();
+            hp -= damageDealer.damage;
+            if (hp > 0)
+            {
+                onTakenDamage?.Invoke(damageDealer);
+            }
+            else
+                currentState = CharacterHealthState.Dead;
+            //TODO:UI Display
+            UIUpdateEvent?.Invoke();
+        }
     }
     public virtual void TriggerInvincible()
     {
-        if (invincibleCoroutine != null)
-            StopCoroutine(invincibleCoroutine);
-        invincibleCoroutine = StartCoroutine(InvincibleCoroutine());
-    }
-
-    public virtual IEnumerator InvincibleCoroutine()
-    {
+        Debug.Log($"Trigger Invincible, Current invincible is {invincible}");
         invincible = true;
         invincibleTimeRemaining = invincibleDuration;
-        while (invincibleTimeRemaining > 0)
+        onInvincibleStart?.Invoke();
+    }
+
+    public virtual void FixedUpdate()
+    {
+        if (invincible)
         {
-            invincibleTimeRemaining = Mathf.Clamp(invincibleTimeRemaining - Time.deltaTime, 0f, invincibleDuration);
-            yield return null;
+            invincibleTimeRemaining -= Time.fixedDeltaTime;
+            if (invincibleTimeRemaining <= 0f)
+            {
+                invincible = false;
+                onInvincibleEnd?.Invoke();
+            }
         }
-        invincible = false;
-        onInvincibleEnd?.Invoke();
     }
 }
