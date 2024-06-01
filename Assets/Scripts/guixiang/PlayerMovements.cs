@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class PlayerMovements : MonoBehaviour
 {
+    [Header("Player Config")]
+    public PlayerConfig playerConfig;
     [Header("Player Character")]
     public PlayerCharacter playerCharacter;
     public Rigidbody2D rb;
-    public float moveSpeed = 50f;
-    public float rollingSpeed = 80f;
-    public float rollingCoolDown = 0.5f;
     public float rollingCoolDownRemainingTime;
-    public float maxRollingTime = 1f;
     public float rollingTimeRemaining;
     public Animator PlayerAnimator;
 
@@ -84,7 +82,7 @@ public class PlayerMovements : MonoBehaviour
     }
     public void HandlePlayerMoving()
     {
-        rb.velocity = inputDirection * moveSpeed;
+        rb.velocity = inputDirection * playerConfig.moveSpeed;
     }
 
     void RollingCoolDownFixedUpdate()
@@ -121,7 +119,7 @@ public class PlayerMovements : MonoBehaviour
     }
 
     public void HandleDead()
-    {   
+    {
         rb.velocity = Vector2.zero;
         PlayerAnimator.Play(deadHash, hurtLayerIndex);
     }

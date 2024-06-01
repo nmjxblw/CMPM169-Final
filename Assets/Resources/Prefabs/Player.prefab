@@ -51,7 +51,6 @@ MonoBehaviour:
   - {fileID: 1999660760761355894}
   - {fileID: 8968357573810360462}
   - {fileID: 1090885541259306526}
-  AdjustFiringInterval: 0
   Gun: {fileID: 1999660760761355894}
 --- !u!1 &6094182736062030914
 GameObject:
@@ -62,7 +61,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2192797916884969330}
-  - component: {fileID: 1681599800733714007}
   - component: {fileID: 2838126191795029414}
   - component: {fileID: 269807099489424857}
   - component: {fileID: 1095361343025224831}
@@ -92,23 +90,6 @@ Transform:
   - {fileID: 1040778070382675608}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1681599800733714007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6094182736062030914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c31b0117b32ad1449404bb8d369dd85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GunController: {fileID: 5008113288978824231}
-  playerMovements: {fileID: 0}
-  onGunChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &2838126191795029414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,13 +102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e929788c187a6a64fbe463ab71940393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerConfig: {fileID: 11400000, guid: f50df5497ec6eb346a373df8b465bbab, type: 2}
   playerCharacter: {fileID: 0}
   rb: {fileID: 269807099489424857}
-  moveSpeed: 50
-  rollingSpeed: 80
-  rollingCoolDown: 0.5
   rollingCoolDownRemainingTime: 0
-  maxRollingTime: 1
   rollingTimeRemaining: 0
   PlayerAnimator: {fileID: 2192052089790427314}
   PlayerBodySprite: {fileID: 7949415474760123371}
@@ -279,7 +257,7 @@ MonoBehaviour:
   UIUpdateEvent:
     m_PersistentCalls:
       m_Calls: []
-  config: {fileID: 0}
+  playerConfig: {fileID: 11400000, guid: f50df5497ec6eb346a373df8b465bbab, type: 2}
 --- !u!1 &7800068904720325909
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,6 +416,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4890693233542119874, guid: 1d5025354a330ac4c8e9e06f587b757c, type: 3}
+      propertyPath: gunConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: cfc03623d6eafd9428be6727f6949b02, type: 2}
     - target: {fileID: 4920517859588368681, guid: 1d5025354a330ac4c8e9e06f587b757c, type: 3}
       propertyPath: m_Name
       value: GunR1
@@ -448,7 +430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4920517859588368681, guid: 1d5025354a330ac4c8e9e06f587b757c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7772912885452522892, guid: 1d5025354a330ac4c8e9e06f587b757c, type: 3}
       propertyPath: m_Layer

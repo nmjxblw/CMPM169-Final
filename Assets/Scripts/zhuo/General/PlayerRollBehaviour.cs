@@ -6,23 +6,25 @@ public class PlayerRollBehaviour : StateMachineBehaviour
 {
     public PlayerCharacter playerCharacter;
     public PlayerMovements playerMovements;
+    public PlayerConfig playerConfig;
     public Vector3 rollDirection;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         playerCharacter = playerCharacter ?? animator.transform.parent.GetComponent<PlayerCharacter>();
         playerMovements = playerMovements ?? animator.transform.parent.GetComponent<PlayerMovements>();
+        playerConfig = playerConfig == null ? playerCharacter.playerConfig : playerConfig;
         playerCharacter.invincible = true;
         playerMovements.isRolling = true;
         playerMovements.PlayerBodySprite.flipX = playerMovements.lastInputDirection.x < 0;
         rollDirection = playerMovements.lastInputDirection;
-        playerMovements.rollingTimeRemaining = playerMovements.maxRollingTime;
+        playerMovements.rollingTimeRemaining = playerConfig.maxRollingTime;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        playerMovements.rb.velocity = rollDirection * playerMovements.rollingSpeed;
+        playerMovements.rb.velocity = rollDirection * playerConfig.rollingSpeed;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
@@ -31,7 +33,7 @@ public class PlayerRollBehaviour : StateMachineBehaviour
         playerMovements.isRolling = false;
         playerCharacter.invincible = playerCharacter.invincibleTimeRemaining > 0;
         playerMovements.canRoll = false;
-        playerMovements.rollingCoolDownRemainingTime = playerMovements.rollingCoolDown;
+        playerMovements.rollingCoolDownRemainingTime = playerConfig.rollingCoolDown;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

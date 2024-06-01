@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     [SerializeField]
     public static int levelDifficulty = 0;
+    public PlayerConfig playerConfig;
+    public List<GunConfig> gunConfigs;
     public static GameManager Instance
     {
         get
@@ -34,6 +36,16 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(this.gameObject);
+        }
+        InitializedAssets();
+    }
+
+    public void InitializedAssets()
+    {
+        playerConfig.ReadDataFromCSV();
+        foreach (var config in gunConfigs)
+        {
+            config.ReadDataFromCSV();
         }
     }
 }

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e332208e77fcac4cb2eac8088894b98, type: 3}
+  m_Name: PistolConfig
+  m_EditorClassIdentifier: 
+  textAsset: {fileID: 4900000, guid: 1f09d5004e7af8e4c8c74bc499e85a6a, type: 3}
+  gunType: 0
+  damage: 7
+  knockbackForce: 1
+  fireInterval: 1
+  bulletPrefab: {fileID: 2423862593725999780, guid: e664ac63a7a6d1d48ba1d8f0a9d9f6e7, type: 3}
+  bulletSpeed: 120

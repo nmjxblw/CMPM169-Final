@@ -6,13 +6,10 @@ using UnityEngine;
 public class GunController : MonoBehaviour
 {
     public Gun[] Guns;
-    public float AdjustFiringInterval = 0;
     private Vector3 mousePos;
     private Vector3 objectPos;
     private float rotateAngle;
     private bool rotated;
-
-    private bool CanShoot = true;
 
     public Gun Gun;
 
@@ -29,11 +26,10 @@ public class GunController : MonoBehaviour
 
         RotateGun();
 
-        if (Input.GetMouseButton(0) && CanShoot)
+        if (Input.GetMouseButton(0))
         {
+            Gun.gameObject.SetActive(true);
             Gun.Shoot(rotated, transform.rotation);
-            CanShoot = false;
-            Invoke(nameof(UpdateCanShoot), Gun.ShootingInterval - AdjustFiringInterval);
         }
     }
 
@@ -41,7 +37,7 @@ public class GunController : MonoBehaviour
     {
         foreach (var gun in Guns)
         {
-            if (gun.GunType == gunType)
+            if (gun.gunConfig.gunType == gunType)
             {
                 Gun.gameObject.SetActive(false);
                 gun.gameObject.SetActive(true);
@@ -52,10 +48,6 @@ public class GunController : MonoBehaviour
         return false;
     }
 
-    private void UpdateCanShoot()
-    {
-        CanShoot = true;
-    }
 
     private void RotateGun()
     {
@@ -73,7 +65,7 @@ public class GunController : MonoBehaviour
         if (mousePos.y < objectPos.y)
         {
             Gun.SpriteRenderer.sortingOrder = playerOrder + 1;
-        } 
+        }
         else
         {
             Gun.SpriteRenderer.sortingOrder = playerOrder - 1;

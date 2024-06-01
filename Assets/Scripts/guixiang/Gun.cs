@@ -6,11 +6,11 @@ using UnityEngine.UIElements;
 public class Gun : MonoBehaviour
 {
     public SpriteRenderer SpriteRenderer { get; set; }
-    public GameObject BulletPrefab;
     public GameObject BulletSpawnPos;
     public GameObject BulletFiring;
-    public float ShootingInterval = 1;
-    public GunType GunType;
+    public bool canShot;
+    public float intervalRemaining;
+    public GunConfig gunConfig;
 
     private void Awake()
     {
@@ -19,8 +19,11 @@ public class Gun : MonoBehaviour
 
     public void Shoot(bool rotated, Quaternion rotation)
     {
-        Bullet b = PoolManager.Release(BulletPrefab, BulletSpawnPos.transform.position, rotation).GetComponent<Bullet>();
+        if (!canShot) return;
+        canShot = false;
+        Bullet b = PoolManager.Release(gunConfig.bulletPrefab, BulletSpawnPos.transform.position, rotation).GetComponent<Bullet>();
         b.rotated = rotated;
+        b.SetBulletData(gunConfig.bulletSpeed, gunConfig.damage, gunConfig.knockbackForce);
         ShowBulletFiring();
     }
 
@@ -35,5 +38,17 @@ public class Gun : MonoBehaviour
     private void HideBulletFiring()
     {
         BulletFiring.SetActive(false);
+    }
+    public void FixedUpdate()
+    {
+        if (!canShot)
+        {
+            intervalRemaining -= Time.fixedDeltaTime;
+            if (intervalRemaining <= 0)
+            {
+                canShot = true;
+                intervalRemaining = gunConfig.fireInterval;
+            }
+        }
     }
 }

@@ -26,7 +26,7 @@ public class Character : MonoBehaviour
 
     [SerializeField]
     protected int _hp;
-    public int hp
+    public virtual int hp
     {
         get
         { return _hp; }
@@ -35,11 +35,11 @@ public class Character : MonoBehaviour
     }
     [SerializeField]
     protected int _maxHp;
-    public int maxHp { get { return _maxHp; } set { _maxHp = value; } }
+    public virtual int maxHp { get { return _maxHp; } set { _maxHp = value; } }
     public bool invincible;
     [SerializeField]
     protected float _invincibleDuration;
-    public float invincibleDuration { get { return _invincibleDuration; } protected set { _invincibleDuration = value; } }
+    public virtual float invincibleDuration { get { return _invincibleDuration; } protected set { _invincibleDuration = value; } }
     public float invincibleTimeRemaining;
     public UnityEvent onInvincibleStart;
     public UnityEvent onInvincibleEnd;
@@ -89,13 +89,11 @@ public class Character : MonoBehaviour
             }
             else
                 currentState = CharacterHealthState.Dead;
-            //TODO:UI Display
             UIUpdateEvent?.Invoke();
         }
     }
     public virtual void TriggerInvincible()
     {
-        Debug.Log($"Trigger Invincible, Current invincible is {invincible}");
         invincible = true;
         invincibleTimeRemaining = invincibleDuration;
         onInvincibleStart?.Invoke();

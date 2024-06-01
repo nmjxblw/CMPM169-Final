@@ -206,11 +206,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c2144d03c68a3c438f626ada43c883b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 2423862593725999780, guid: e664ac63a7a6d1d48ba1d8f0a9d9f6e7, type: 3}
   BulletSpawnPos: {fileID: 7772912885452522892}
   BulletFiring: {fileID: 3788480672658562033}
-  ShootingInterval: 0.5
-  GunType: 0
+  canShot: 0
+  intervalRemaining: 0
+  gunConfig: {fileID: 11400000, guid: cfc03623d6eafd9428be6727f6949b02, type: 2}
 --- !u!61 &1210526804655738194
 BoxCollider2D:
   m_ObjectHideFlags: 0

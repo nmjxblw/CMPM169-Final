@@ -105,7 +105,7 @@ public class Room : MonoBehaviour
     public void killThisRoomEnemy(GameObject enemy)
     {
         enemies.Remove(enemy);
-        enemyCount=enemies.Count;
+        enemyCount = enemies.Count;
     }
 
     public void HandleEnemySpawnedDone()
@@ -121,9 +121,9 @@ public class Room : MonoBehaviour
         vortexLeft.SetActive(roomLeft);
         vortexRight.SetActive(roomRight);
 
-        if(isBuffRoom)
+        if (isBuffRoom)
         {
-            applyBuff(BuffContainer.Instance.healthBuff, BuffContainer.Instance.healthRecoveryBuff);
+            applyBuff(BuffContainer.Instance.switchToAutomaticRifle, BuffContainer.Instance.addGunsDamage);
         }
 
 
@@ -154,6 +154,6 @@ public class Room : MonoBehaviour
             //恢复游戏
             Time.timeScale = 1;
         });
-        
+
     }
 }

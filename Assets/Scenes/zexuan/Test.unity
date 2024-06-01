@@ -1059,6 +1059,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec0032f3d2e2f143927aa4395aaca38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerConfig: {fileID: 11400000, guid: f50df5497ec6eb346a373df8b465bbab, type: 2}
+  gunConfigs:
+  - {fileID: 11400000, guid: f1e9d52fd50873f41aead1d25e640a56, type: 2}
+  - {fileID: 11400000, guid: cfc03623d6eafd9428be6727f6949b02, type: 2}
+  - {fileID: 11400000, guid: 0c7a4689435387d45b4d3f3dc6d6261d, type: 2}
 --- !u!4 &890779882
 Transform:
   m_ObjectHideFlags: 0
@@ -1579,7 +1584,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 76aabf96a5c0bc344bbf52c048de473f, type: 2}
   NumberOfPresentEnemies: 0
-  currentLevel: 0
+  currentDifficulty: 0
+  remainingWaves: 0
+  currentRoom: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &1389848005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1743,6 +1751,10 @@ PrefabInstance:
     - target: {fileID: 5836409075716305883, guid: 850bdc73a81921149a0b6d7a563b5a47, type: 3}
       propertyPath: m_Name
       value: BossHpDisplayPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836409075716305883, guid: 850bdc73a81921149a0b6d7a563b5a47, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2038,6 +2050,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
+  playerConfig: {fileID: 11400000, guid: f50df5497ec6eb346a373df8b465bbab, type: 2}
+  gunConfigs:
+  - {fileID: 11400000, guid: f1e9d52fd50873f41aead1d25e640a56, type: 2}
+  - {fileID: 11400000, guid: cfc03623d6eafd9428be6727f6949b02, type: 2}
+  - {fileID: 11400000, guid: 0c7a4689435387d45b4d3f3dc6d6261d, type: 2}
 --- !u!114 &1613153527
 MonoBehaviour:
   m_ObjectHideFlags: 0
