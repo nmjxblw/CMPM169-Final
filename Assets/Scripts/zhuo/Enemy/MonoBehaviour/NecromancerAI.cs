@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 using NavMeshPlus.Components;
 using UnityEngine.Events;
 
-public class NercomancerAI : MonoBehaviour
+public class NecromancerAI : MonoBehaviour
 {
     public bool isAwake = false;
     [Header("Component Settings")]
@@ -45,6 +45,7 @@ public class NercomancerAI : MonoBehaviour
     [Range(0f, 1f)] public float furyThreshold = 1f / 3f;
     public FuryModel currentFuryModel = FuryModel.normal;
     public UnityEvent StageChangeEvent;
+    public UnityEvent OnAIAwakeEvent;
     public void OnEnable()
     {
         target = target == null ? GameObject.FindGameObjectWithTag("Player") : target;
@@ -58,6 +59,7 @@ public class NercomancerAI : MonoBehaviour
                 yield return null;
             }
             isAwake = true;
+            OnAIAwakeEvent?.Invoke();
             SetDestination();
         }
         StartCoroutine(AwakeInvoke());

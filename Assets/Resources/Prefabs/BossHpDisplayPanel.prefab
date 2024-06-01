@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 937728809026210628}
-  - component: {fileID: 2380641024504730076}
+  - component: {fileID: 2569645278355919999}
   m_Layer: 5
   m_Name: HpBar
   m_TagString: Untagged
@@ -40,7 +40,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2380641024504730076
+--- !u!114 &2569645278355919999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -49,11 +49,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1464549251307424194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 719105e201ba2c343b7aa3d9bf05fdac, type: 3}
+  m_Script: {fileID: 11500000, guid: 609dfaf9b7455fa4cb773b6687b7f54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
-  hpBarEffectDuration: 0.5
+  currentHealthImage: {fileID: 4262376441349136607}
+  displayHealthImage: {fileID: 3405195075923068859}
+  bossName: {fileID: 2786602302157333837}
+  bossStage: {fileID: 4622931907533918241}
+  ai: {fileID: 0}
 --- !u!1 &1871986651374138956
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +258,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 18e709b76ac761b4eb3cfb4ef0d00f82, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2495c7ce3db3f6345966546fc61517d9, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -487,10 +491,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f13411e73470c54ca9f18c63dc511df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  images: []
-  imagesTargetAlpha: []
-  texts: []
-  textsTargetAlpha: []
+  images:
+  - {fileID: 3796055903007821285}
+  - {fileID: 2460163161059569842}
+  - {fileID: 3405195075923068859}
+  - {fileID: 4262376441349136607}
+  imagesTargetAlpha:
+  - 0
+  texts:
+  - {fileID: 2786602302157333837}
+  - {fileID: 4622931907533918241}
+  textsTargetAlpha:
+  - 0
   fadeInDuration: 1
 --- !u!1 &8093066289359518668
 GameObject:
@@ -557,7 +569,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: df4bc4f9eed22dd42ac20094b964c8f6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4acc3a200859e474c86d23cd53c81ba4, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -632,7 +644,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 97961503057929643891e045c4e4bb85, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f2101df4769f91842b9b2ec78c11dcf7, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
