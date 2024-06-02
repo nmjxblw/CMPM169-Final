@@ -80,6 +80,7 @@ public class Room : MonoBehaviour
         }
 
         enemyGenerator = GameObject.Find("EventSystem").GetComponent<EnemyGenerator>();
+        player = GameObject.FindWithTag("Player");
     }
 
     private void UpdateRoomText()
@@ -121,9 +122,47 @@ public class Room : MonoBehaviour
         vortexLeft.SetActive(roomLeft);
         vortexRight.SetActive(roomRight);
 
+        Buff buff1;
+        Buff buff2;
         if (isBuffRoom)
         {
-            applyBuff(BuffContainer.Instance.switchToAutomaticRifle, BuffContainer.Instance.addGunsDamage);
+            // applyBuff(BuffContainer.Instance.switchToAutomaticRifle, BuffContainer.Instance.addGunsDamage);
+            buff1 = BuffContainer.Instance.GetRandomBuff();
+            if (player.GetComponent<Character>().hp >= player.GetComponent<Character>().maxHp)
+            {
+                BuffContainer.Instance.DecreaseBuffWeight(BuffContainer.Instance.healthRecoveryBuff, 50.0f);
+            }
+            else
+            {
+                if(BuffContainer.Instance.isBuffExist(BuffContainer.Instance.healthRecoveryBuff) == false){
+                    BuffContainer.Instance.IncreaseBuffWeight(BuffContainer.Instance.healthRecoveryBuff, 30.0f);
+                }
+            }
+
+            if(isBeforeEndRoom)
+            {
+                buff1 = BuffContainer.Instance.healthRecoveryBuff;
+            }
+
+            if (roomStep >= 3)
+            {
+                BuffContainer.Instance.IncreaseBuffWeight(BuffContainer.Instance.addGunsDamage, 10.0f);
+                BuffContainer.Instance.IncreaseBuffWeight(BuffContainer.Instance.reduceFireInterval, 10.0f);
+            }
+
+            buff2 = BuffContainer.Instance.GetRandomBuff();
+            while (buff2 == buff1)
+            {
+                buff2 = BuffContainer.Instance.GetRandomBuff();
+            }
+
+            if (buff1.name == "SwitchToAutomaticRifle" || buff2.name == "SwitchToAutomaticRifle")
+            {
+                BuffContainer.Instance.AddOnceOnlyBuff("SwitchToAutomaticRifle");
+
+            }
+            // BuffContainer.Instance.printBuffWeights();
+            applyBuff(buff1, buff2);
         }
 
 
@@ -157,3 +196,5 @@ public class Room : MonoBehaviour
 
     }
 }
+
+

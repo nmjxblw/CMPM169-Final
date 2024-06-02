@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BuffContainer : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class BuffContainer : MonoBehaviour
     public Buff addGunsDamage; //增加枪械伤害buff
     public Buff reduceFireInterval;// 减少开火间隔
     public Buff switchToAutomaticRifle;// 切换到自动步枪
+
+
+    private Dictionary<Buff, float> buffWeights;
+    private HashSet<string> onceOnlyBuffs;
 
     //单例模式
     private static BuffContainer _instance;
@@ -60,6 +65,7 @@ public class BuffContainer : MonoBehaviour
         CreateAddGunsDamage(1);
         CreateReduceFireInterval(0.2f);
         CreateSwitchToAutomaticRifle();
+        InitializeBuffWeights();
     }
 
     private void Update()
@@ -164,5 +170,97 @@ public class BuffContainer : MonoBehaviour
         {
 
         };
+    }
+
+    private void InitializeBuffWeights()
+    {
+        buffWeights = new Dictionary<Buff, float>
+        {
+            { healthBuff, 30 },
+            { healthRecoveryBuff, 30 },
+            { invincibleLongerBuff, 30 },
+            { addGunsDamage, 10 },
+            { reduceFireInterval, 10 },
+            // { switchToAutomaticRifle, 25 }
+        };
+
+        onceOnlyBuffs = new HashSet<string> {  };
+    }
+
+    public void IncreaseBuffWeight(Buff buff, float increment)
+    {
+        if (buffWeights.ContainsKey(buff))
+        {
+            buffWeights[buff] += increment;
+        }
+        else
+        {
+            buffWeights[buff] = increment;
+        }
+    }
+
+    public void DecreaseBuffWeight(Buff buff, float decrement)
+    {
+        if (buffWeights.ContainsKey(buff) && buffWeights[buff] > decrement)
+        {
+            buffWeights[buff] -= decrement;
+        }
+        else
+        {
+            buffWeights.Remove(buff);
+        }
+    }
+
+    public bool isBuffExist(Buff buff)
+    {
+        return buffWeights.ContainsKey(buff);
+    }
+
+    public void SetBuffWeight(Buff buff, float newWeight)
+    {
+        if (newWeight > 0)
+        {
+            buffWeights[buff] = newWeight;
+        }
+        else
+        {
+            buffWeights.Remove(buff);
+        }
+    }
+
+    public void AddOnceOnlyBuff(string buffName)
+    {
+        onceOnlyBuffs.Add(buffName);
+    }
+
+    public Buff GetRandomBuff()
+    {
+        if (onceOnlyBuffs.Count > 0)
+        {
+            buffWeights.Remove(buffWeights.Keys.FirstOrDefault(b => onceOnlyBuffs.Contains(b.name)));
+            onceOnlyBuffs.Clear();
+        }
+
+
+        float totalWeight = buffWeights.Values.Sum();
+        float randomPoint = Random.value * totalWeight;
+
+        foreach (var buff in buffWeights)
+        {
+            if (randomPoint < buff.Value)
+            {
+                return buff.Key;
+            }
+            randomPoint -= buff.Value;   
+        }
+        return null;
+    }
+
+    public void printBuffWeights()
+    {
+        foreach (var buff in buffWeights)
+        {
+            Debug.Log(buff.Key.name + ": " + buff.Value);
+        }
     }
 }
