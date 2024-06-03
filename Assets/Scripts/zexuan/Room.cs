@@ -127,7 +127,7 @@ public class Room : MonoBehaviour
         if (isBuffRoom)
         {
             // applyBuff(BuffContainer.Instance.switchToAutomaticRifle, BuffContainer.Instance.addGunsDamage);
-            buff1 = BuffContainer.Instance.GetRandomBuff();
+            
             if (player.GetComponent<Character>().hp >= player.GetComponent<Character>().maxHp)
             {
                 BuffContainer.Instance.DecreaseBuffWeight(BuffContainer.Instance.healthRecoveryBuff, 50.0f);
@@ -150,6 +150,7 @@ public class Room : MonoBehaviour
                 BuffContainer.Instance.IncreaseBuffWeight(BuffContainer.Instance.reduceFireInterval, 10.0f);
             }
 
+            buff1 = BuffContainer.Instance.GetRandomBuff();
             buff2 = BuffContainer.Instance.GetRandomBuff();
             while (buff2 == buff1)
             {
@@ -161,7 +162,7 @@ public class Room : MonoBehaviour
                 BuffContainer.Instance.AddOnceOnlyBuff("SwitchToAutomaticRifle");
 
             }
-            // BuffContainer.Instance.printBuffWeights();
+            BuffContainer.Instance.printBuffWeights();
             applyBuff(buff1, buff2);
         }
 

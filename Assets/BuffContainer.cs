@@ -111,7 +111,7 @@ public class BuffContainer : MonoBehaviour
 
     private void CreateInvincibleLongerBuff()
     {
-        invincibleLongerBuff = new Buff("InvincibleLongerBuff", 0, true, "Extend invincibility time by 0.5 seconds");
+        invincibleLongerBuff = new Buff("InvincibleLongerBuff", 0, true, "Increases the invincibility time of rolling");
         invincibleLongerBuff.ApplyEffect = () =>
         {
             playerConfig.invincibleDuration += 0.5f;
