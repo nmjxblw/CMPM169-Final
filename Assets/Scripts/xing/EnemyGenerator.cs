@@ -62,6 +62,7 @@ public class EnemyGenerator : MonoBehaviour
         }
         else if (room.isBeforeEndRoom)
         {
+            room.isBuffRoom = true;
             room.isLocked = false;
             room.RoomIsEmpty();
             return;
@@ -118,7 +119,7 @@ public class EnemyGenerator : MonoBehaviour
 
     private int GetWeightedRandomDifficulty(int level)
     {
-        float[] weights = { 0.3f, 0.3f, 0.3f, 0.1f };
+        float[] weights = { 0.25f, 0.25f, 0.35f, 0.15f };
         float totalWeight = 0;
         for (int i = 0; i < weights.Length; i++)
         {
