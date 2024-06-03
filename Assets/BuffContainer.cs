@@ -166,11 +166,11 @@ public class BuffContainer : MonoBehaviour
         defenseBuff = new Buff("DefenceBuff", 0, true, "All damage received is reduced by 1");
         defenseBuff.ApplyEffect = () =>
         {
-            Player.GetComponent<PlayerCharacter>().playerConfig.defense += 1;
+            playerConfig.defense += 1;
         };
         defenseBuff.RemoveEffect = () =>
         {
-            Player.GetComponent<PlayerCharacter>().playerConfig.defense -= 1;
+            playerConfig.defense -= 1;
         };
     }
 
@@ -179,11 +179,11 @@ public class BuffContainer : MonoBehaviour
         speedBuff = new Buff("SpeedBuff", 0, true, "Movement speed increased by 20%");
         speedBuff.ApplyEffect = () =>
         {
-            Player.GetComponent<PlayerCharacter>().playerConfig.moveSpeed += 10;
+            playerConfig.moveSpeed += 10;
         };
         speedBuff.RemoveEffect = () =>
         {
-            Player.GetComponent<PlayerCharacter>().playerConfig.moveSpeed -= 10;
+            playerConfig.moveSpeed -= 10;
         };
     }
 
@@ -214,7 +214,7 @@ public class BuffContainer : MonoBehaviour
             // { switchToAutomaticRifle, 25 }
         };
 
-        onceOnlyBuffs = new HashSet<string> {  };
+        onceOnlyBuffs = new HashSet<string> { };
     }
 
     public void IncreaseBuffWeight(Buff buff, float increment)
@@ -281,7 +281,7 @@ public class BuffContainer : MonoBehaviour
             {
                 return buff.Key;
             }
-            randomPoint -= buff.Value;   
+            randomPoint -= buff.Value;
         }
         return null;
     }

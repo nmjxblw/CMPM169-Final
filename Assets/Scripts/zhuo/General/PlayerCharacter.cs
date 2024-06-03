@@ -17,6 +17,7 @@ public class PlayerCharacter : Character
         {
             playerConfig.maxHp = Math.Max(0, value);
             _maxHp = playerConfig.maxHp;
+            UIUpdateEvent?.Invoke();
         }
     }
     public override float invincibleDuration

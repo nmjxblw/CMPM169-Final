@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static int levelDifficulty = 0;
     public PlayerConfig playerConfig;
     public List<GunConfig> gunConfigs;
+    public UnityEvent<GameObject> onPlayerSpawnEvent;
     public static GameManager Instance
     {
         get
