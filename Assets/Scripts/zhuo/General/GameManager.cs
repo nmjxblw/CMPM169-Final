@@ -51,8 +51,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        
+    public void OnDisable(){
+        onPlayerSpawnEvent.RemoveAllListeners();
     }
 }

@@ -211,6 +211,7 @@ public class NecromancerControl : MonoBehaviour
         attackArea.SetActive(false);
         GetComponent<Collider2D>().enabled = false;
         StopAllCoroutines();
+        PoolManager.DisableAll(attackBullet);
     }
 
     public void HandleDeadAnimationDone()

@@ -81,4 +81,12 @@ public class Pool
     {
         queue.Enqueue(obj);
     }
+
+    public void DisableAll()
+    {
+        foreach (var item in queue)
+        {
+            item.SetActive(false);
+        }
+    }
 }

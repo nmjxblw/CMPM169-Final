@@ -74,4 +74,9 @@ public class PoolManager : MonoBehaviour
 #endif
         return dictionary[prefab].PrepareObject(pos, rot, localScale);
     }
+
+    public static void DisableAll(GameObject prefab)
+    {
+        dictionary[prefab].DisableAll();
+    }
 }
