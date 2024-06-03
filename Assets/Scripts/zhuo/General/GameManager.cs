@@ -50,4 +50,9 @@ public class GameManager : MonoBehaviour
             config.ReadDataFromCSV();
         }
     }
+
+    void Update()
+    {
+        
+    }
 }

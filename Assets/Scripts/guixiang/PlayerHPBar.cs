@@ -28,7 +28,7 @@ public class PlayerHPBar : MonoBehaviour
 
     private void OnDisable()
     {
-        character.UIUpdateEvent.RemoveListener(UpdateUI);
+        //character.UIUpdateEvent.RemoveListener(UpdateUI);
     }
 
     private void UpdateUI()

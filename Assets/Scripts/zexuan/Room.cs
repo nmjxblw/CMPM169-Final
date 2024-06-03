@@ -27,6 +27,7 @@ public class Room : MonoBehaviour
     public bool isLocked = true;
     public bool isBuffRoom;
     public bool isWeaponRoom;
+    public bool GameOver;
     [SerializeField]
     private int _enemyCount;
     public int enemyCount
@@ -90,6 +91,22 @@ public class Room : MonoBehaviour
         player = GameObject.FindWithTag("Player");
     }
 
+    void Update()
+    {
+        if (player.GetComponent<Character>().hp <= 0)
+        {
+            GameOver = true;
+            roomText.GetComponent<TextMeshProUGUI>().text = "Game Over\nPress R to restart";
+
+        }
+
+        if (GameOver && Input.GetKeyDown(KeyCode.R))
+        {
+            GameManager.Instance.InitializedAssets();
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        }
+    }
+
     private void UpdateRoomText()
     {
         roomText.GetComponent<TextMeshProUGUI>().text = roomStep.ToString();
@@ -131,6 +148,14 @@ public class Room : MonoBehaviour
 
         Buff buff1;
         Buff buff2;
+
+        if (isEndRoom)
+        {
+            GameOver = true;
+            roomText.GetComponent<TextMeshProUGUI>().text = "Game Over\nPress R to restart";
+            return;
+        }
+
         if (isBuffRoom)
         {
             // applyBuff(BuffContainer.Instance.switchToAutomaticRifle, BuffContainer.Instance.addGunsDamage);
