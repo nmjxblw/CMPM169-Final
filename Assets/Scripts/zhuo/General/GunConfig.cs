@@ -22,15 +22,18 @@ public class GunConfig : ScriptableObject, IComparable<GunConfig>
     public float fireInterval;
     public GameObject bulletPrefab;
     public float bulletSpeed;
+    
     public int CompareTo(GunConfig other)
     {
         return this.gunType.CompareTo(other.gunType);
     }
-    public void onEnable()
-    {
-        ReadDataFromCSV();
-        Debug.Log("Run");
-    }
+
+    // public void OnEnable()
+    // {
+    //     ReadDataFromCSV();
+    //     Debug.Log("Run");
+    // }
+
     [ContextMenu("ReadDataFromCSV")]
     public void ReadDataFromCSV()
     {
