@@ -12,14 +12,18 @@ public class PlayerHPBar : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.onPlayerSpawnEvent.AddListener(HandlePlayerSpawn);
+    }
+
+    public void HandlePlayerSpawn(GameObject player)
+    {
+        Debug.Log("Player spawned");
+        gameObject.SetActive(true);
+        character = player.GetComponent<Character>();
+        character.UIUpdateEvent.AddListener(UpdateUI);
         slider.maxValue = character.maxHp;
         slider.value = character.maxHp;
         textMeshPro.text = $"{slider.value}/{slider.maxValue}";
-    }
-
-    private void OnEnable()
-    {
-        character.UIUpdateEvent.AddListener(UpdateUI);
     }
 
     private void OnDisable()
@@ -30,6 +34,7 @@ public class PlayerHPBar : MonoBehaviour
     private void UpdateUI()
     {
         slider.value = character.hp;
+        slider.maxValue = character.maxHp;
         textMeshPro.text = $"{slider.value}/{slider.maxValue}";
     }
 }

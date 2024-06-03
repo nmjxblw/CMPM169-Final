@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Cinemachine;
+using UnityEngine.Events;
 
 public class Room : MonoBehaviour
 {
@@ -46,6 +47,8 @@ public class Room : MonoBehaviour
 
     public Transform enemiesContainer;
 
+    public UnityEvent onPlayerSpawnEvent;
+
     private void OnEnable()
     {
         enemiesContainer = enemiesContainer == null ? transform.Find("EnemiesContainer") : enemiesContainer;
@@ -77,6 +80,7 @@ public class Room : MonoBehaviour
         if (isStartRoom)
         {
             GameObject player = Instantiate(playerPrefab, transform.position, Quaternion.identity);
+            GameManager.Instance.onPlayerSpawnEvent?.Invoke(player);
         }
 
         enemyGenerator = GameObject.Find("EventSystem").GetComponent<EnemyGenerator>();
@@ -127,19 +131,20 @@ public class Room : MonoBehaviour
         if (isBuffRoom)
         {
             // applyBuff(BuffContainer.Instance.switchToAutomaticRifle, BuffContainer.Instance.addGunsDamage);
-            
+
             if (player.GetComponent<Character>().hp >= player.GetComponent<Character>().maxHp)
             {
                 BuffContainer.Instance.DecreaseBuffWeight(BuffContainer.Instance.healthRecoveryBuff, 50.0f);
             }
             else
             {
-                if(BuffContainer.Instance.isBuffExist(BuffContainer.Instance.healthRecoveryBuff) == false){
+                if (BuffContainer.Instance.isBuffExist(BuffContainer.Instance.healthRecoveryBuff) == false)
+                {
                     BuffContainer.Instance.IncreaseBuffWeight(BuffContainer.Instance.healthRecoveryBuff, 30.0f);
                 }
             }
 
-            if(isBeforeEndRoom)
+            if (isBeforeEndRoom)
             {
                 buff1 = BuffContainer.Instance.healthRecoveryBuff;
             }
@@ -162,7 +167,7 @@ public class Room : MonoBehaviour
                 BuffContainer.Instance.AddOnceOnlyBuff("SwitchToAutomaticRifle");
 
             }
-            BuffContainer.Instance.printBuffWeights();
+            // BuffContainer.Instance.printBuffWeights();
             applyBuff(buff1, buff2);
         }
 

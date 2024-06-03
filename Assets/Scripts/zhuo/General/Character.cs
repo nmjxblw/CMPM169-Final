@@ -29,9 +29,18 @@ public class Character : MonoBehaviour
     public virtual int hp
     {
         get
-        { return _hp; }
+        {
+            return _hp;
+        }
         set
-        { _hp = Math.Clamp(value, 0, maxHp); }
+        {
+            int tempHp = Math.Clamp(value, 0, maxHp);
+            if (tempHp != _hp)
+            {
+                _hp = tempHp;
+                UIUpdateEvent?.Invoke();
+            }
+        }
     }
     [SerializeField]
     protected int _maxHp;
@@ -89,7 +98,6 @@ public class Character : MonoBehaviour
             }
             else
                 currentState = CharacterHealthState.Dead;
-            UIUpdateEvent?.Invoke();
         }
     }
     public virtual void TriggerInvincible()

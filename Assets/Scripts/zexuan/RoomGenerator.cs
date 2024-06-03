@@ -46,11 +46,6 @@ public class RoomGenerator : MonoBehaviour
         Surface2D.BuildNavMeshAsync();
     }
 
-    void Update()
-    {
-        
-    }
-
     void GenerateRoom()
     {
         grid = new Room[gridSize, gridSize];
