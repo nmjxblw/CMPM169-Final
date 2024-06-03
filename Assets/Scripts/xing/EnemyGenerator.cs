@@ -54,17 +54,15 @@ public class EnemyGenerator : MonoBehaviour
         }
         else if (room.isStartRoom)
         {
-            
             room.isBuffRoom = true;
             room.isLocked = false;
             room.RoomIsEmpty();
+            
             return;
         }
         else if (room.isBeforeEndRoom)
         {
-            room.isBuffRoom = true;
-            room.isLocked = false;
-            room.RoomIsEmpty();
+            StartCoroutine(beforEnd(room));
             return;
         }
         else
@@ -74,6 +72,15 @@ public class EnemyGenerator : MonoBehaviour
         currentDifficulty = difficulty;
         remainingWaves = GetWaveCountForDifficulty(difficulty);
         SpawnNextWave(room);
+    }
+
+    IEnumerator beforEnd(Room room)
+    {
+        yield return new WaitForSeconds(2f);
+        room.isBuffRoom = true;
+        room.isLocked = false;
+        room.RoomIsEmpty();
+
     }
 
     public void SpawnNextWave(Room room)
@@ -103,7 +110,12 @@ public class EnemyGenerator : MonoBehaviour
                     int enemyCount = Random.Range(1, enemyData.count + 1);
                     for (int i = 0; i < enemyCount; i++)
                     {
-                        Vector3 spawnPosition = GenerateSpawnPosition(roomPosition, playerPosition, minDistance);
+                        Vector3 spawnPosition;
+                        if(currentDifficulty == -1){
+                            spawnPosition = roomPosition;
+                        }else{
+                            spawnPosition = GenerateSpawnPosition(roomPosition, playerPosition, minDistance);
+                        }
                         GameObject enemy = Instantiate(enemyData.enemyPrefab, spawnPosition, Quaternion.identity);
                         enemy.transform.parent = room.enemiesContainer;
                         enemy.GetComponent<EnemyCharacter>().generateRoom = room;
@@ -119,7 +131,7 @@ public class EnemyGenerator : MonoBehaviour
 
     private int GetWeightedRandomDifficulty(int level)
     {
-        float[] weights = { 0.25f, 0.25f, 0.35f, 0.15f };
+        float[] weights = { 0.15f, 0.55f, 0.15f, 0.15f };
         float totalWeight = 0;
         for (int i = 0; i < weights.Length; i++)
         {

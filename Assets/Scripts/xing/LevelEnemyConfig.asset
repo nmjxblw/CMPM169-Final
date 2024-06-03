@@ -21,15 +21,15 @@ MonoBehaviour:
       count: 2
     isBuffGift: 0
     isWeaponGift: 0
-  - levelNumber: 1
+  - levelNumber: 2
     enemies:
     - enemyPrefab: {fileID: 1359871873831942025, guid: 4c413fc3fbc05784c8d6551dfb1079b9, type: 3}
-      count: 2
+      count: 4
     - enemyPrefab: {fileID: 1359871873831942025, guid: 78860ebd502e3534b84beeadc769d6f5, type: 3}
-      count: 2
+      count: 4
     isBuffGift: 0
     isWeaponGift: 0
-  - levelNumber: 2
+  - levelNumber: 1
     enemies:
     - enemyPrefab: {fileID: 1359871873831942025, guid: 1522be57d98c36a45b173e10b66a6988, type: 3}
       count: 3
