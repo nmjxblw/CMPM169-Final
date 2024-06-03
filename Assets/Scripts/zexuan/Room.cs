@@ -28,6 +28,8 @@ public class Room : MonoBehaviour
     public bool isBuffRoom;
     public bool isWeaponRoom;
     public bool GameOver;
+    public int isGeneratedGun;
+    public bool isGeneratedArgun;
     [SerializeField]
     private int _enemyCount;
     public int enemyCount
@@ -172,11 +174,6 @@ public class Room : MonoBehaviour
                 }
             }
 
-            if (isBeforeEndRoom)
-            {
-                buff1 = BuffContainer.Instance.healthRecoveryBuff;
-            }
-
             if (roomStep >= 3)
             {
                 BuffContainer.Instance.IncreaseBuffWeight(BuffContainer.Instance.addGunsDamage, 10.0f);
@@ -184,6 +181,13 @@ public class Room : MonoBehaviour
             }
 
             buff1 = BuffContainer.Instance.GetRandomBuff();
+
+            if (isBeforeEndRoom)
+            {
+                buff1 = BuffContainer.Instance.healthRecoveryBuff;
+            }
+
+
             buff2 = BuffContainer.Instance.GetRandomBuff();
             while (buff2 == buff1)
             {
@@ -237,11 +241,31 @@ public class Room : MonoBehaviour
 
     public void ApplyWeaponRoom()
     {
-        //50%概率生成Shotgun，50%概率生成Argun
-        System.Random rand = new System.Random();
-        int i = rand.Next(100);
-        GameObject weapon = i < 50 ? ARGunPrefab : ShotgunPrefab;
-        Instantiate(weapon, transform.position, Quaternion.identity);
+        if (isGeneratedGun == 0)
+        {
+            isGeneratedGun++;
+
+            //50%概率生成Shotgun，50%概率生成Argun
+            System.Random rand = new System.Random();
+            int i = rand.Next(100);
+            isGeneratedArgun = i < 50;
+            GameObject weapon = i < 50 ? ARGunPrefab : ShotgunPrefab;
+            Instantiate(weapon, transform.position, Quaternion.identity);
+        }
+        else if (isGeneratedGun < 2 && !isGeneratedArgun)
+        {
+            Instantiate(ShotgunPrefab, transform.position, Quaternion.identity);
+        }
+        else if (isGeneratedGun < 2 && isGeneratedArgun)
+        {
+            Instantiate(ARGunPrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            isWeaponRoom = false;
+            isBuffRoom = true;
+            RoomIsEmpty();
+        }
     }
 }
 
