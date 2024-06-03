@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Cinemachine;
+using System;
 
 public class Room : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Room : MonoBehaviour
     public GameObject wallUp, wallDown, wallLeft, wallRight;
     public GameObject vortexUp, vortexDown, vortexLeft, vortexRight;
     public bool roomUp, roomDown, roomLeft, roomRight;
+
+    public GameObject ARGunPrefab, ShotgunPrefab;
 
     public int roomStep;
 
@@ -166,6 +169,11 @@ public class Room : MonoBehaviour
             applyBuff(buff1, buff2);
         }
 
+        if (isWeaponRoom)
+        {
+            ApplyWeaponRoom();
+        }
+
 
     }
 
@@ -195,6 +203,15 @@ public class Room : MonoBehaviour
             Time.timeScale = 1;
         });
 
+    }
+
+    public void ApplyWeaponRoom()
+    {
+        //50%概率生成Shotgun，50%概率生成Argun
+        System.Random rand = new System.Random();
+        int i = rand.Next(100);
+        GameObject weapon = i < 50 ? ARGunPrefab : ShotgunPrefab;
+        Instantiate(weapon, transform.position, Quaternion.identity);
     }
 }
 

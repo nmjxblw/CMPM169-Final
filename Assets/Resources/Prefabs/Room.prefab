@@ -2366,6 +2366,8 @@ MonoBehaviour:
   roomDown: 0
   roomLeft: 0
   roomRight: 0
+  ARGunPrefab: {fileID: 4387317288660393426, guid: 2e466a7010b95e04688abbd467db38e4, type: 3}
+  ShotgunPrefab: {fileID: 723626537800178786, guid: 50d8aa0c8e7c1c0488be089f70cb09c6, type: 3}
   roomStep: 0
   isStartRoom: 0
   isEndRoom: 0
