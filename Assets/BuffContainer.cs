@@ -166,11 +166,11 @@ public class BuffContainer : MonoBehaviour
         defenseBuff = new Buff("DefenceBuff", 0, true, "All damage received is reduced by 1");
         defenseBuff.ApplyEffect = () =>
         {
-            Player.GetComponent<PlayerConfig>().defense += 1;
+            Player.GetComponent<PlayerCharacter>().playerConfig.defense += 1;
         };
         defenseBuff.RemoveEffect = () =>
         {
-            Player.GetComponent<PlayerConfig>().defense -= 1;
+            Player.GetComponent<PlayerCharacter>().playerConfig.defense -= 1;
         };
     }
 
@@ -179,11 +179,11 @@ public class BuffContainer : MonoBehaviour
         speedBuff = new Buff("SpeedBuff", 0, true, "Movement speed increased by 20%");
         speedBuff.ApplyEffect = () =>
         {
-            Player.GetComponent<PlayerConfig>().moveSpeed += 10;
+            Player.GetComponent<PlayerCharacter>().playerConfig.moveSpeed += 10;
         };
         speedBuff.RemoveEffect = () =>
         {
-            Player.GetComponent<PlayerConfig>().moveSpeed -= 10;
+            Player.GetComponent<PlayerCharacter>().playerConfig.moveSpeed -= 10;
         };
     }
 
@@ -209,6 +209,8 @@ public class BuffContainer : MonoBehaviour
             { invincibleLongerBuff, 30 },
             { addGunsDamage, 10 },
             { reduceFireInterval, 10 },
+            { defenseBuff, 20 },
+            { speedBuff, 30 },
             // { switchToAutomaticRifle, 25 }
         };
 
