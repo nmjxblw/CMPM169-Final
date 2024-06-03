@@ -607,6 +607,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   playerConfig: {fileID: 11400000, guid: f50df5497ec6eb346a373df8b465bbab, type: 2}
+  GunController: {fileID: 5008113288978824231}
 --- !u!1 &6849648855801546695
 GameObject:
   m_ObjectHideFlags: 0

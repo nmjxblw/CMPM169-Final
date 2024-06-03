@@ -6,6 +6,7 @@ using System;
 public class PlayerCharacter : Character
 {
     public PlayerConfig playerConfig;
+    public GunController GunController;
 
     public override int maxHp
     {
@@ -50,6 +51,18 @@ public class PlayerCharacter : Character
                 else
                     currentState = CharacterHealthState.Dead;
                 UIUpdateEvent?.Invoke();
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Gun"))
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                GunController.SelectGun(collision.GetComponent<Gun>().gunConfig.gunType);
+                Destroy(collision.gameObject);
             }
         }
     }
