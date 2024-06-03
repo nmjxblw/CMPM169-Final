@@ -61,6 +61,8 @@ public class BuffContainer : MonoBehaviour
 
         CreateHealthBuff();
         CreateRecoveryBuff();
+        CreatDefenceBuff();
+        CreateSpeedBuff();
         CreateInvincibleLongerBuff();
         CreateAddGunsDamage(1);
         CreateReduceFireInterval(0.2f);
@@ -156,6 +158,32 @@ public class BuffContainer : MonoBehaviour
             {
                 gunConfig.fireInterval /= (1f - rate);
             }
+        };
+    }
+
+    private void CreatDefenceBuff()
+    {
+        defenseBuff = new Buff("DefenceBuff", 0, true, "All damage received is reduced by 1");
+        defenseBuff.ApplyEffect = () =>
+        {
+            Player.GetComponent<PlayerConfig>().defense += 1;
+        };
+        defenseBuff.RemoveEffect = () =>
+        {
+            Player.GetComponent<PlayerConfig>().defense -= 1;
+        };
+    }
+
+    private void CreateSpeedBuff()
+    {
+        speedBuff = new Buff("SpeedBuff", 0, true, "Movement speed increased by 20%");
+        speedBuff.ApplyEffect = () =>
+        {
+            Player.GetComponent<PlayerConfig>().moveSpeed += 10;
+        };
+        speedBuff.RemoveEffect = () =>
+        {
+            Player.GetComponent<PlayerConfig>().moveSpeed -= 10;
         };
     }
 
