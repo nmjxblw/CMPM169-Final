@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public PlayerConfig playerConfig;
     public List<GunConfig> gunConfigs;
     public UnityEvent<GameObject> onPlayerSpawnEvent;
+    bool GameOver = false;
+    public GameObject player;
+    public EnemyGenerator enemyGenerator;
     public static GameManager Instance
     {
         get
@@ -33,13 +36,48 @@ public class GameManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
             Destroy(this.gameObject);
         }
         InitializedAssets();
+    }
+
+    void Start()
+    {
+        onPlayerSpawnEvent.AddListener((player) =>
+        {
+            this.player = player;
+        });
+
+        enemyGenerator = GameObject.Find("EventSystem").GetComponent<EnemyGenerator>();
+    }
+
+    void Update()
+    {
+        // if(player != null)
+        // {
+        //     GameObject.FindGameObjectWithTag("Player");
+        // }
+
+        if (player.GetComponent<Character>().hp <= 0)
+        {
+            GameOver = true;
+
+        }
+
+        if (GameOver && Input.GetKeyDown(KeyCode.R))
+        {
+            GameManager.Instance.InitializedAssets();
+            //关掉enemyGenerator脚本
+            if (enemyGenerator != null)
+            {
+                enemyGenerator.enabled = false; // 禁用 EnemyGenerator 脚本
+            }
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        }
     }
 
     public void InitializedAssets()

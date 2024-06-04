@@ -41,7 +41,7 @@ public class Room : MonoBehaviour
         private set
         {
             _enemyCount = value;
-            if (_enemyCount <= 0)
+            if (_enemyCount <= 0 && enemyGenerator != null)
             {
                 enemyGenerator.SpawnNextWave(this);
             }
@@ -88,8 +88,6 @@ public class Room : MonoBehaviour
             GameObject player = Instantiate(playerPrefab, transform.position, Quaternion.identity);
             GameManager.Instance.onPlayerSpawnEvent?.Invoke(player);
         }
-
-        enemyGenerator = GameObject.Find("EventSystem").GetComponent<EnemyGenerator>();
         player = GameObject.FindWithTag("Player");
     }
 
@@ -102,11 +100,7 @@ public class Room : MonoBehaviour
 
         }
 
-        if (GameOver && Input.GetKeyDown(KeyCode.R))
-        {
-            GameManager.Instance.InitializedAssets();
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-        }
+        
     }
 
     private void UpdateRoomText()
