@@ -120,6 +120,7 @@ public class PlayerMovements : MonoBehaviour
 
     public void HandleDead()
     {
+        GameManager.Instance.GameOver = true;
         rb.velocity = Vector2.zero;
         PlayerAnimator.Play(deadHash, hurtLayerIndex);
     }

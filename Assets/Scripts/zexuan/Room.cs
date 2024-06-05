@@ -27,7 +27,6 @@ public class Room : MonoBehaviour
     public bool isLocked = true;
     public bool isBuffRoom;
     public bool isWeaponRoom;
-    public bool GameOver;
     public int isGeneratedGun;
     public bool isGeneratedArgun;
     [SerializeField]
@@ -91,18 +90,6 @@ public class Room : MonoBehaviour
         player = GameObject.FindWithTag("Player");
     }
 
-    void Update()
-    {
-        if (player.GetComponent<Character>().hp <= 0)
-        {
-            GameOver = true;
-            roomText.GetComponent<TextMeshProUGUI>().text = "Game Over\nPress R to restart";
-
-        }
-
-        
-    }
-
     private void UpdateRoomText()
     {
         roomText.GetComponent<TextMeshProUGUI>().text = roomStep.ToString();
@@ -147,8 +134,7 @@ public class Room : MonoBehaviour
 
         if (isEndRoom)
         {
-            GameOver = true;
-            roomText.GetComponent<TextMeshProUGUI>().text = "Game Over\nPress R to restart";
+            GameManager.Instance.GameOver = true;
             return;
         }
 

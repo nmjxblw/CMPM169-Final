@@ -10,9 +10,25 @@ public class GameManager : MonoBehaviour
     public static int levelDifficulty = 0;
     public PlayerConfig playerConfig;
     public List<GunConfig> gunConfigs;
+    public List<EnemyConfig> enemyConfigs;
+    public NecromancerConfig necromancerConfig;
     public UnityEvent<GameObject> onPlayerSpawnEvent;
-    bool GameOver = false;
-    public GameObject player;
+    [SerializeField]
+    private bool _gameOver = false;
+    public bool GameOver
+    {
+        get
+        { return _gameOver; }
+        set
+        {
+            if (value)
+            {
+                onGameOverEvent?.Invoke();
+            }
+            _gameOver = value;
+        }
+    }
+    public UnityEvent onGameOverEvent;
     public EnemyGenerator enemyGenerator;
     public static GameManager Instance
     {
@@ -47,27 +63,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        onPlayerSpawnEvent.AddListener((player) =>
-        {
-            this.player = player;
-        });
-
         enemyGenerator = GameObject.Find("EventSystem").GetComponent<EnemyGenerator>();
     }
 
     void Update()
     {
-        // if(player != null)
-        // {
-        //     GameObject.FindGameObjectWithTag("Player");
-        // }
-
-        if (player.GetComponent<Character>().hp <= 0)
-        {
-            GameOver = true;
-
-        }
-
         if (GameOver && Input.GetKeyDown(KeyCode.R))
         {
             GameManager.Instance.InitializedAssets();
@@ -87,9 +87,15 @@ public class GameManager : MonoBehaviour
         {
             config.ReadDataFromCSV();
         }
+        foreach (var config in enemyConfigs)
+        {
+            config.ReadDataFormCSV();
+        }
+        necromancerConfig.ReadDataFromCSV();
     }
 
-    public void OnDisable(){
+    public void OnDisable()
+    {
         onPlayerSpawnEvent.RemoveAllListeners();
     }
 }

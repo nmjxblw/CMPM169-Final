@@ -1,5 +1,5 @@
 Difficulty,Hp,Moveable,Speed,Sprintable,Sprint Speed,Has Attack,Attack Damage,Has Skill,Skill Damage,Skill Cooldown,
-0,15,True,30,True,45,True,5,True,10,10,
+0,30,True,15,True,45,True,15,True,25,10,
 1,20,True,30,True,45,True,7,True,12,10,
 2,25,True,30,True,45,True,10,True,15,10,
 3,30,True,40,True,60,True,10,True,20,10,

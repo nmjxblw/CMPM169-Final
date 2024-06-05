@@ -85,7 +85,7 @@ public class EnemyGenerator : MonoBehaviour
 
     public void SpawnNextWave(Room room)
     {
-
+        if(GameManager.Instance.GameOver) return;
         if (remainingWaves <= 0){
             room.isLocked = false;
             room.RoomIsEmpty();

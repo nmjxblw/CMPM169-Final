@@ -44,6 +44,7 @@ public class EnemyAI : MonoBehaviour
         StateMachineInitialization();
         SwitchState(currentLogic);
         player = GameObject.FindGameObjectWithTag("Player");
+        GameManager.Instance.onGameOverEvent.AddListener(HandleGameOver);
     }
 
     protected virtual void StateMachineInitialization()
@@ -116,5 +117,10 @@ public class EnemyAI : MonoBehaviour
     public virtual void HandleDead()
     {
         SwitchState(Logic.dead);
+    }
+
+    public virtual void HandleGameOver()
+    {
+        SwitchState(Logic.idle);
     }
 }

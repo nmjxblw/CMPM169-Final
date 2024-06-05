@@ -94,12 +94,8 @@ public class NecromancerConfig : ScriptableObject
     private string firstLine = "Difficulty,Hp,Invincible Duration,Move Speed,Sprint Speed,Attack Damage,Skill1 Damage,Skill1 Cooldown,Skill2 Damage,Skill2 Cooldown,";
 
     public List<Config> configs;
-    private void OnEnable()
-    {
-        ReadDataFormCSV();
-    }
     [ContextMenu("ReadDataFormCSV")]
-    public void ReadDataFormCSV()
+    public void ReadDataFromCSV()
     {
         dataFile = Resources.Load<TextAsset>(dataName);
         if (dataFile == null)

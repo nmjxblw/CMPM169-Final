@@ -117,10 +117,7 @@ public class EnemyConfig : ScriptableObject
     }
 
     public List<Config> configs;
-    private void OnEable()
-    {
-        ReadDataFormCSV();
-    }
+
     [ContextMenu("ReadDataFormCSV")]
     public void ReadDataFormCSV()
     {

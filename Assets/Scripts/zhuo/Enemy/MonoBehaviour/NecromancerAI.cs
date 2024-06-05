@@ -105,7 +105,7 @@ public class NecromancerAI : MonoBehaviour
     }
     public void Update()
     {
-        if (!isAwake) return;
+        if (!isAwake || GameManager.Instance.GameOver) return;
         distanceToAgentDestination = Vector3.Distance(transform.position, destination);
         if (distanceToAgentDestination <= agent.stoppingDistance)
         {
