@@ -28,12 +28,6 @@ public class GunConfig : ScriptableObject, IComparable<GunConfig>
         return this.gunType.CompareTo(other.gunType);
     }
 
-    // public void OnEnable()
-    // {
-    //     ReadDataFromCSV();
-    //     Debug.Log("Run");
-    // }
-
     [ContextMenu("ReadDataFromCSV")]
     public void ReadDataFromCSV()
     {
