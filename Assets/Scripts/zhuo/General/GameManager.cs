@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public List<EnemyConfig> enemyConfigs;
     public NecromancerConfig necromancerConfig;
     public UnityEvent<GameObject> onPlayerSpawnEvent;
+    public GameObject quitPanel;
     [SerializeField]
     private bool _gameOver = false;
     public bool GameOver
@@ -78,6 +79,10 @@ public class GameManager : MonoBehaviour
             }
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            EscPressed();
+        }
     }
 
     public void InitializedAssets()
@@ -97,5 +102,16 @@ public class GameManager : MonoBehaviour
     public void OnDisable()
     {
         onPlayerSpawnEvent.RemoveAllListeners();
+    }
+
+    public void EscPressed()
+    {
+        quitPanel.SetActive(!quitPanel.activeSelf);
+        Time.timeScale = quitPanel.activeSelf ? 0 : 1;
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
